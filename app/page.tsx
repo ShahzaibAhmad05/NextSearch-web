@@ -282,6 +282,11 @@ interface PreSearchViewProps {
   onClearRecent: () => void;
 }
 
+const TAGLINES = [
+  'Discover insights across 1M+ CORD-19 research papers',
+  'A powerful crawler for the CORD-19 dataset',
+];
+
 /**
  * Centered hero view shown before first search
  */
@@ -297,22 +302,42 @@ function PreSearchView({
   onRemoveRecent,
   onClearRecent,
 }: PreSearchViewProps) {
+  const [taglineIndex, setTaglineIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Rotate taglines
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setTaglineIndex((prev) => (prev + 1) % TAGLINES.length);
+        setIsTransitioning(false);
+      }, 500);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="flex items-center justify-center min-h-screen animate-fade-in">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="max-w-250 mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold mb-3 gradient-text animate-fade-in-up">
+          <h1 className="text-6xl font-bold mb-4 gradient-text animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
             NextSearch
           </h1>
           <div
-            className="text-gray-400 text-lg animate-fade-in-up"
-            style={{ animationDelay: '100ms' }}
+            className="tagline-container text-gray-400 text-lg animate-fade-in-down opacity-0"
+            style={{ animationDelay: '300ms' }}
           >
-            Discover insights across 1M+ CORD-19 research papers
+            <div
+              className={`tagline-text ${isTransitioning ? 'exit' : 'active'}`}
+            >
+              {TAGLINES[taglineIndex]}
+            </div>
           </div>
         </div>
 
-        <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+        <div className="animate-slide-up-fade opacity-0" style={{ animationDelay: '500ms' }}>
           <SearchBar
             query={query}
             k={k}
@@ -323,12 +348,14 @@ function PreSearchView({
           />
 
           {/* Recent searches */}
-          <RecentSearches
-            searches={recentSearches}
-            onSelect={onSelectRecent}
-            onRemove={onRemoveRecent}
-            onClear={onClearRecent}
-          />
+          <div className="animate-fade-in-up opacity-0" style={{ animationDelay: '700ms' }}>
+            <RecentSearches
+              searches={recentSearches}
+              onSelect={onSelectRecent}
+              onRemove={onRemoveRecent}
+              onClear={onClearRecent}
+            />
+          </div>
         </div>
       </div>
     </div>

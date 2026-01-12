@@ -176,19 +176,19 @@ export default function AboutPage() {
       <main className="pt-24 pb-16 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
               <span className="gradient-text">About</span>{' '}
               <span className="text-white">NextSearch</span>
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto animate-blur-in opacity-0" style={{ animationDelay: '300ms' }}>
               A scalable search engine built with modern C++ and React, 
               designed for efficient document retrieval and discovery.
             </p>
           </div>
 
           {/* Project Overview */}
-          <section className="mb-16 animate-fade-in-up">
+          <section className="mb-16 animate-fade-in-left opacity-0" style={{ animationDelay: '400ms' }}>
             <Card padding="lg">
               <div className="flex items-start gap-4 mb-6">
                 <div className="p-3 rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-500/20">
@@ -212,7 +212,7 @@ export default function AboutPage() {
           </section>
 
           {/* Technology Stack */}
-          <section className="mb-16 animate-fade-in-up stagger-1">
+          <section className="mb-16 animate-fade-in-right opacity-0" style={{ animationDelay: '500ms' }}>
             <h2 className="text-2xl font-bold text-white mb-6 text-center">Technology Stack</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -221,7 +221,7 @@ export default function AboutPage() {
                 { name: 'Next.js', desc: 'React Framework' },
                 { name: 'Tailwind CSS', desc: 'Styling' },
               ].map((tech, idx) => (
-                <Card key={idx} padding="md" className="text-center">
+                <Card key={idx} padding="md" className={`text-center animate-slide-up-fade opacity-0 stagger-${idx + 1}`}>
                   <div className="text-lg font-semibold text-white">{tech.name}</div>
                   <div className="text-sm text-gray-400">{tech.desc}</div>
                 </Card>
@@ -230,7 +230,7 @@ export default function AboutPage() {
           </section>
 
           {/* Team Section */}
-          <section className="mb-16 animate-fade-in-up stagger-2">
+          <section className="mb-16 animate-fade-in-up opacity-0" style={{ animationDelay: '600ms' }}>
             <h2 className="text-2xl font-bold text-white mb-2 text-center">Our Team</h2>
             <p className="text-gray-400 text-center mb-8">
               Built by a team of passionate software engineers
@@ -238,21 +238,25 @@ export default function AboutPage() {
             
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {teamMembers.map((member, idx) => (
-                <TeamMemberCard key={idx} member={member} />
+                <div key={idx} className={`animate-slide-up-fade opacity-0`} style={{ animationDelay: `${700 + idx * 150}ms` }}>
+                  <TeamMemberCard member={member} />
+                </div>
               ))}
             </div>
 
             {/* Advisor */}
-            <Card padding="lg" className="max-w-xl mx-auto text-center">
-              <p className="text-sm text-indigo-400 font-medium mb-2">Project Advisor</p>
-              <h3 className="text-xl font-bold text-white mb-1">{advisor.name}</h3>
-              <p className="text-gray-400 text-sm">{advisor.department}</p>
-              <p className="text-gray-500 text-sm">{advisor.institution}</p>
-            </Card>
+            <div className="animate-scale-in opacity-0" style={{ animationDelay: '1100ms' }}>
+              <Card padding="lg" className="max-w-xl mx-auto text-center">
+                <p className="text-sm text-indigo-400 font-medium mb-2">Project Advisor</p>
+                <h3 className="text-xl font-bold text-white mb-1">{advisor.name}</h3>
+                <p className="text-gray-400 text-sm">{advisor.department}</p>
+                <p className="text-gray-500 text-sm">{advisor.institution}</p>
+              </Card>
+            </div>
           </section>
 
           {/* CORD-19 Dataset Info */}
-          <section className="animate-fade-in-up stagger-3">
+          <section className="animate-fade-in-up opacity-0" style={{ animationDelay: '1200ms' }}>
             <Card padding="lg" className="text-center">
               <h2 className="text-xl font-bold text-white mb-3">Dataset</h2>
               <p className="text-gray-400 max-w-2xl mx-auto">

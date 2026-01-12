@@ -118,17 +118,17 @@ export default function DocsPage() {
       <main className="pt-24 pb-16 px-4">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12 animate-fade-in">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
               <span className="gradient-text">Documentation</span>
             </h1>
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-gray-400 animate-blur-in opacity-0" style={{ animationDelay: '300ms' }}>
               Learn how to use NextSearch effectively
             </p>
           </div>
 
           {/* Quick Start */}
-          <section className="mb-12 animate-fade-in-up">
+          <section className="mb-12 animate-fade-in-left opacity-0" style={{ animationDelay: '400ms' }}>
             <SectionHeader icon={Terminal} title="Quick Start" />
             <Card padding="lg">
               <ol className="space-y-4 text-gray-300">
@@ -158,11 +158,11 @@ export default function DocsPage() {
           </section>
 
           {/* Search Tips */}
-          <section className="mb-12 animate-fade-in-up stagger-1">
+          <section className="mb-12 animate-fade-in-right opacity-0" style={{ animationDelay: '600ms' }}>
             <SectionHeader icon={BookOpen} title="Search Tips" />
             <div className="grid gap-4">
               {searchTips.map((tip, idx) => (
-                <Card key={idx} padding="md">
+                <Card key={idx} padding="md" className={`animate-slide-up-fade opacity-0`} style={{ animationDelay: `${700 + idx * 100}ms` }}>
                   <h3 className="font-semibold text-white mb-1">{tip.title}</h3>
                   <p className="text-gray-400 text-sm mb-2">{tip.description}</p>
                   <code className="text-xs bg-white/5 px-2 py-1 rounded text-indigo-300">
@@ -174,13 +174,13 @@ export default function DocsPage() {
           </section>
 
           {/* Features */}
-          <section className="mb-12 animate-fade-in-up stagger-2">
+          <section className="mb-12 animate-fade-in-left opacity-0" style={{ animationDelay: '1100ms' }}>
             <SectionHeader icon={Zap} title="Features" />
             <div className="grid md:grid-cols-2 gap-4">
               {features.map((feature, idx) => {
                 const Icon = feature.icon;
                 return (
-                  <Card key={idx} padding="md">
+                  <Card key={idx} padding="md" className={`animate-scale-in opacity-0`} style={{ animationDelay: `${1200 + idx * 100}ms` }}>
                     <div className="flex items-start gap-3">
                       <div className="shrink-0 p-2 rounded-lg bg-white/5">
                         <Icon size={20} className="text-indigo-400" />
@@ -197,15 +197,15 @@ export default function DocsPage() {
           </section>
 
           {/* Architecture */}
-          <section className="mb-12 animate-fade-in-up stagger-3">
+          <section className="mb-12 animate-fade-in-right opacity-0" style={{ animationDelay: '1600ms' }}>
             <SectionHeader icon={Code} title="How It Works" />
-            <Card padding="lg">
+            <Card padding="lg" className="animate-blur-in opacity-0" style={{ animationDelay: '1700ms' }}>
               <p className="text-gray-400 mb-6">
                 NextSearch uses a three-tier indexing architecture for efficient document retrieval:
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 {architecture.map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-white/5">
+                  <div key={idx} className={`p-4 rounded-xl bg-white/5 animate-slide-up-fade opacity-0`} style={{ animationDelay: `${1800 + idx * 100}ms` }}>
                     <h4 className="font-semibold text-white mb-1">{item.title}</h4>
                     <p className="text-sm text-gray-400">{item.description}</p>
                   </div>
@@ -215,21 +215,21 @@ export default function DocsPage() {
           </section>
 
           {/* API Info */}
-          <section className="animate-fade-in-up stagger-4">
+          <section className="animate-fade-in-down opacity-0" style={{ animationDelay: '2200ms' }}>
             <SectionHeader icon={Terminal} title="API Endpoints" />
-            <Card padding="lg">
+            <Card padding="lg" className="animate-blur-in opacity-0" style={{ animationDelay: '2300ms' }}>
               <div className="space-y-4 font-mono text-sm">
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white/5 animate-fade-in-left opacity-0" style={{ animationDelay: '2400ms' }}>
                   <span className="text-green-400">GET</span>{' '}
                   <span className="text-gray-300">/search?q=query&k=100</span>
                   <p className="text-gray-500 mt-1 font-sans text-xs">Search for documents</p>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white/5 animate-fade-in-left opacity-0" style={{ animationDelay: '2500ms' }}>
                   <span className="text-green-400">GET</span>{' '}
                   <span className="text-gray-300">/suggest?q=query&k=5</span>
                   <p className="text-gray-500 mt-1 font-sans text-xs">Get autocomplete suggestions</p>
                 </div>
-                <div className="p-3 rounded-lg bg-white/5">
+                <div className="p-3 rounded-lg bg-white/5 animate-fade-in-left opacity-0" style={{ animationDelay: '2600ms' }}>
                   <span className="text-yellow-400">POST</span>{' '}
                   <span className="text-gray-300">/add_document</span>
                   <p className="text-gray-500 mt-1 font-sans text-xs">Upload a CORD-19 slice</p>
