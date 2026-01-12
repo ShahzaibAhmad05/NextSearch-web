@@ -215,7 +215,7 @@ function Navbar({ onAddDocument }: NavbarProps) {
             variant="secondary"
             onClick={onAddDocument}
           >
-            Add Document
+            Add Dataset Slice
           </Button>
         </div>
       </div>
