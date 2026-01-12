@@ -91,29 +91,18 @@ export default function SearchBar({
 
   return (
     <div>
-      <div className="d-flex gap-2 align-items-center flex-wrap">
+      <div className="flex gap-2 items-center flex-wrap">
         {/* wrapper must be relative */}
-        <div style={{ position: "relative", flex: "1 1 420px" }}>
+        <div className="relative flex-1 min-w-[420px]">
           {/* icon inside input */}
           <Search
             size={22}
-            className="text-secondary"
-            style={{
-              position: "absolute",
-              left: 18,
-              top: "50%",
-              transform: "translateY(-50%)",
-              pointerEvents: "none",
-            }}
+            className="text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
           />
 
           <input
             ref={inputRef}
-            className="form-control form-control-lg"
-            style={{
-              padding: "0.7rem 1.3rem 0.7rem 3.2rem",
-              borderRadius: "20px",
-            }}
+            className="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             value={query}
             onChange={(e) => onChangeQuery(e.target.value)}
             onFocus={() => {
@@ -191,28 +180,14 @@ export default function SearchBar({
 
           {open && suggestions.length > 0 ? (
             <div
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: "calc(100% + 8px)",
-                background: "#fff",
-                border: "1px solid #e6e6e6",
-                borderRadius: "14px",
-                boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
-                overflow: "hidden",
-                zIndex: 20,
-              }}
+              className="absolute left-0 right-0 top-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-20"
             >
               {suggestions.map((s, idx) => (
                 <div
                   key={s + idx}
-                  className="small"
-                  style={{
-                    padding: "10px 14px",
-                    cursor: "pointer",
-                    background: idx === activeIdx ? "#f2f4f7" : "#fff",
-                  }}
+                  className={`text-sm px-4 py-2.5 cursor-pointer transition-colors ${
+                    idx === activeIdx ? "bg-gray-100" : "bg-white hover:bg-gray-50"
+                  }`}
                   onMouseDown={(ev) => {
                     // Prevent input blur before we pick
                     ev.preventDefault();
@@ -228,7 +203,7 @@ export default function SearchBar({
         </div>
       </div>
 
-      {loading ? <div className="small text-secondary mt-2">Searching…</div> : null}
+      {loading ? <div className="text-sm text-gray-500 mt-2">Searching…</div> : null}
     </div>
   );
 }

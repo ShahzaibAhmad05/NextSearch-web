@@ -48,14 +48,14 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
   const goTo = (p: number) => setPage(Math.min(Math.max(1, p), totalPages));
 
   if (!results.length) {
-    return <div className="mt-3 text-secondary">No results.</div>;
+    return <div className="mt-3 text-gray-500">No results.</div>;
   }
 
   return (
     <div className="mt-3">
       <div ref={topRef} />
 
-      <div className="d-grid gap-3">
+      <div className="grid gap-3">
         {pageResults.map((r, idx) => {
           const domain = r.url ? safeHostname(r.url) : null;
           const favicon = r.url ? faviconUrl(r.url) : null;
@@ -63,43 +63,42 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
           return (
             <div
               key={r.docId}
-              className="card card-hover fade-in-up rounded-4"
+              className="bg-white rounded-2xl card-hover animate-fade-in-up p-4"
               style={{ animationDelay: `${idx * 40}ms` }}
             >
-              <div className="card-body">
-                <div className="d-flex align-items-start gap-3">
-                  {favicon && (
-                    <img
-                      src={favicon}
-                      alt=""
-                      width={40}
-                      height={40}
-                      style={{ borderRadius: 6, flexShrink: 0, marginTop: 2 }}
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  )}
+              <div className="flex items-start gap-3">
+                {favicon && (
+                  <img
+                    src={favicon}
+                    alt=""
+                    width={40}
+                    height={40}
+                    className="rounded-md flex-shrink-0 mt-0.5"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                )}
 
-                  <div className="flex-grow-1">
-                    <div className="fw-semibold fs-6 line-clamp-2">
-                      {r.url ? (
-                        <a
-                          className="clean-link"
-                          href={r.url}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {r.title || "(untitled)"}
-                        </a>
-                      ) : (
-                        <span>{r.title || "(untitled)"}</span>
-                      )}
-                    </div>
+                <div className="flex-grow min-w-0">
+                  <div className="font-semibold text-base line-clamp-2">
+                    {r.url ? (
+                      <a
+                        className="clean-link"
+                        href={r.url}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {r.title || "(untitled)"}
+                      </a>
+                    ) : (
+                      <span>{r.title || "(untitled)"}</span>
+                    )}
+                  </div>
 
-                    <div className="small text-secondary mt-1">
-                      {formatByline(r)}
-                    </div>
+                  <div className="text-sm text-gray-500 mt-1">
+                    {formatByline(r)}
+                  </div>
 
                   {r.url && domain && (
                     <div className="mt-2">
@@ -107,7 +106,7 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                         href={r.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn btn-sm btn-view-at d-inline-flex align-items-center gap-2"
+                        className="btn-view-at inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -129,7 +128,6 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                       </a>
                     </div>
                   )}
-                  </div>
                 </div>
               </div>
             </div>
@@ -138,64 +136,81 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-4">
-          <div className="d-flex flex-column align-items-center gap-2">
-            <nav aria-label="Search results pages" className="w-100">
-              <ul
-                className="pagination justify-content-center flex-wrap mb-0"
-                style={{ gap: 6 }}
-              >
-                <li className={`page-item ${safePage === 1 ? "disabled" : ""}`}>
+        <div className="mt-6">
+          <div className="flex flex-col items-center gap-2">
+            <nav aria-label="Search results pages" className="w-full">
+              <ul className="flex justify-center flex-wrap gap-1.5">
+                <li>
                   <button
-                    className="page-link rounded-pill border-0"
+                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      safePage === 1
+                        ? "text-gray-300 cursor-not-allowed"
+                        : "text-black hover:bg-gray-200"
+                    }`}
                     type="button"
                     onClick={() => goTo(1)}
+                    disabled={safePage === 1}
                   >
                     «
                   </button>
                 </li>
 
-                <li className={`page-item ${safePage === 1 ? "disabled" : ""}`}>
+                <li>
                   <button
-                    className="page-link rounded-pill border-0"
+                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      safePage === 1
+                        ? "text-gray-300 cursor-not-allowed"
+                        : "text-black hover:bg-gray-200"
+                    }`}
                     type="button"
                     onClick={() => goTo(safePage - 1)}
+                    disabled={safePage === 1}
                   >
                     ‹
                   </button>
                 </li>
 
                 {pageItems.map((it) => (
-                  <li
-                    key={`page-${it}`}
-                    className={`page-item ${it === safePage ? "active" : ""}`}
-                  >
+                  <li key={`page-${it}`}>
                     <button
-                      className="page-link rounded-pill border-0"
+                      className={`min-w-[40px] px-3 py-1.5 rounded-full text-sm transition-colors ${
+                        it === safePage
+                          ? "bg-gray-900 text-white"
+                          : "text-black hover:bg-gray-200"
+                      }`}
                       type="button"
                       onClick={() => goTo(it)}
-                      style={{ minWidth: 40 }}
                     >
                       {it}
                     </button>
                   </li>
                 ))}
 
-                <li className={`page-item ${safePage === totalPages ? "disabled" : ""}`}>
+                <li>
                   <button
-                    className="page-link rounded-pill border-0"
+                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      safePage === totalPages
+                        ? "text-gray-300 cursor-not-allowed"
+                        : "text-black hover:bg-gray-200"
+                    }`}
                     type="button"
                     onClick={() => goTo(safePage + 1)}
+                    disabled={safePage === totalPages}
                   >
                     ›
                   </button>
                 </li>
 
-                <li className={`page-item ${safePage === totalPages ? "disabled" : ""}`}>
+                <li>
                   <button
-                    className="page-link rounded-pill border-0"
+                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      safePage === totalPages
+                        ? "text-gray-300 cursor-not-allowed"
+                        : "text-black hover:bg-gray-200"
+                    }`}
                     type="button"
                     onClick={() => goTo(totalPages)}
+                    disabled={safePage === totalPages}
                   >
                     »
                   </button>
@@ -203,9 +218,9 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
               </ul>
             </nav>
 
-            <div className="small text-secondary">
-              Page <span className="fw-semibold">{safePage}</span> of{" "}
-              <span className="fw-semibold">{totalPages}</span>
+            <div className="text-sm text-gray-500">
+              Page <span className="font-semibold">{safePage}</span> of{" "}
+              <span className="font-semibold">{totalPages}</span>
             </div>
           </div>
         </div>

@@ -144,15 +144,15 @@ export default function App() {
   }, [results, sortBy]);
 
   return (
-    <div className="bg-light min-vh-100">
+    <div className="bg-gray-100 min-h-screen">
       {/* Top bar */}
-      <nav className="navbar navbar-expand-lg bg-white border-bottom fixed-top">
-        <div className="container" style={{ maxWidth: 980 }}>
-          <a className="navbar-brand fw-bold" href="#">
+      <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
+        <div className="max-w-[980px] mx-auto px-4 py-3 flex items-center justify-between">
+          <a className="font-bold text-lg" href="#">
           </a>
-          <div className="d-flex gap-2">
+          <div className="flex gap-2">
             <button
-              className="btn btn-outline-dark"
+              className="px-4 py-2 text-sm font-medium border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white transition-colors"
               onClick={() => setShowAddModal(true)}
             >
               Add Document
@@ -166,18 +166,17 @@ export default function App() {
           ====================== */}
       {!hasSearched && (
         <div
-          className="d-flex align-items-center justify-content-center"
-          style={{ minHeight: "100vh" }}
+          className="flex items-center justify-center min-h-screen"
         >
-          <div className="container" style={{ maxWidth: 1000 }}>
-            <div className="text-center mb-4">
-              <h1 className="display-4 fw-bold mb-2">NextSearch</h1>
-              <div className="text-secondary">
+          <div className="max-w-[1000px] mx-auto px-4">
+            <div className="text-center mb-8">
+              <h1 className="text-5xl font-bold mb-2">NextSearch</h1>
+              <div className="text-gray-500">
                 through 60k+ Cord19 research papers
               </div>
             </div>
 
-            <div className="card-body">
+            <div>
               <SearchBar
                 query={query}
                 k={k}
@@ -195,23 +194,23 @@ export default function App() {
           POST-SEARCH (NORMAL)
           ====================== */}
       {hasSearched && (
-        <div className="pt-5">
-          <div className="container pt-4" style={{ maxWidth: 980 }}>
+        <div className="pt-20">
+          <div className="max-w-[980px] mx-auto px-4 pt-4">
             {/* Hero */}
-            <div className="py-4">
-              <h1 className="display-5 fw-bold mb-2">NextSearch</h1>
-              <div className="text-secondary">
+            <div className="py-6">
+              <h1 className="text-4xl font-bold mb-2">NextSearch</h1>
+              <div className="text-gray-500">
                 through 60k+ Cord19 research papers
               </div>
             </div>
 
             {/* Search area */}
             <div
-              className="bg-light py-3 sticky-top"
-              style={{ top: 54, zIndex: 1020 }}
+              className="bg-gray-100 py-3 sticky z-40"
+              style={{ top: 54 }}
             >
-              <div className="card shadow-sm">
-                <div className="card-body">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200">
+                <div className="p-4">
                   <SearchBar
                     query={query}
                     k={k}
@@ -221,21 +220,23 @@ export default function App() {
                     onSubmit={onSubmit}
                   />
 
-                  <div className="mt-3 d-flex flex-wrap gap-2 align-items-center">
+                  <div className="mt-3 flex flex-wrap gap-2 items-center">
                     {/* Sort dropdown */}
-                    <div className="position-relative">
+                    <div className="relative">
                       <button
-                        className="btn btn-sm btn-outline-secondary dropdown-toggle"
+                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-600 hover:text-white hover:border-gray-600 transition-colors flex items-center gap-1"
                         type="button"
                         onClick={() => setShowSort((v) => !v)}
                       >
                         Sort by {sortBy}
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
                       </button>
 
                       {showSort && (
                         <div
-                          className="dropdown-menu show"
-                          style={{ position: "absolute" }}
+                          className="absolute left-0 mt-1 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
                         >
                           {(
                             [
@@ -246,8 +247,8 @@ export default function App() {
                           ).map((opt) => (
                             <button
                               key={opt}
-                              className={`dropdown-item ${
-                                opt === sortBy ? "active" : ""
+                              className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-600 hover:text-white transition-colors first:rounded-t-lg last:rounded-b-lg ${
+                                opt === sortBy ? "bg-gray-500 text-white" : ""
                               }`}
                               onClick={() => {
                                 setSortBy(opt);
@@ -263,10 +264,10 @@ export default function App() {
                     </div>
 
                     {/* Advanced popover */}
-                    <div className="position-relative" ref={advancedWrapRef}>
+                    <div className="relative" ref={advancedWrapRef}>
                       <button
                         type="button"
-                        className="btn btn-sm btn-outline-secondary"
+                        className="px-3 py-1.5 text-sm border border-gray-300 rounded-md hover:bg-gray-600 hover:text-white hover:border-gray-600 transition-colors"
                         onClick={() => setShowAdvanced((v) => !v)}
                         aria-expanded={showAdvanced}
                         aria-haspopup="dialog"
@@ -276,30 +277,21 @@ export default function App() {
 
                       {showAdvanced && (
                         <div
-                          className="dropdown-menu show p-3"
-                          style={{
-                            position: "absolute",
-                            right: 0,
-                            top: "calc(100% + 8px)",
-                            width: 340,
-                            borderRadius: 14,
-                            boxShadow:
-                              "0 12px 28px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.08)",
-                          }}
+                          className="absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-xl p-4 z-50"
                           role="dialog"
                           aria-label="Advanced search"
                         >
-                          <div className="d-flex align-items-start justify-content-between gap-2">
+                          <div className="flex items-start justify-between gap-2">
                             <div>
-                              <div className="fw-semibold">Advanced search</div>
-                              <div className="small text-secondary">
+                              <div className="font-semibold">Advanced search</div>
+                              <div className="text-sm text-gray-500">
                                 Tune how many results are requested from the backend.
                               </div>
                             </div>
 
                             <button
                               type="button"
-                              className="btn btn-sm btn-outline-secondary"
+                              className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100"
                               onClick={() => setShowAdvanced(false)}
                               aria-label="Close advanced search"
                             >
@@ -309,24 +301,24 @@ export default function App() {
 
                           {/* Moved here from the main plate */}
                           {status && (
-                            <div className="mt-3 small text-secondary">
+                            <div className="mt-3 text-sm text-gray-500">
                               {status}
                             </div>
                           )}
 
-                          <hr className="my-3" />
+                          <hr className="my-3 border-gray-200" />
 
-                          <div className="d-flex align-items-center justify-content-between">
-                            <label className="form-label mb-0 fw-semibold">
+                          <div className="flex items-center justify-between">
+                            <label className="font-semibold text-sm">
                               No. of results (k)
                             </label>
-                            <span className="small text-secondary">{k}</span>
+                            <span className="text-sm text-gray-500">{k}</span>
                           </div>
 
                           <div className="mt-2">
                             <input
                               type="range"
-                              className="form-range"
+                              className="w-full"
                               min={1}
                               max={100}
                               step={1}
@@ -335,10 +327,10 @@ export default function App() {
                             />
                           </div>
 
-                          <div className="mt-2 d-flex gap-2 align-items-center">
+                          <div className="mt-2 flex gap-2 items-center">
                             <input
                               type="number"
-                              className="form-control form-control-sm"
+                              className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                               value={k}
                               min={1}
                               max={100}
@@ -346,29 +338,29 @@ export default function App() {
                             />
                             <button
                               type="button"
-                              className="btn btn-sm btn-outline-secondary"
+                              className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-600 hover:text-white hover:border-gray-600 transition-colors"
                               onClick={() => setK(25)}
                             >
                               25
                             </button>
                             <button
                               type="button"
-                              className="btn btn-sm btn-outline-secondary"
+                              className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-600 hover:text-white hover:border-gray-600 transition-colors"
                               onClick={() => setK(50)}
                             >
                               50
                             </button>
                             <button
                               type="button"
-                              className="btn btn-sm btn-outline-secondary"
+                              className="px-2 py-1 text-sm border border-gray-300 rounded hover:bg-gray-600 hover:text-white hover:border-gray-600 transition-colors"
                               onClick={() => setK(100)}
                             >
                               100
                             </button>
                           </div>
 
-                          <div className="mt-2 small text-secondary">
-                            Changing <span className="fw-semibold">k</span> re-runs the search automatically.
+                          <div className="mt-2 text-sm text-gray-500">
+                            Changing <span className="font-semibold">k</span> re-runs the search automatically.
                           </div>
                         </div>
                       )}
@@ -376,8 +368,8 @@ export default function App() {
                   </div>
 
                   {error && (
-                    <div className="alert alert-danger mt-3 mb-0">
-                      <div className="fw-semibold">{error}</div>
+                    <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                      <div className="font-semibold">{error}</div>
                     </div>
                   )}
                 </div>
