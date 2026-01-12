@@ -93,7 +93,7 @@ export default function SearchBar({
     <div>
       <div className="flex gap-2 items-center flex-wrap">
         {/* wrapper must be relative */}
-        <div className="relative flex-1 min-w-[420px]">
+        <div className="relative flex-1 min-w-105">
           {/* icon inside input */}
           <Search
             size={22}

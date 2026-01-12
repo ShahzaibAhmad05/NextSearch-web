@@ -147,7 +147,7 @@ export default function App() {
     <div className="bg-gray-100 min-h-screen">
       {/* Top bar */}
       <nav className="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
-        <div className="max-w-[980px] mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-245 mx-auto px-4 py-3 flex items-center justify-between">
           <a className="font-bold text-lg" href="#">
           </a>
           <div className="flex gap-2">
@@ -168,7 +168,7 @@ export default function App() {
         <div
           className="flex items-center justify-center min-h-screen"
         >
-          <div className="max-w-[1000px] mx-auto px-4">
+          <div className="max-w-250 mx-auto px-4">
             <div className="text-center mb-8">
               <h1 className="text-5xl font-bold mb-2">NextSearch</h1>
               <div className="text-gray-500">
@@ -195,7 +195,7 @@ export default function App() {
           ====================== */}
       {hasSearched && (
         <div className="pt-20">
-          <div className="max-w-[980px] mx-auto px-4 pt-4">
+          <div className="max-w-245 mx-auto px-4 pt-4">
             {/* Hero */}
             <div className="py-6">
               <h1 className="text-4xl font-bold mb-2">NextSearch</h1>

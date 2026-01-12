@@ -73,14 +73,14 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                     alt=""
                     width={40}
                     height={40}
-                    className="rounded-md flex-shrink-0 mt-0.5"
+                    className="rounded-md shrink-0 mt-0.5"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
                   />
                 )}
 
-                <div className="flex-grow min-w-0">
+                <div className="grow min-w-0">
                   <div className="font-semibold text-base line-clamp-2">
                     {r.url ? (
                       <a
@@ -173,7 +173,7 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                 {pageItems.map((it) => (
                   <li key={`page-${it}`}>
                     <button
-                      className={`min-w-[40px] px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      className={`min-w-10 px-3 py-1.5 rounded-full text-sm transition-colors ${
                         it === safePage
                           ? "bg-gray-900 text-white"
                           : "text-black hover:bg-gray-200"

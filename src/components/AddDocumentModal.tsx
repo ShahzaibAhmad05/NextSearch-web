@@ -62,7 +62,7 @@ export default function AddDocumentModal({ show, onClose }: Props) {
       aria-modal="true" 
       aria-label="Add CORD Slice"
     >
-      <div className="w-full max-w-[780px] max-h-[calc(100vh-24px)] overflow-auto bg-white text-gray-900 rounded-2xl border border-black/10 shadow-2xl p-4">
+      <div className="w-full max-w-195 max-h-[calc(100vh-24px)] overflow-auto bg-white text-gray-900 rounded-2xl border border-black/10 shadow-2xl p-4">
         <div className="flex items-center justify-between gap-3 mb-3">
           <h2 className="m-0 text-lg font-semibold">Add CORD Slice</h2>
           <button 
