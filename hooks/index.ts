@@ -8,3 +8,4 @@ export { useDebounce, useDebouncedValue } from './useDebounce';
 export { useClickOutside } from './useClickOutside';
 export { useSuggestions } from './useSuggestions';
 export { useSearch } from './useSearch';
+export { useRecentSearches } from './useRecentSearches';

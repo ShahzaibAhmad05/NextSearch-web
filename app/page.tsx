@@ -5,8 +5,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
+import RecentSearches from '@/components/RecentSearches';
+import Footer from '@/components/Footer';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
-import { useClickOutside } from '@/hooks';
+import { useClickOutside, useRecentSearches } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -53,6 +55,9 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
 
+  // Recent searches
+  const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
+
   // Refs
   const advancedRef = useClickOutside<HTMLDivElement>(
     () => setShowAdvanced(false),
@@ -73,6 +78,8 @@ export default function Home() {
       setFound(data.found);
       setHasSearched(true);
       setBackendTotalMs(data.total_time_ms ?? null);
+      // Add to recent searches
+      addSearch(query, data.found ?? data.results.length);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       setError(message);
@@ -82,7 +89,19 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [query, k]);
+  }, [query, k, addSearch]);
+
+  // Handle selecting a recent search
+  const handleSelectRecent = useCallback((recentQuery: string) => {
+    setQuery(recentQuery);
+    // Trigger search after a short delay
+    setTimeout(() => {
+      const submitBtn = document.querySelector('input[type="text"]') as HTMLInputElement;
+      if (submitBtn) {
+        submitBtn.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+      }
+    }, 50);
+  }, []);
 
   // Auto-refresh on k change (debounced)
   useEffect(() => {
@@ -158,6 +177,10 @@ export default function Home() {
           onChangeQuery={setQuery}
           onChangeK={setK}
           onSubmit={handleSubmit}
+          recentSearches={recentSearches}
+          onSelectRecent={handleSelectRecent}
+          onRemoveRecent={removeSearch}
+          onClearRecent={clearHistory}
         />
       )}
 
@@ -189,6 +212,9 @@ export default function Home() {
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
@@ -208,20 +234,45 @@ function Navbar({ onAddDocument }: NavbarProps) {
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-245 mx-auto px-4 py-3 flex items-center justify-between">
-        <a className="font-bold text-lg text-white/90" href="#">
-          {/* Logo placeholder */}
+        <a className="font-bold text-xl text-white/90" href="/">
+          <span className="gradient-text">Next</span>
+          <span className="text-white">Search</span>
         </a>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-2">
+          <a
+            href="/about"
+            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            About
+          </a>
+          <a
+            href="/docs"
+            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            Docs
+          </a>
+          <a
+            href="/stats"
+            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+          >
+            Stats
+          </a>
           <Button
             variant="secondary"
             onClick={onAddDocument}
           >
-            Add Dataset Slice
+            Add CORD Slice
           </Button>
         </div>
       </div>
     </nav>
   );
+}
+
+interface RecentSearchItem {
+  query: string;
+  timestamp: number;
+  resultCount?: number;
 }
 
 interface PreSearchViewProps {
@@ -231,6 +282,10 @@ interface PreSearchViewProps {
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
+  recentSearches: RecentSearchItem[];
+  onSelectRecent: (query: string) => void;
+  onRemoveRecent: (query: string) => void;
+  onClearRecent: () => void;
 }
 
 /**
@@ -243,6 +298,10 @@ function PreSearchView({
   onChangeQuery,
   onChangeK,
   onSubmit,
+  recentSearches,
+  onSelectRecent,
+  onRemoveRecent,
+  onClearRecent,
 }: PreSearchViewProps) {
   return (
     <div className="flex items-center justify-center min-h-screen animate-fade-in">
@@ -255,7 +314,7 @@ function PreSearchView({
             className="text-gray-400 text-lg animate-fade-in-up"
             style={{ animationDelay: '100ms' }}
           >
-            Across 1M+ Cord19 research papers
+            Discover insights across 1M+ CORD-19 research papers
           </div>
         </div>
 
@@ -267,6 +326,14 @@ function PreSearchView({
             onChangeQuery={onChangeQuery}
             onChangeK={onChangeK}
             onSubmit={onSubmit}
+          />
+
+          {/* Recent searches */}
+          <RecentSearches
+            searches={recentSearches}
+            onSelect={onSelectRecent}
+            onRemove={onRemoveRecent}
+            onClear={onClearRecent}
           />
         </div>
       </div>
