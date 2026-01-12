@@ -48,14 +48,14 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
   const goTo = (p: number) => setPage(Math.min(Math.max(1, p), totalPages));
 
   if (!results.length) {
-    return <div className="mt-3 text-gray-500">No results.</div>;
+    return <div className="mt-3 text-gray-400">No results.</div>;
   }
 
   return (
     <div className="mt-3">
       <div ref={topRef} />
 
-      <div className="grid gap-3">
+      <div className="grid gap-4">
         {pageResults.map((r, idx) => {
           const domain = r.url ? safeHostname(r.url) : null;
           const favicon = r.url ? faviconUrl(r.url) : null;
@@ -63,17 +63,17 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
           return (
             <div
               key={r.docId}
-              className="bg-white rounded-2xl card-hover animate-fade-in-up p-4"
-              style={{ animationDelay: `${idx * 40}ms` }}
+              className="rounded-2xl card-hover animate-fade-in-up p-5"
+              style={{ animationDelay: `${idx * 60}ms` }}
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-4">
                 {favicon && (
                   <img
                     src={favicon}
                     alt=""
-                    width={40}
-                    height={40}
-                    className="rounded-md shrink-0 mt-0.5"
+                    width={44}
+                    height={44}
+                    className="rounded-lg shrink-0 mt-0.5 ring-2 ring-white/10"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";
                     }}
@@ -92,21 +92,21 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                         {r.title || "(untitled)"}
                       </a>
                     ) : (
-                      <span>{r.title || "(untitled)"}</span>
+                      <span className="text-white">{r.title || "(untitled)"}</span>
                     )}
                   </div>
 
-                  <div className="text-sm text-gray-500 mt-1">
+                  <div className="text-sm text-gray-400 mt-1.5">
                     {formatByline(r)}
                   </div>
 
                   {r.url && domain && (
-                    <div className="mt-2">
+                    <div className="mt-3">
                       <a
                         href={r.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="btn-view-at inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md"
+                        className="btn-view-at inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -136,16 +136,16 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
       </div>
 
       {totalPages > 1 && (
-        <div className="mt-6">
-          <div className="flex flex-col items-center gap-2">
+        <div className="mt-8 animate-fade-in">
+          <div className="flex flex-col items-center gap-3">
             <nav aria-label="Search results pages" className="w-full">
-              <ul className="flex justify-center flex-wrap gap-1.5">
+              <ul className="flex justify-center flex-wrap gap-2">
                 <li>
                   <button
-                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
                       safePage === 1
-                        ? "text-gray-300 cursor-not-allowed"
-                        : "text-black hover:bg-gray-200"
+                        ? "text-gray-600 cursor-not-allowed"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
                     }`}
                     type="button"
                     onClick={() => goTo(1)}
@@ -157,10 +157,10 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
 
                 <li>
                   <button
-                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
                       safePage === 1
-                        ? "text-gray-300 cursor-not-allowed"
-                        : "text-black hover:bg-gray-200"
+                        ? "text-gray-600 cursor-not-allowed"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
                     }`}
                     type="button"
                     onClick={() => goTo(safePage - 1)}
@@ -173,10 +173,10 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
                 {pageItems.map((it) => (
                   <li key={`page-${it}`}>
                     <button
-                      className={`min-w-10 px-3 py-1.5 rounded-full text-sm transition-colors ${
+                      className={`min-w-10 px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
                         it === safePage
-                          ? "bg-gray-900 text-white"
-                          : "text-black hover:bg-gray-200"
+                          ? "bg-linear-to-r from-indigo-500 to-purple-500 text-white shadow-glow"
+                          : "text-gray-300 hover:bg-white/10 hover:text-white"
                       }`}
                       type="button"
                       onClick={() => goTo(it)}
@@ -188,10 +188,10 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
 
                 <li>
                   <button
-                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
                       safePage === totalPages
-                        ? "text-gray-300 cursor-not-allowed"
-                        : "text-black hover:bg-gray-200"
+                        ? "text-gray-600 cursor-not-allowed"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
                     }`}
                     type="button"
                     onClick={() => goTo(safePage + 1)}
@@ -203,10 +203,10 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
 
                 <li>
                   <button
-                    className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
+                    className={`px-3 py-2 rounded-lg text-sm transition-all duration-300 ${
                       safePage === totalPages
-                        ? "text-gray-300 cursor-not-allowed"
-                        : "text-black hover:bg-gray-200"
+                        ? "text-gray-600 cursor-not-allowed"
+                        : "text-gray-300 hover:bg-white/10 hover:text-white"
                     }`}
                     type="button"
                     onClick={() => goTo(totalPages)}
@@ -218,9 +218,9 @@ export default function SearchResults({ results, pageSize = 10 }: Props) {
               </ul>
             </nav>
 
-            <div className="text-sm text-gray-500">
-              Page <span className="font-semibold">{safePage}</span> of{" "}
-              <span className="font-semibold">{totalPages}</span>
+            <div className="text-sm text-gray-400">
+              Page <span className="font-semibold text-indigo-300">{safePage}</span> of{" "}
+              <span className="font-semibold text-indigo-300">{totalPages}</span>
             </div>
           </div>
         </div>

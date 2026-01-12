@@ -57,16 +57,16 @@ export default function AddDocumentModal({ show, onClose }: Props) {
 
   return (
     <div 
-      className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-3"
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-3 animate-fade-in"
       role="dialog" 
       aria-modal="true" 
       aria-label="Add CORD Slice"
     >
-      <div className="w-full max-w-195 max-h-[calc(100vh-24px)] overflow-auto bg-white text-gray-900 rounded-2xl border border-black/10 shadow-2xl p-4">
-        <div className="flex items-center justify-between gap-3 mb-3">
-          <h2 className="m-0 text-lg font-semibold">Add CORD Slice</h2>
+      <div className="w-full max-w-195 max-h-[calc(100vh-24px)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-5 animate-scale-in">
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <h2 className="m-0 text-xl font-semibold gradient-text">Add CORD Slice</h2>
           <button 
-            className="px-2 py-1 text-sm border border-gray-900 rounded hover:bg-gray-900 hover:text-white transition-colors" 
+            className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300" 
             type="button" 
             onClick={onClose} 
             disabled={loading}
@@ -76,10 +76,10 @@ export default function AddDocumentModal({ show, onClose }: Props) {
         </div>
 
         <form onSubmit={onSubmit}>
-          <p className="mb-2">
-            Upload a <b>CORD-19 slice zip</b> with this structure:
+          <p className="mb-3 text-gray-300">
+            Upload a <b className="text-indigo-300">CORD-19 slice zip</b> with this structure:
           </p>
-          <pre className="bg-gray-100 border border-black/10 rounded-xl p-3 mb-3 whitespace-pre-wrap text-sm">
+          <pre className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4 whitespace-pre-wrap text-sm text-gray-300 font-mono">
 {`cord19_sliced
 ├─ document_parses/
 │  ├─ pdf_json/
@@ -90,32 +90,32 @@ export default function AddDocumentModal({ show, onClose }: Props) {
 └─ metadata.readme`}
           </pre>
 
-          <label className="block font-semibold text-sm mb-1">Zip file</label>
-          <div className="flex gap-2 items-center">
+          <label className="block font-semibold text-sm mb-2 text-white">Zip file</label>
+          <div className="flex gap-3 items-center">
             <input
               type="file"
-              className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="flex-1 px-4 py-2.5 text-sm bg-white/5 border border-white/20 rounded-lg text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-300 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-indigo-500/20 file:text-indigo-300 hover:file:bg-indigo-500/30"
               accept=".zip,application/zip"
               onChange={(e) => setFile(e.target.files?.[0] ?? null)}
               disabled={loading}
             />
-            <span className="text-xs text-gray-500 whitespace-nowrap">{fileLabel}</span>
+            <span className="text-xs text-gray-400 whitespace-nowrap">{fileLabel}</span>
           </div>
 
           {err && (
-            <div className="mt-3 p-3 bg-red-50 text-red-800 border border-red-200 rounded-xl text-sm">
+            <div className="mt-4 p-4 bg-red-500/20 text-red-300 border border-red-500/30 rounded-xl text-sm animate-fade-in">
               {err}
             </div>
           )}
           {ok && (
-            <div className="mt-3 p-3 bg-green-50 text-green-800 border border-green-200 rounded-xl text-sm">
+            <div className="mt-4 p-4 bg-green-500/20 text-green-300 border border-green-500/30 rounded-xl text-sm animate-fade-in">
               {ok}
             </div>
           )}
 
-          <div className="flex justify-end gap-2 mt-4">
+          <div className="flex justify-end gap-3 mt-5">
             <button 
-              className="px-4 py-2 text-sm border border-gray-900 rounded-md hover:bg-gray-900 hover:text-white transition-colors" 
+              className="px-5 py-2.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300" 
               type="button" 
               onClick={onClose} 
               disabled={loading}
@@ -123,10 +123,13 @@ export default function AddDocumentModal({ show, onClose }: Props) {
               Close
             </button>
             <button 
-              className="px-4 py-2 text-sm bg-gray-900 text-white rounded-md hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+              className="px-5 py-2.5 text-sm bg-linear-to-r from-indigo-500 to-purple-500 text-white rounded-lg hover:shadow-glow transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none flex items-center gap-2" 
               type="submit" 
               disabled={loading || !file}
             >
+              {loading && (
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              )}
               {loading ? "Indexing..." : "Upload & Index"}
             </button>
           </div>

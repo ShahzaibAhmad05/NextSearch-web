@@ -93,16 +93,16 @@ export default function SearchBar({
     <div>
       <div className="flex gap-2 items-center flex-wrap">
         {/* wrapper must be relative */}
-        <div className="relative flex-1 min-w-105">
+        <div className="relative flex-1 min-w-105 glow-border rounded-full">
           {/* icon inside input */}
           <Search
             size={22}
-            className="text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+            className="text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
           />
 
           <input
             ref={inputRef}
-            className="w-full py-3 pl-12 pr-4 text-lg border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full py-3.5 pl-12 pr-4 text-lg bg-white/5 backdrop-blur-sm border border-white/20 rounded-full text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-300"
             value={query}
             onChange={(e) => onChangeQuery(e.target.value)}
             onFocus={() => {
@@ -180,13 +180,15 @@ export default function SearchBar({
 
           {open && suggestions.length > 0 ? (
             <div
-              className="absolute left-0 right-0 top-full mt-2 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-20"
+              className="absolute left-0 right-0 top-full mt-2 glass-card rounded-xl shadow-dark-lg overflow-hidden z-20 animate-scale-in"
             >
               {suggestions.map((s, idx) => (
                 <div
                   key={s + idx}
-                  className={`text-sm px-4 py-2.5 cursor-pointer transition-colors ${
-                    idx === activeIdx ? "bg-gray-100" : "bg-white hover:bg-gray-50"
+                  className={`text-sm px-4 py-3 cursor-pointer transition-all duration-200 ${
+                    idx === activeIdx 
+                      ? "bg-indigo-500/30 text-white" 
+                      : "text-gray-300 hover:bg-white/10 hover:text-white"
                   }`}
                   onMouseDown={(ev) => {
                     // Prevent input blur before we pick
@@ -203,7 +205,12 @@ export default function SearchBar({
         </div>
       </div>
 
-      {loading ? <div className="text-sm text-gray-500 mt-2">Searching…</div> : null}
+      {loading ? (
+        <div className="text-sm text-indigo-300 mt-2 flex items-center gap-2 animate-fade-in">
+          <div className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          Searching…
+        </div>
+      ) : null}
     </div>
   );
 }
