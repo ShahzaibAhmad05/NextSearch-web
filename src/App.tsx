@@ -172,7 +172,7 @@ export default function App() {
             <div className="text-center mb-8">
               <h1 className="text-6xl font-bold mb-3 gradient-text animate-fade-in-up">NextSearch</h1>
               <div className="text-gray-400 text-lg animate-fade-in-up" style={{ animationDelay: '100ms' }}>
-                through 60k+ Cord19 research papers
+                Across 1M+ Cord19 research papers
               </div>
             </div>
 
@@ -200,7 +200,7 @@ export default function App() {
             <div className="py-6 animate-fade-in-up">
               <h1 className="text-4xl font-bold mb-2 gradient-text">NextSearch</h1>
               <div className="text-gray-400">
-                through 60k+ Cord19 research papers
+                Across 1M+ Cord19 research papers
               </div>
             </div>
 
