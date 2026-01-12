@@ -84,7 +84,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
   return (
     <Card hoverable padding="lg" className="text-center">
       {/* Avatar placeholder */}
-      <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+      <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
         <span className="text-3xl font-bold text-white">
           {member.name.split(' ').map(n => n[0]).join('')}
         </span>
@@ -136,7 +136,7 @@ function FeatureCard({ feature }: { feature: typeof projectFeatures[0] }) {
   const Icon = feature.icon;
   return (
     <div className="flex gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/8 transition-all">
-      <div className="shrink-0 w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center">
+      <div className="shrink-0 w-12 h-12 rounded-lg bg-linear-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center">
         <Icon size={24} className="text-indigo-400" />
       </div>
       <div>
@@ -153,7 +153,7 @@ function FeatureCard({ feature }: { feature: typeof projectFeatures[0] }) {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950">
+    <div className="min-h-screen bg-linear-to-br from-gray-950 via-slate-900 to-gray-950">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -191,7 +191,7 @@ export default function AboutPage() {
           <section className="mb-16 animate-fade-in-up">
             <Card padding="lg">
               <div className="flex items-start gap-4 mb-6">
-                <div className="p-3 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
+                <div className="p-3 rounded-xl bg-linear-to-br from-indigo-500/20 to-purple-500/20">
                   <BookOpen size={28} className="text-indigo-400" />
                 </div>
                 <div>
