@@ -43,11 +43,6 @@ export default function Footer() {
                   Documentation
                 </Link>
               </li>
-              <li>
-                <Link href="/stats" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Statistics
-                </Link>
-              </li>
             </ul>
           </div>
 
