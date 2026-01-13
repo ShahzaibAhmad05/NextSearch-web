@@ -7,6 +7,7 @@ export { default as AddDocumentModal } from './AddDocumentModal';
 export { default as RecentSearches } from './RecentSearches';
 export { default as Footer } from './Footer';
 export { default as SearchFilters, defaultFilters } from './SearchFilters';
+export { default as VoiceSearchButton } from './VoiceSearchButton';
 export type { SearchFiltersState } from './SearchFilters';
 
 // Re-export UI components

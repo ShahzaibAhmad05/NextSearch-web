@@ -7,6 +7,7 @@ import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
 import { cn } from '@/lib/utils';
 import type { SearchBarProps } from '@/lib/types';
+import VoiceSearchButton from './VoiceSearchButton';
 
 /**
  * Search input with autocomplete suggestions.
@@ -43,6 +44,14 @@ export default function SearchBar({
     onChangeQuery(value);
     inputRef.current?.blur();
     onSubmit(value);
+  };
+
+  /**
+   * Handle voice search result
+   */
+  const handleVoiceResult = (text: string) => {
+    onChangeQuery(text);
+    onSubmit(text);
   };
 
   /**
@@ -97,6 +106,12 @@ export default function SearchBar({
             />
           )}
         </div>
+
+        {/* Voice search button */}
+        <VoiceSearchButton
+          onVoiceResult={handleVoiceResult}
+          disabled={loading}
+        />
       </div>
 
       {/* Loading indicator */}
