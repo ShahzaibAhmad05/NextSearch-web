@@ -81,7 +81,7 @@ const architecture = [
 function SectionHeader({ icon: Icon, title }: { icon: typeof Search; title: string }) {
   return (
     <div className="flex items-center gap-3 mb-6">
-      <div className="p-2 rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20">
+      <div className="p-2 rounded-lg bg-linear-to-br from-indigo-500/20 to-purple-500/20">
         <Icon size={24} className="text-indigo-400" />
       </div>
       <h2 className="text-2xl font-bold text-white">{title}</h2>
@@ -95,7 +95,7 @@ function SectionHeader({ icon: Icon, title }: { icon: typeof Search; title: stri
 
 export default function DocsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950">
+    <div className="min-h-screen bg-linear-to-br from-gray-950 via-slate-900 to-gray-950">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-white/10">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
