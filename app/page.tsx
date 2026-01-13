@@ -388,9 +388,10 @@ function PostSearchView({
         <div
           className="py-3 sticky z-40"
           style={{
-            top: 54,
+            top: 60,
             background:
-              'linear-gradient(135deg, rgba(15, 15, 26, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%)',
+            //   'linear-gradient(135deg, rgba(15, 15, 26, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%)',
+              'linear-gradient(135deg, rgba(20, 20, 31, 0.8) 0%, rgba(26, 26, 46, 0.8) 50%, rgba(18, 28, 55, 0.5) 100%)',
           }}
         >
           <Card className="shadow-dark animate-fade-in-up">
