@@ -158,7 +158,7 @@ export default function Home() {
   );
 
   return (
-    <div className="min-h-screen">
+    <div className={hasSearched ? "min-h-screen" : "h-screen overflow-hidden"}>
       {/* Navigation bar */}
       <Navbar onAddDocument={() => setShowAddModal(true)} />
 
@@ -205,8 +205,8 @@ export default function Home() {
         onClose={() => setShowAddModal(false)}
       />
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer - only show in pre-search view */}
+      {!hasSearched && <Footer />}
     </div>
   );
 }
