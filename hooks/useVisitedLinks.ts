@@ -5,6 +5,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 const STORAGE_KEY = 'nextsearch-visited-links';
 const MAX_VISITED_LINKS = 100;
+/** Visited links expire after 3 days (in milliseconds) */
+const EXPIRATION_TIME = 3 * 24 * 60 * 60 * 1000;
 
 interface VisitedLink {
   /** The URL that was visited */
@@ -31,15 +33,24 @@ interface UseVisitedLinksReturn {
 }
 
 /**
+ * Filter out expired links (older than EXPIRATION_TIME)
+ */
+function filterExpiredLinks(links: VisitedLink[]): VisitedLink[] {
+  const now = Date.now();
+  return links.filter(link => now - link.timestamp < EXPIRATION_TIME);
+}
+
+/**
  * A hook that manages visited links history in localStorage.
  * Tracks which search result links the user has clicked.
+ * Links expire after 30 days.
  */
 export function useVisitedLinks(): UseVisitedLinksReturn {
   const [visitedLinks, setVisitedLinks] = useState<VisitedLink[]>([]);
   const [visitedUrls, setVisitedUrls] = useState<Set<string>>(new Set());
   const hasLoadedRef = useRef(false);
 
-  // Load from localStorage on mount
+  // Load from localStorage on mount and filter out expired links
   useEffect(() => {
     if (hasLoadedRef.current) return;
     
@@ -48,8 +59,10 @@ export function useVisitedLinks(): UseVisitedLinksReturn {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed)) {
-          setVisitedLinks(parsed);
-          setVisitedUrls(new Set(parsed.map((link: VisitedLink) => link.url)));
+          // Filter out expired links
+          const validLinks = filterExpiredLinks(parsed);
+          setVisitedLinks(validLinks);
+          setVisitedUrls(new Set(validLinks.map((link: VisitedLink) => link.url)));
         }
       }
     } catch {
