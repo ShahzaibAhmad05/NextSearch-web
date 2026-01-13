@@ -250,9 +250,11 @@ function Navbar({ onAddDocument }: NavbarProps) {
           </a>
           <Button
             variant="secondary"
+            className="px-3! py-0.5! m-0! h-auto! leading-none! inline-flex items-center"
             onClick={onAddDocument}
           >
-            Add CORD Slice
+            <span className="text-2xl leading-none relative -top-px -mx-0.5 pb-1">+</span>
+            <span>Index</span>
           </Button>
         </div>
       </div>

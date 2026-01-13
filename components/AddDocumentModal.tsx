@@ -92,7 +92,7 @@ export default function AddDocumentModal({ show, onClose }: AddDocumentModalProp
     <Modal
       show={show}
       onClose={handleClose}
-      title="Add CORD Slice"
+      title="Add Dataset Slice"
       preventClose={loading}
     >
       <form onSubmit={handleSubmit}>
