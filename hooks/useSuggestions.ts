@@ -79,13 +79,29 @@ export function useSuggestions({
 
   const trimmedQuery = query.trim().toLowerCase();
 
+  
   // Merge API suggestions with matching recent searches
   useEffect(() => {
     const merged: SuggestionItem[] = [];
     const seen = new Set<string>();
 
-    // First, add matching recent searches
-    if (trimmedQuery.length >= minQueryLength) {
+
+    // First, add recent searches
+    if (trimmedQuery.length === 0) {
+      
+      // when query is empty, show recent searches immediately
+      for (const recent of recentSearches) {
+        const recentLower = recent.toLowerCase();
+        if (!seen.has(recentLower)) {
+          merged.push({ text: recent, isRecent: true });
+          seen.add(recentLower);
+        }
+      }
+    } 
+    
+    // Default: Merge recent searches with the suggestions
+    else if (trimmedQuery.length >= minQueryLength) {
+      // existing behavior: match recent searches while typing
       for (const recent of recentSearches) {
         const recentLower = recent.toLowerCase();
         if (recentLower.includes(trimmedQuery) && !seen.has(recentLower)) {
@@ -94,6 +110,7 @@ export function useSuggestions({
         }
       }
     }
+
 
     // Then add API suggestions (that aren't already in recent)
     for (const suggestion of apiSuggestions) {

@@ -131,7 +131,7 @@ function SuggestionsDropdown({
         <div
           key={`${suggestion.text}-${idx}`}
           className={cn(
-            'text-sm px-4 py-3 cursor-pointer transition-all duration-200 flex items-center gap-3',
+            'text-sm px-4 py-2 cursor-pointer transition-all duration-200 flex items-center gap-3',
             idx === activeIndex
               ? 'bg-indigo-500/30 text-white'
               : 'text-gray-300 hover:bg-white/10 hover:text-white'
