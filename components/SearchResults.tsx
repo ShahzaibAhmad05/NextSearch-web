@@ -29,12 +29,13 @@ export default function SearchResults({
     const fixedNavH = fixedNav?.getBoundingClientRect().height ?? 0;
 
     const stickySearch = document.querySelector('.search-sticky') as HTMLElement | null;
-    const stickySearchH = stickySearch?.getBoundingClientRect().height ?? 0;
+    // const stickySearchH = stickySearch?.getBoundingClientRect().height ?? 0;
 
-    const headerOffset = 4.5 * fixedNavH + stickySearchH + 12;
-    const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    // const headerOffset = 4.5 * fixedNavH + stickySearchH + 12;
+    // const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
+    // const y = 0;
 
-    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    // window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
   }, [safePage]);
 
   // Reset to page 1 when results change

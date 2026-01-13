@@ -376,13 +376,13 @@ function PostSearchView({
   onShowAdvancedChange,
 }: PostSearchViewProps) {
   return (
-    <div className="pt-20 animate-fade-in">
+    <div className="pt-15 animate-fade-in">
       <div className="max-w-245 mx-auto px-4 pt-4">
-        {/* Hero */}
-        <div className="py-6 animate-fade-in-up">
+        {/* Hero Removed for now */}
+        {/* <div className="py-6 animate-fade-in-up">
           <h1 className="text-4xl font-bold mb-2 gradient-text">NextSearch</h1>
           <div className="text-gray-400">Across 1M+ Cord19 research papers</div>
-        </div>
+        </div> */}
 
         {/* Search area */}
         <div
@@ -444,6 +444,8 @@ function PostSearchView({
             <div className="font-semibold">{error}</div>
           </Alert>
         )}
+        <br />
+        <hr />
           
 
         {/* Results */}
