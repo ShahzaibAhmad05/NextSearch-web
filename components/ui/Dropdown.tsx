@@ -97,9 +97,9 @@ export function Dropdown<T extends string>({
 
       {open && (
         <div
-          className="absolute left-0 mt-2 min-w-56 glass-card rounded-xl shadow-dark-lg z-50 overflow-hidden animate-scale-in"
-          role="listbox"
-        >
+          className="absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden animate-scale-in bg-[#151526]"
+          role="listbox">
+
           {options.map((opt) => (
             <button
               key={String(opt.value)}

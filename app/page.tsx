@@ -404,46 +404,47 @@ function PostSearchView({
               onChangeK={onChangeK}
               onSubmit={onSubmit}
             />
-
-            <div className="mt-3 flex flex-wrap gap-2 items-center">
-              {/* Sort dropdown */}
-              <Dropdown
-                value={sortBy}
-                options={sortOptions}
-                onChange={onSortChange}
-                label="Sort by"
-              />
-
-              {/* Advanced popover */}
-              <div className="relative" ref={advancedRef as React.RefObject<HTMLDivElement>}>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => onShowAdvancedChange(!showAdvanced)}
-                  aria-expanded={showAdvanced}
-                  aria-haspopup="dialog"
-                >
-                  Advanced
-                </Button>
-
-                {showAdvanced && (
-                  <AdvancedPopover
-                    k={k}
-                    status={status}
-                    onChangeK={onChangeK}
-                    onClose={() => onShowAdvancedChange(false)}
-                  />
-                )}
-              </div>
-            </div>
-
-            {error && (
-              <Alert variant="error" className="mt-3">
-                <div className="font-semibold">{error}</div>
-              </Alert>
-            )}
           </Card>
         </div>
+
+        <div className="mt-3 flex flex-wrap gap-2 items-center">
+          {/* Sort dropdown */}
+          <Dropdown
+            value={sortBy}
+            options={sortOptions}
+            onChange={onSortChange}
+            label="Sort by"
+          />
+
+          {/* Advanced popover */}
+          <div className="relative" ref={advancedRef as React.RefObject<HTMLDivElement>}>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => onShowAdvancedChange(!showAdvanced)}
+              aria-expanded={showAdvanced}
+              aria-haspopup="dialog"
+            >
+              Advanced
+            </Button>
+
+            {showAdvanced && (
+              <AdvancedPopover
+                k={k}
+                status={status}
+                onChangeK={onChangeK}
+                onClose={() => onShowAdvancedChange(false)}
+              />
+            )}
+          </div>
+        </div>
+
+        {error && (
+          <Alert variant="error" className="mt-3">
+            <div className="font-semibold">{error}</div>
+          </Alert>
+        )}
+          
 
         {/* Results */}
         <div className="px-3 pb-3">
@@ -467,7 +468,7 @@ interface AdvancedPopoverProps {
 function AdvancedPopover({ k, status, onChangeK, onClose }: AdvancedPopoverProps) {
   return (
     <div
-      className="absolute right-0 mt-2 w-80 glass-card rounded-2xl shadow-dark-lg p-4 z-50 animate-scale-in"
+      className="absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 animate-scale-in  bg-[#151526]"
       role="dialog"
       aria-label="Advanced search"
     >
