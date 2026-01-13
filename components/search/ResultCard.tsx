@@ -11,14 +11,24 @@ interface ResultCardProps {
   result: SearchResult;
   /** Animation delay index for staggered animation */
   index?: number;
+  /** Whether this result has been visited before */
+  isVisited?: boolean;
+  /** Callback when the result link is clicked */
+  onVisit?: (url: string, title: string) => void;
 }
 
 /**
  * A single search result card with favicon, title, byline, and link.
  */
-export function ResultCard({ result, index = 0 }: ResultCardProps) {
+export function ResultCard({ result, index = 0, isVisited = false, onVisit }: ResultCardProps) {
   const domain = result.url ? safeHostname(result.url) : null;
   const favicon = result.url ? faviconUrl(result.url) : null;
+
+  const handleLinkClick = () => {
+    if (result.url && onVisit) {
+      onVisit(result.url, result.title || '(untitled)');
+    }
+  };
 
   return (
     <div
@@ -52,6 +62,7 @@ export function ResultCard({ result, index = 0 }: ResultCardProps) {
                 href={result.url}
                 target="_blank"
                 rel="noreferrer"
+                onClick={handleLinkClick}
               >
                 {result.title || '(untitled)'}
               </a>
@@ -59,6 +70,28 @@ export function ResultCard({ result, index = 0 }: ResultCardProps) {
               <span className="text-white">{result.title || '(untitled)'}</span>
             )}
           </div>
+
+          {/* Recently viewed tag */}
+          {isVisited && (
+            <div className="mt-1.5">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                <svg
+                  className="w-3 h-3"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Recently viewed
+              </span>
+            </div>
+          )}
 
           {/* Byline */}
           <div className="text-sm text-gray-400 mt-1.5">
@@ -72,6 +105,7 @@ export function ResultCard({ result, index = 0 }: ResultCardProps) {
                 href={result.url}
                 target="_blank"
                 rel="noreferrer"
+                onClick={handleLinkClick}
                 className="btn-view-at inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-white/20">
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>

@@ -4,6 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ResultCard, Pagination } from './search';
 import { SEARCH_CONFIG } from '@/lib/constants';
+import { useVisitedLinks } from '@/hooks';
 import type { SearchResultsProps } from '@/lib/types';
 
 /**
@@ -16,6 +17,7 @@ export default function SearchResults({
 }: SearchResultsProps) {
   const [page, setPage] = useState(1);
   const topRef = useRef<HTMLDivElement>(null);
+  const { isVisited, markVisited } = useVisitedLinks();
 
   const totalPages = Math.max(1, Math.ceil(results.length / pageSize));
   const safePage = Math.min(Math.max(1, page), totalPages);
@@ -74,6 +76,8 @@ export default function SearchResults({
             key={result.docId}
             result={result}
             index={idx}
+            isVisited={result.url ? isVisited(result.url) : false}
+            onVisit={markVisited}
           />
         ))}
       </div>
