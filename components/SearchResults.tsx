@@ -68,7 +68,7 @@ export default function SearchResults({
       <div ref={topRef} />
 
       {/* Results grid */}
-      <div className="grid gap-4">
+      <div className="grid">
         {pageResults.map((result, idx) => (
           <ResultCard
             key={result.docId}

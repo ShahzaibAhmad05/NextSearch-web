@@ -67,13 +67,12 @@ export function ResultCard({ result, index = 0 }: ResultCardProps) {
 
           {/* External link button */}
           {result.url && domain && (
-            <div className="mt-3">
+            <div className="mt-4">
               <a
                 href={result.url}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-view-at inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg"
-              >
+                className="btn-view-at inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-white/20">
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>
               </a>
