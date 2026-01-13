@@ -68,13 +68,13 @@ export type SortOption = (typeof SORT_OPTIONS)[number];
 
 export const API_CONFIG = {
   /** Base URL for API endpoints */
-  BASE_URL: process.env.NEXT_PUBLIC_API_BASE ?? '/api',
+  BASE_URL: process.env.NEXT_PUBLIC_API_BASE ?? 'http://localhost:8080',
 
   /** API endpoints */
   ENDPOINTS: {
-    SEARCH: '/search',
-    SUGGEST: '/suggest',
-    ADD_DOCUMENT: '/add_document',
+    SEARCH: '/api/search',
+    SUGGEST: '/api/suggest',
+    ADD_DOCUMENT: '/api/add_document',
   },
 } as const;
 

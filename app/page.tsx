@@ -5,10 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
-import RecentSearches from '@/components/RecentSearches';
 import Footer from '@/components/Footer';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
-import { useClickOutside, useRecentSearches } from '@/hooks';
+import { useClickOutside } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -55,9 +54,6 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
 
-  // Recent searches
-  const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
-
   // Refs
   const advancedRef = useClickOutside<HTMLDivElement>(
     () => setShowAdvanced(false),
@@ -78,8 +74,6 @@ export default function Home() {
       setFound(data.found);
       setHasSearched(true);
       setBackendTotalMs(data.total_time_ms ?? null);
-      // Add to recent searches
-      addSearch(query, data.found ?? data.results.length);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       setError(message);
@@ -89,19 +83,8 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [query, k, addSearch]);
+  }, [query, k]);
 
-  // Handle selecting a recent search
-  const handleSelectRecent = useCallback((recentQuery: string) => {
-    setQuery(recentQuery);
-    // Trigger search after a short delay
-    setTimeout(() => {
-      const submitBtn = document.querySelector('input[type="text"]') as HTMLInputElement;
-      if (submitBtn) {
-        submitBtn.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-      }
-    }, 50);
-  }, []);
 
   // Auto-refresh on k change (debounced)
   useEffect(() => {
@@ -177,10 +160,6 @@ export default function Home() {
           onChangeQuery={setQuery}
           onChangeK={setK}
           onSubmit={handleSubmit}
-          recentSearches={recentSearches}
-          onSelectRecent={handleSelectRecent}
-          onRemoveRecent={removeSearch}
-          onClearRecent={clearHistory}
         />
       )}
 
@@ -263,12 +242,6 @@ function Navbar({ onAddDocument }: NavbarProps) {
   );
 }
 
-interface RecentSearchItem {
-  query: string;
-  timestamp: number;
-  resultCount?: number;
-}
-
 interface PreSearchViewProps {
   query: string;
   k: number;
@@ -276,10 +249,6 @@ interface PreSearchViewProps {
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
-  recentSearches: RecentSearchItem[];
-  onSelectRecent: (query: string) => void;
-  onRemoveRecent: (query: string) => void;
-  onClearRecent: () => void;
 }
 
 const TAGLINES = [
@@ -297,10 +266,6 @@ function PreSearchView({
   onChangeQuery,
   onChangeK,
   onSubmit,
-  recentSearches,
-  onSelectRecent,
-  onRemoveRecent,
-  onClearRecent,
 }: PreSearchViewProps) {
   const [taglineIndex, setTaglineIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -346,16 +311,6 @@ function PreSearchView({
             onChangeK={onChangeK}
             onSubmit={onSubmit}
           />
-
-          {/* Recent searches */}
-          <div className="animate-fade-in-up opacity-0" style={{ animationDelay: '700ms' }}>
-            <RecentSearches
-              searches={recentSearches}
-              onSelect={onSelectRecent}
-              onRemove={onRemoveRecent}
-              onClear={onClearRecent}
-            />
-          </div>
         </div>
       </div>
     </div>
