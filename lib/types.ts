@@ -125,7 +125,7 @@ export interface SearchBarProps {
   /** Callback when k changes */
   onChangeK: (k: number) => void;
   /** Callback when search is submitted */
-  onSubmit: () => void;
+  onSubmit: (queryOverride?: string) => void;
 }
 
 /**

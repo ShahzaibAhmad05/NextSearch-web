@@ -71,30 +71,35 @@ export default function Home() {
   const prevKRef = useRef(k);
 
   // Submit search
-  const handleSubmit = useCallback(async () => {
-    if (!query.trim()) return;
+  const handleSubmit = useCallback(
+    async (queryOverride?: string) => {
+      const q = (queryOverride ?? query).trim();
+      if (!q) return;
 
-    setError(null);
-    setLoading(true);
+      setError(null);
+      setLoading(true);
 
-    try {
-      const data = await apiSearch(query, k);
-      setResults(data.results);
-      setFound(data.found);
-      setHasSearched(true);
-      setBackendTotalMs(data.total_time_ms ?? null);
-      // Add to recent searches
-      addSearch(query, data.found ?? data.results.length);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : String(err);
-      setError(message);
-      setResults([]);
-      setHasSearched(true);
-      setBackendTotalMs(null);
-    } finally {
-      setLoading(false);
-    }
-  }, [query, k, addSearch]);
+      try {
+        const data = await apiSearch(q, k);
+        setResults(data.results);
+        setFound(data.found);
+        setHasSearched(true);
+        setBackendTotalMs(data.total_time_ms ?? null);
+
+        // Add to recent searches
+        addSearch(q, data.found ?? data.results.length);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        setError(message);
+        setResults([]);
+        setHasSearched(true);
+        setBackendTotalMs(null);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [query, k, addSearch]
+  );
 
 
   // Auto-refresh on k change (debounced)

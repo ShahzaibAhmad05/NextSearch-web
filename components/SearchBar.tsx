@@ -42,7 +42,7 @@ export default function SearchBar({
     pickSuggestion(value);
     onChangeQuery(value);
     inputRef.current?.blur();
-    onSubmit();
+    onSubmit(value);
   };
 
   /**
@@ -61,7 +61,7 @@ export default function SearchBar({
       // No suggestion selected, just submit
       inputRef.current?.blur();
       if (query.trim()) {
-        onSubmit();
+        onSubmit(query);
       }
     }
   };
