@@ -6,9 +6,21 @@ import { suggest as apiSuggest } from '@/lib/api';
 import { SEARCH_CONFIG, UI_CONFIG } from '@/lib/constants';
 import type { KeyboardEvent } from 'react';
 
+/**
+ * A suggestion item that can be either from API or recent searches
+ */
+export interface SuggestionItem {
+  /** The suggestion text */
+  text: string;
+  /** Whether this is from recent searches */
+  isRecent: boolean;
+}
+
 interface UseSuggestionsOptions {
   /** The current query string */
   query: string;
+  /** Recent searches to include in suggestions */
+  recentSearches?: string[];
   /** Maximum number of suggestions to fetch */
   maxSuggestions?: number;
   /** Debounce delay in ms */
@@ -18,8 +30,8 @@ interface UseSuggestionsOptions {
 }
 
 interface UseSuggestionsReturn {
-  /** Array of suggestion strings */
-  suggestions: string[];
+  /** Array of suggestion items with type info */
+  suggestions: SuggestionItem[];
   /** Whether the dropdown should be open */
   isOpen: boolean;
   /** Currently highlighted suggestion index (-1 for none) */
@@ -45,14 +57,17 @@ interface UseSuggestionsReturn {
 /**
  * A hook that manages autocomplete suggestions with keyboard navigation.
  * Handles fetching, debouncing, focus/blur, and keyboard events.
+ * Merges API suggestions with matching recent searches.
  */
 export function useSuggestions({
   query,
+  recentSearches = [],
   maxSuggestions = SEARCH_CONFIG.MAX_SUGGESTIONS,
   debounceMs = SEARCH_CONFIG.SUGGESTION_DEBOUNCE_MS,
   minQueryLength = SEARCH_CONFIG.MIN_QUERY_LENGTH,
 }: UseSuggestionsOptions): UseSuggestionsReturn {
-  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [apiSuggestions, setApiSuggestions] = useState<string[]>([]);
+  const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
   const [isOpen, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,14 +77,43 @@ export function useSuggestions({
   const abortRef = useRef<AbortController | null>(null);
   const blurTimerRef = useRef<number | null>(null);
 
-  const trimmedQuery = query.trim();
+  const trimmedQuery = query.trim().toLowerCase();
+
+  // Merge API suggestions with matching recent searches
+  useEffect(() => {
+    const merged: SuggestionItem[] = [];
+    const seen = new Set<string>();
+
+    // First, add matching recent searches
+    if (trimmedQuery.length >= minQueryLength) {
+      for (const recent of recentSearches) {
+        const recentLower = recent.toLowerCase();
+        if (recentLower.includes(trimmedQuery) && !seen.has(recentLower)) {
+          merged.push({ text: recent, isRecent: true });
+          seen.add(recentLower);
+        }
+      }
+    }
+
+    // Then add API suggestions (that aren't already in recent)
+    for (const suggestion of apiSuggestions) {
+      const suggestionLower = suggestion.toLowerCase();
+      if (!seen.has(suggestionLower)) {
+        merged.push({ text: suggestion, isRecent: false });
+        seen.add(suggestionLower);
+      }
+    }
+
+    // Limit total suggestions
+    setSuggestions(merged.slice(0, maxSuggestions));
+  }, [apiSuggestions, recentSearches, trimmedQuery, minQueryLength, maxSuggestions]);
 
   // Fetch suggestions with debounce
   useEffect(() => {
     // Only suggest when there is a meaningful prefix
     if (trimmedQuery.length < minQueryLength) {
       abortRef.current?.abort();
-      setSuggestions([]);
+      setApiSuggestions([]);
       setOpen(false);
       setActiveIndex(-1);
       return;
@@ -87,15 +131,15 @@ export function useSuggestions({
         const s = Array.isArray(res.suggestions)
           ? res.suggestions.slice(0, maxSuggestions)
           : [];
-        setSuggestions(s);
+        setApiSuggestions(s);
 
         // Only open if input is active (focused)
-        setOpen(isActiveRef.current && s.length > 0);
+        setOpen(isActiveRef.current);
         setActiveIndex(-1);
       } catch (e: unknown) {
         // Ignore aborts; suppress other errors quietly
         if (e instanceof Error && e.name === 'AbortError') return;
-        setSuggestions([]);
+        setApiSuggestions([]);
         setOpen(false);
         setActiveIndex(-1);
       } finally {
@@ -195,7 +239,7 @@ export function useSuggestions({
 
         // If a suggestion is selected, return it
         if (isOpen && activeIndex >= 0 && activeIndex < suggestions.length) {
-          return suggestions[activeIndex];
+          return suggestions[activeIndex].text;
         }
 
         return null;

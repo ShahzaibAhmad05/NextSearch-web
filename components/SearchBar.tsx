@@ -2,8 +2,8 @@
 'use client';
 
 import { useRef, type KeyboardEvent } from 'react';
-import { Search } from 'lucide-react';
-import { useSuggestions } from '@/hooks';
+import { Search, History } from 'lucide-react';
+import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
 import { cn } from '@/lib/utils';
 import type { SearchBarProps } from '@/lib/types';
@@ -17,6 +17,7 @@ export default function SearchBar({
   query,
   k,
   loading,
+  recentSearches = [],
   onChangeQuery,
   onChangeK,
   onSubmit,
@@ -32,7 +33,7 @@ export default function SearchBar({
     handleBlur,
     handleKeyDown,
     pickSuggestion,
-  } = useSuggestions({ query });
+  } = useSuggestions({ query, recentSearches });
 
   /**
    * Handle selecting a suggestion
@@ -109,14 +110,14 @@ export default function SearchBar({
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface SuggestionsDropdownProps {
-  suggestions: string[];
+  suggestions: SuggestionItem[];
   activeIndex: number;
   onSelect: (value: string) => void;
   onMouseEnter: (index: number) => void;
 }
 
 /**
- * Dropdown list of autocomplete suggestions
+ * Dropdown list of autocomplete suggestions with icons
  */
 function SuggestionsDropdown({
   suggestions,
@@ -128,9 +129,9 @@ function SuggestionsDropdown({
     <div className="absolute left-0 right-0 top-full mt-2 glass-card rounded-xl shadow-dark-lg overflow-hidden z-20 animate-scale-in">
       {suggestions.map((suggestion, idx) => (
         <div
-          key={`${suggestion}-${idx}`}
+          key={`${suggestion.text}-${idx}`}
           className={cn(
-            'text-sm px-4 py-3 cursor-pointer transition-all duration-200',
+            'text-sm px-4 py-3 cursor-pointer transition-all duration-200 flex items-center gap-3',
             idx === activeIndex
               ? 'bg-indigo-500/30 text-white'
               : 'text-gray-300 hover:bg-white/10 hover:text-white'
@@ -139,10 +140,15 @@ function SuggestionsDropdown({
             // Prevent input blur before we pick
             e.preventDefault();
           }}
-          onClick={() => onSelect(suggestion)}
+          onClick={() => onSelect(suggestion.text)}
           onMouseEnter={() => onMouseEnter(idx)}
         >
-          {suggestion}
+          {suggestion.isRecent ? (
+            <History size={16} className="text-gray-400 shrink-0" />
+          ) : (
+            <Search size={16} className="text-gray-400 shrink-0" />
+          )}
+          <span>{suggestion.text}</span>
         </div>
       ))}
     </div>

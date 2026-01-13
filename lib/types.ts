@@ -118,6 +118,8 @@ export interface SearchBarProps {
   k: number;
   /** Whether a search is in progress */
   loading: boolean;
+  /** Recent search queries for suggestions */
+  recentSearches?: string[];
   /** Callback when query changes */
   onChangeQuery: (query: string) => void;
   /** Callback when k changes */

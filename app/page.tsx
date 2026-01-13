@@ -7,7 +7,7 @@ import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
 import Footer from '@/components/Footer';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
-import { useClickOutside } from '@/hooks';
+import { useClickOutside, useRecentSearches } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -54,6 +54,15 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
 
+  // Recent searches
+  const { recentSearches, addSearch } = useRecentSearches();
+
+  // Extract just the query strings for the SearchBar
+  const recentSearchQueries = useMemo(
+    () => recentSearches.map((s) => s.query),
+    [recentSearches]
+  );
+
   // Refs
   const advancedRef = useClickOutside<HTMLDivElement>(
     () => setShowAdvanced(false),
@@ -74,6 +83,8 @@ export default function Home() {
       setFound(data.found);
       setHasSearched(true);
       setBackendTotalMs(data.total_time_ms ?? null);
+      // Add to recent searches
+      addSearch(query, data.found ?? data.results.length);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       setError(message);
@@ -83,7 +94,7 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  }, [query, k]);
+  }, [query, k, addSearch]);
 
 
   // Auto-refresh on k change (debounced)
@@ -157,6 +168,7 @@ export default function Home() {
           query={query}
           k={k}
           loading={loading}
+          recentSearches={recentSearchQueries}
           onChangeQuery={setQuery}
           onChangeK={setK}
           onSubmit={handleSubmit}
@@ -177,6 +189,7 @@ export default function Home() {
           showSort={showSort}
           advancedRef={advancedRef}
           results={sortedResults}
+          recentSearches={recentSearchQueries}
           onChangeQuery={setQuery}
           onChangeK={(v) => setK(clampK(v))}
           onSubmit={handleSubmit}
@@ -246,6 +259,7 @@ interface PreSearchViewProps {
   query: string;
   k: number;
   loading: boolean;
+  recentSearches: string[];
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
@@ -263,6 +277,7 @@ function PreSearchView({
   query,
   k,
   loading,
+  recentSearches,
   onChangeQuery,
   onChangeK,
   onSubmit,
@@ -307,6 +322,7 @@ function PreSearchView({
             query={query}
             k={k}
             loading={loading}
+            recentSearches={recentSearches}
             onChangeQuery={onChangeQuery}
             onChangeK={onChangeK}
             onSubmit={onSubmit}
@@ -329,6 +345,7 @@ interface PostSearchViewProps {
   showSort: boolean;
   advancedRef: React.RefObject<HTMLDivElement | null>;
   results: SearchResult[];
+  recentSearches: string[];
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
@@ -351,6 +368,7 @@ function PostSearchView({
   showAdvanced,
   advancedRef,
   results,
+  recentSearches,
   onChangeQuery,
   onChangeK,
   onSubmit,
@@ -380,6 +398,7 @@ function PostSearchView({
               query={query}
               k={k}
               loading={loading}
+              recentSearches={recentSearches}
               onChangeQuery={onChangeQuery}
               onChangeK={onChangeK}
               onSubmit={onSubmit}
