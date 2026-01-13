@@ -126,7 +126,7 @@ function SuggestionsDropdown({
   onMouseEnter,
 }: SuggestionsDropdownProps) {
   return (
-    <div className="absolute left-0 right-0 top-full mt-2 glass-card rounded-xl shadow-dark-lg overflow-hidden z-20 animate-scale-in">
+    <div className="absolute left-0 right-0 top-full mt-2 rounded-xl shadow-dark-lg overflow-hidden z-20 animate-scale-in bg-[#151526]">
       {suggestions.map((suggestion, idx) => (
         <div
           key={`${suggestion.text}-${idx}`}
