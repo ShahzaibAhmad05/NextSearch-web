@@ -4,7 +4,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Github, Linkedin, Mail, BookOpen, Cpu, Database, Search, Zap } from 'lucide-react';
 import { Card } from '@/components/ui';
-import PostSearchFooter from '@/components/PostSearchFooter';
+import Footer from '@/components/Footer';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Team Data
@@ -273,7 +273,7 @@ export default function AboutPage() {
 
       {/* Footer */}
       <div className="max-w-270 mx-auto pr-5 pb-5 mt-5">
-        <PostSearchFooter showScrollToTop={false} />
+        <Footer showScrollToTop={false} />
       </div>
     </div>
   );

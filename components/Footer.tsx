@@ -1,10 +1,11 @@
-// components/PostSearchFooter.tsx
+// components/Footer.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
 import { ArrowUp, MessageSquare, Github, Linkedin } from 'lucide-react';
+import FeedbackModal from './FeedbackModal';
 
-interface PostSearchFooterProps {
+interface FooterProps {
   /** Whether to show the scroll-to-top button (only on post-search view) */
   showScrollToTop?: boolean;
 }
@@ -13,8 +14,9 @@ interface PostSearchFooterProps {
  * Universal footer with scroll-to-top (conditional), feedback, GitHub, LinkedIn, and copyright links.
  * Can be shown in both pre-search and post-search views.
  */
-export default function PostSearchFooter({ showScrollToTop = false }: PostSearchFooterProps) {
+export default function Footer({ showScrollToTop = false }: FooterProps) {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
 
   useEffect(() => {
     if (!showScrollToTop) return;
@@ -58,7 +60,7 @@ export default function PostSearchFooter({ showScrollToTop = false }: PostSearch
           {showScrollToTop && showScrollTop && (
             <button
               onClick={scrollToTop}
-              className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600/20 to-purple-600/20 hover:from-indigo-600/30 hover:to-purple-600/30 border border-indigo-500/30 hover:border-indigo-400/50 text-gray-300 hover:text-white transition-all duration-300"
+              className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-indigo-600/20 to-purple-600/20 hover:from-indigo-600/30 hover:to-purple-600/30 border border-indigo-500/30 hover:border-indigo-400/50 text-gray-300 hover:text-white transition-all duration-300"
               aria-label="Scroll to top"
             >
               <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform duration-300" />
@@ -67,15 +69,13 @@ export default function PostSearchFooter({ showScrollToTop = false }: PostSearch
           )}
 
           {/* Give Feedback */}
-          <a
-            href="https://github.com/ShahzaibAhmad05/NextSearch-web/issues/new"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setIsFeedbackModalOpen(true)}
             className="group flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors duration-200"
           >
             <MessageSquare size={14} className="group-hover:scale-110 transition-transform duration-300" />
             <span>Feedback</span>
-          </a>
+          </button>
 
           {/* GitHub */}
           <a
@@ -100,6 +100,12 @@ export default function PostSearchFooter({ showScrollToTop = false }: PostSearch
           </a>
         </div>
       </div>
+
+      {/* Feedback Modal */}
+      <FeedbackModal 
+        isOpen={isFeedbackModalOpen} 
+        onClose={() => setIsFeedbackModalOpen(false)} 
+      />
     </div>
   );
 }
