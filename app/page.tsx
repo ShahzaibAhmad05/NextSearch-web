@@ -9,7 +9,7 @@ import Footer from '@/components/Footer';
 import SettingsMenu from '@/components/SettingsMenu';
 import AIOverview from '@/components/AIOverview';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
-import { useClickOutside, useRecentSearches, useAIOverview } from '@/hooks';
+import { useClickOutside, useRecentSearches, useAIOverview, useAdminAccess } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -65,6 +65,10 @@ export default function Home() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
+  const [showAuthAlert, setShowAuthAlert] = useState(false);
+
+  // Admin access
+  const isAdminActive = useAdminAccess();
 
   // Recent searches
   const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
@@ -181,11 +185,28 @@ export default function Home() {
     <div className={hasSearched ? "min-h-screen" : "h-screen overflow-hidden"}>
       {/* Navigation bar */}
       <Navbar
-        onAddDocument={() => setShowAddModal(true)}
+        onAddDocument={() => {
+          if (isAdminActive) {
+            setShowAddModal(true);
+          } else {
+            setShowAuthAlert(true);
+            setTimeout(() => setShowAuthAlert(false), 3000);
+          }
+        }}
+        isAdminActive={isAdminActive}
         recentSearches={recentSearches}
         onRemoveSearch={removeSearch}
         onClearHistory={clearHistory}
       />
+
+      {/* Auth Alert */}
+      {showAuthAlert && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
+          <Alert variant="error" className="shadow-dark-lg">
+            Adding data to the index requires admin access. Please authenticate in Settings.
+          </Alert>
+        </div>
+      )}
 
       {/* Pre-search view (centered hero) */}
       {!hasSearched && (
@@ -251,6 +272,7 @@ interface RecentSearch {
 
 interface NavbarProps {
   onAddDocument: () => void;
+  isAdminActive: boolean;
   recentSearches: RecentSearch[];
   onRemoveSearch: (query: string) => void;
   onClearHistory: () => void;
@@ -259,7 +281,7 @@ interface NavbarProps {
 /**
  * Fixed navigation bar
  */
-function Navbar({ onAddDocument, recentSearches, onRemoveSearch, onClearHistory }: NavbarProps) {
+function Navbar({ onAddDocument, isAdminActive, recentSearches, onRemoveSearch, onClearHistory }: NavbarProps) {
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-310 mx-auto px-4 py-3 flex items-center justify-between">
@@ -278,6 +300,8 @@ function Navbar({ onAddDocument, recentSearches, onRemoveSearch, onClearHistory 
             variant="secondary"
             className="px-3! py-0.5! m-0! h-auto! leading-none! inline-flex items-center"
             onClick={onAddDocument}
+            disabled={!isAdminActive}
+            title={!isAdminActive ? "Admin access required to add documents" : "Add document to index"}
           >
             <span className="text-2xl leading-none relative -top-px -mx-0.5 pb-1">+</span>
             <span>Index</span>

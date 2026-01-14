@@ -255,6 +255,9 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
     setIsAuthenticated(true);
     setMessage({ type: 'success', text: 'Admin access granted for 24 hours' });
     setPassword('');
+
+    // Trigger storage event for same-tab detection
+    window.dispatchEvent(new Event('storage'));
   };
 
   const handleLogout = () => {
@@ -262,6 +265,9 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
     localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
     setIsAuthenticated(false);
     setMessage({ type: 'success', text: 'Logged out successfully' });
+
+    // Trigger storage event for same-tab detection
+    window.dispatchEvent(new Event('storage'));
   };
 
   return (

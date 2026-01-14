@@ -11,3 +11,4 @@ export { useSearch } from './useSearch';
 export { useRecentSearches } from './useRecentSearches';
 export { useVisitedLinks } from './useVisitedLinks';
 export { useAIOverview } from './useAIOverview';
+export { useAdminAccess } from './useAdminAccess';
