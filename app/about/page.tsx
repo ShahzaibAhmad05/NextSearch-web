@@ -20,25 +20,25 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: 'Shahzaib Paracha',
-    role: 'Software Engineer',
+    name: 'Shahzaib Ahmad',
+    role: 'Frontend Developer & UI/UX Engineer',
     focus: 'Frontend Development & System Integration',
-    github: 'https://github.com/shahzaib-p',
-    linkedin: 'https://linkedin.com/in/shahzaib-paracha',
+    github: 'https://github.com/ShahzaibAhmad05',
+    linkedin: 'https://www.linkedin.com/in/shahzaibahmad05/',
   },
   {
-    name: 'Team Member 2',
-    role: 'Software Engineer',
+    name: 'Muhammad Ali',
+    role: 'Backend Developer',
     focus: 'Backend Development & Indexing Engine',
-    github: 'https://github.com/',
-    linkedin: 'https://linkedin.com/',
+    github: 'https://github.com/muhammadali182-q',
+    linkedin: 'https://www.linkedin.com/in/muhammad-ali-b725a4326/',
   },
   {
-    name: 'Team Member 3',
-    role: 'Software Engineer',
+    name: 'Shehroz Shoukat',
+    role: 'Algo Designer & Optimization Engineer',
     focus: 'Search Algorithms & Performance Optimization',
-    github: 'https://github.com/',
-    linkedin: 'https://linkedin.com/',
+    github: 'https://github.com/Shehroz06',
+    linkedin: 'https://www.linkedin.com/in/shehroz-shoukat-ali/',
   },
 ];
 
@@ -272,7 +272,7 @@ export default function AboutPage() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm">
-        <p>© 2026 NextSearch. Built with ❤️ at NUST.</p>
+        <p>© 2026 NextSearch</p>
       </footer>
     </div>
   );
