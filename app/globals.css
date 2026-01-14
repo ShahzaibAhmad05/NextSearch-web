@@ -168,6 +168,10 @@
   .max-w-250 {
     max-width: 62.5rem; /* 1000px */
   }
+
+  .max-w-310 {
+    max-width: 77.5rem; /* 1240px */
+  }
 }
 
 /* Animations */

@@ -1,10 +1,12 @@
 // components/search/ResultCard.tsx
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import type { SearchResult } from '@/lib/types';
 import { formatByline, safeHostname, faviconUrl, cn } from '@/lib/utils';
 import { ExternalLinkIcon } from './ExternalLinkIcon';
+import { AISummaryPanel } from './AISummaryPanel';
 
 interface ResultCardProps {
   /** Search result data */
@@ -21,6 +23,7 @@ interface ResultCardProps {
  * A single search result card with favicon, title, byline, and link.
  */
 export function ResultCard({ result, index = 0, isVisited = false, onVisit }: ResultCardProps) {
+  const [showSummaryPanel, setShowSummaryPanel] = useState(false);
   const domain = result.url ? safeHostname(result.url) : null;
   const favicon = result.url ? faviconUrl(result.url) : null;
 
@@ -100,7 +103,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
 
           {/* External link button */}
           {result.url && domain && (
-            <div className="mt-4">
+            <div className="mt-4 flex items-center gap-2">
               <a
                 href={result.url}
                 target="_blank"
@@ -110,10 +113,38 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>
               </a>
+              <button
+                type="button"
+                onClick={() => setShowSummaryPanel(true)}
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-white/20 text-gray-300 hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
+                aria-label="Get AI summary"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+                <span>AI Summary</span>
+              </button>
             </div>
           )}
         </div>
       </div>
+
+      {/* AI Summary Panel */}
+      <AISummaryPanel
+        show={showSummaryPanel}
+        onClose={() => setShowSummaryPanel(false)}
+        result={result}
+      />
     </div>
   );
 }

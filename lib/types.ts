@@ -75,6 +75,18 @@ export interface AIOverviewResponse {
 }
 
 /**
+ * Response from the result summary API endpoint
+ */
+export interface ResultSummaryResponse {
+  /** The URL of the result being summarized */
+  url: string;
+  /** AI-generated summary of the result */
+  summary: string;
+  /** Time taken to generate summary (ms) */
+  generation_time_ms?: number;
+}
+
+/**
  * Response from the suggest API endpoint
  */
 export interface SuggestResponse {
