@@ -24,8 +24,14 @@ export default function SearchResults({
 
   // Scroll to top of results when page changes
   useEffect(() => {
-    if (safePage === 1) return; // Skip scroll on initial load
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // if (safePage === 1) return; // Skip scroll on initial load
+    
+    // Use Lenis for smooth scrolling if available, fallback to window.scrollTo
+    if (typeof window !== 'undefined' && (window as any).lenis) {
+      (window as any).lenis.scrollTo(0, { duration: 0.8, immediate: false });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
   }, [safePage]);
 
   // Reset to page 1 when results change
