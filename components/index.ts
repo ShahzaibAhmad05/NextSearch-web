@@ -5,7 +5,7 @@ export { default as SearchBar } from './SearchBar';
 export { default as SearchResults } from './SearchResults';
 export { default as AddDocumentModal } from './AddDocumentModal';
 export { default as RecentSearches } from './RecentSearches';
-export { default as Footer } from './Footer';
+export { default as PostSearchFooter } from './PostSearchFooter';
 export { default as SearchFilters, defaultFilters } from './SearchFilters';
 export { default as VoiceSearchButton } from './VoiceSearchButton';
 export { default as SettingsMenu } from './SettingsMenu';

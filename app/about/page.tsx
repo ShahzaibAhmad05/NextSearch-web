@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Github, Linkedin, Mail, BookOpen, Cpu, Database, Search, Zap } from 'lucide-react';
 import { Card } from '@/components/ui';
+import PostSearchFooter from '@/components/PostSearchFooter';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Team Data
@@ -271,9 +272,9 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-white/10 py-8 text-center text-gray-500 text-sm">
-        <p>© 2026 NextSearch</p>
-      </footer>
+      <div className="max-w-270 mx-auto pr-5 pb-5 mt-5">
+        <PostSearchFooter showScrollToTop={false} />
+      </div>
     </div>
   );
 }

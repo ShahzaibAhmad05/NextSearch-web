@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
-import Footer from '@/components/Footer';
+import PostSearchFooter from '@/components/PostSearchFooter';
 import SettingsMenu from '@/components/SettingsMenu';
 import AIOverview from '@/components/AIOverview';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
@@ -268,9 +268,6 @@ export default function Home() {
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
       />
-
-      {/* Footer - only show in pre-search view */}
-      {!hasSearched && <Footer />}
     </div>
   );
 }
@@ -405,6 +402,12 @@ function PreSearchView({
             onSubmit={onSubmit}
           />
         </div>
+
+        {/* Footer - shown in both pre-search */}
+        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto pr-5">
+          <PostSearchFooter showScrollToTop={false} />
+        </div>
+
       </div>
     </div>
   );
@@ -543,6 +546,10 @@ function PostSearchView({
         <div className="px-3">
           <SearchResults results={results} />
         </div>
+
+        {/* Footer with scroll-to-top enabled */}
+        <hr className="mb-6 border-t border-[#acbcff30]" />
+        <PostSearchFooter showScrollToTop={true} />
       </div>
     </div>
   );

@@ -183,6 +183,10 @@
   .max-w-250 {
     max-width: 62.5rem; /* 1000px */
   }
+
+  .max-w-270 {
+    max-width: 75.5rem; /* 1288px */
+  }
 }
 
 /* Animations */
