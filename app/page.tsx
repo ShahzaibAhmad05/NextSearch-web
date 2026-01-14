@@ -242,12 +242,6 @@ function Navbar({ onAddDocument }: NavbarProps) {
           >
             About
           </a>
-          <a
-            href="/docs"
-            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            Documentation
-          </a>
           <Button
             variant="secondary"
             className="px-3! py-0.5! m-0! h-auto! leading-none! inline-flex items-center"
