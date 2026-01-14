@@ -109,7 +109,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleLinkClick}
-                className="btn-view-at inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-white/20">
+                className="btn-view-at inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-teal-500/30 text-gray-300 hover:bg-teal-500/10 hover:border-teal-400/50 hover:text-white transition-all duration-300">
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>
               </a>
