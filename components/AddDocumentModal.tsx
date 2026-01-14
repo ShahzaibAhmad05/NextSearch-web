@@ -97,10 +97,8 @@ export default function AddDocumentModal({ show, onClose }: AddDocumentModalProp
     >
       <form onSubmit={handleSubmit}>
         <p className="mb-3 text-gray-300">
-          Upload a <b className="text-indigo-300">CORD-19 slice zip</b> with this structure:
+          Upload a zip file of the <b className="text-indigo-300">CORD-19 Dump</b>:
         </p>
-
-        <DirectoryStructure />
 
         <FileInput
           file={file}
@@ -135,24 +133,6 @@ export default function AddDocumentModal({ show, onClose }: AddDocumentModalProp
 // Sub-components
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Directory structure diagram
- */
-function DirectoryStructure() {
-  return (
-    <pre className="bg-white/5 border border-white/10 rounded-xl p-4 mb-4 whitespace-pre-wrap text-sm text-gray-300 font-mono">
-{`cord19_sliced
-├─ document_parses/
-│  ├─ pdf_json/
-│  └─ pmc_json/
-├─ COVID.DATA.LIC.AGMT.pdf
-├─ json_schema.txt
-├─ metadata.csv
-└─ metadata.readme`}
-    </pre>
-  );
-}
-
 interface FileInputProps {
   file: File | null;
   fileLabel: string;
@@ -166,9 +146,6 @@ interface FileInputProps {
 function FileInput({ file, fileLabel, loading, onChange }: FileInputProps) {
   return (
     <>
-      <label className="block font-semibold text-sm mb-2 text-white">
-        Zip file
-      </label>
       <div className="flex gap-3 items-center">
         <input
           type="file"
@@ -177,9 +154,6 @@ function FileInput({ file, fileLabel, loading, onChange }: FileInputProps) {
           onChange={(e) => onChange(e.target.files?.[0] ?? null)}
           disabled={loading}
         />
-        <span className="text-xs text-gray-400 whitespace-nowrap">
-          {fileLabel}
-        </span>
       </div>
     </>
   );
