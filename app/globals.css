@@ -132,21 +132,21 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(15, 15, 26, 0.8);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
+    background: #181f3b;
+    border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(81, 83, 197, 0.5);
   }
 
   /* Dark shadows */
@@ -167,10 +167,6 @@
 
   .max-w-250 {
     max-width: 62.5rem; /* 1000px */
-  }
-
-  .max-w-310 {
-    max-width: 77.5rem; /* 1240px */
   }
 }
 
