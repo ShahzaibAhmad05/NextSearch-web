@@ -24,20 +24,8 @@ export default function SearchResults({
 
   // Scroll to top of results when page changes
   useEffect(() => {
-    const el = topRef.current;
-    if (!el) return;
-
-    const fixedNav = document.querySelector('.navbar.fixed-top') as HTMLElement | null;
-    const fixedNavH = fixedNav?.getBoundingClientRect().height ?? 0;
-
-    const stickySearch = document.querySelector('.search-sticky') as HTMLElement | null;
-    // const stickySearchH = stickySearch?.getBoundingClientRect().height ?? 0;
-
-    // const headerOffset = 4.5 * fixedNavH + stickySearchH + 12;
-    // const y = el.getBoundingClientRect().top + window.scrollY - headerOffset;
-    // const y = 0;
-
-    // window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    if (safePage === 1) return; // Skip scroll on initial load
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [safePage]);
 
   // Reset to page 1 when results change
