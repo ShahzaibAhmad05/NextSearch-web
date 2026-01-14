@@ -88,7 +88,7 @@ export default function SearchBar({
 
           <input
             ref={inputRef}
-            className={cn("w-full py-3.5 pl-12 pr-4 text-lg bg-black/45 backdrop-blur-sm text-white placeholder-gray-500 rounded-3xl focus:outline-none transition-all duration-300",
+            className={cn("w-full py-3.5 pl-12 pr-4 text-lg bg-black/45 backdrop-blur-sm text-white placeholder-gray-500 rounded-3xl focus:outline-none transition-all duration-300 border border-white/8",
             isOpen && suggestions.length > 0 && "rounded-b-none"
             )}
             value={query}

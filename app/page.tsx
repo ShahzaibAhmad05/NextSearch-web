@@ -262,7 +262,7 @@ interface NavbarProps {
 function Navbar({ onAddDocument, recentSearches, onRemoveSearch, onClearHistory }: NavbarProps) {
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
-      <div className="max-w-245 mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="max-w-310 mx-auto px-4 py-3 flex items-center justify-between">
         <a className="font-bold text-xl text-white/90" href="/">
           <span className="gradient-text">Next</span>
           <span className="text-white">Search</span>

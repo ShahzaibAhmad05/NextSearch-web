@@ -9,7 +9,7 @@ import { ExternalLink } from 'lucide-react';
 export default function Footer() {
   return (
     <footer className="fixed bottom-0 left-0 right-0 backdrop-blur-md z-40">
-      <div className="max-w-7xl mx-auto px-4 py-3">
+      <div className="max-w-310 mx-auto px-4 py-3">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
           {/* Copyright */}
           <a
@@ -26,7 +26,7 @@ export default function Footer() {
               href="https://github.com/shahzaibahmad05/NextSearch" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1">
+              className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1 pr-3">
               GitHub
               <ExternalLink size={10} />
             </a>
