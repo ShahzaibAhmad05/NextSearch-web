@@ -21,7 +21,7 @@ export function cn(
  * Format the byline for a search result (author + year)
  */
 export function formatByline(result: SearchResult): string {
-  const authorRaw = result.authors;
+  const authorRaw = result.author;
   const author =
     authorRaw != null && String(authorRaw).trim()
       ? String(authorRaw).trim()

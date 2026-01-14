@@ -28,8 +28,8 @@ export interface SearchResult {
   url?: string;
   /** Publication date in ISO format (optional) */
   publish_time?: string;
-  /** Author names, comma-separated (optional) */
-  authors?: string;
+  /** Author name(s) (optional) */
+  author?: string;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

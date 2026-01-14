@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
           {/* Copyright */}
           <a
-            href="https://https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
+            href="https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1 text-xs">
