@@ -35,7 +35,7 @@ export function Dropdown<T extends string>({
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Close on click outside or escape
+  // Close on click outside, escape, or scroll
   useEffect(() => {
     if (!open) return;
 
@@ -51,12 +51,18 @@ export function Dropdown<T extends string>({
       }
     }
 
+    function handleScroll() {
+      setOpen(false);
+    }
+
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('scroll', handleScroll, true);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scroll', handleScroll, true);
     };
   }, [open]);
 

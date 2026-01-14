@@ -1,7 +1,7 @@
 // components/SearchFilters.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Filter, Calendar, User, FileType, ChevronDown, X } from 'lucide-react';
 import { Button, Card } from './ui';
 import { cn } from '@/lib/utils';
@@ -41,6 +41,21 @@ export default function SearchFilters({
   onReset,
 }: SearchFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // Close on scroll
+  useEffect(() => {
+    if (!isExpanded) return;
+
+    function handleScroll() {
+      setIsExpanded(false);
+    }
+
+    window.addEventListener('scroll', handleScroll, true);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, [isExpanded]);
 
   const hasActiveFilters =
     filters.dateFrom !== '' ||

@@ -86,6 +86,21 @@ export default function Home() {
   );
   const prevKRef = useRef(k);
 
+  // Close advanced popup on scroll
+  useEffect(() => {
+    if (!showAdvanced) return;
+
+    function handleScroll() {
+      setShowAdvanced(false);
+    }
+
+    window.addEventListener('scroll', handleScroll, true);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+    };
+  }, [showAdvanced]);
+
   // Submit search
   const handleSubmit = useCallback(
     async (queryOverride?: string) => {
