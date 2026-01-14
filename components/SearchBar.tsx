@@ -79,7 +79,8 @@ export default function SearchBar({
     <div>
       <div className="flex gap-2 items-center flex-wrap">
         {/* Search input with glow border */}
-        <div className="relative flex-1 min-w-200 glow-border rounded-full">
+        <div
+          className="relative flex-1 min-w-200 duration-200">
           <Search
             size={22}
             className="text-gray-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
@@ -87,7 +88,9 @@ export default function SearchBar({
 
           <input
             ref={inputRef}
-            className="w-full py-3.5 pl-12 pr-4 text-lg bg-black/45 backdrop-blur-sm border border-white/8 rounded-full text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-white/10 focus:border-white/15 transition-all duration-300"
+            className={cn("w-full py-3.5 pl-12 pr-4 text-lg bg-black/45 backdrop-blur-sm text-white placeholder-gray-500 rounded-3xl focus:outline-none transition-all duration-300",
+            isOpen && suggestions.length > 0 && "rounded-b-none"
+            )}
             value={query}
             onChange={(e) => onChangeQuery(e.target.value)}
             onFocus={handleFocus}
@@ -141,7 +144,7 @@ function SuggestionsDropdown({
   onMouseEnter,
 }: SuggestionsDropdownProps) {
   return (
-    <div className="absolute left-0 right-0 top-full mt-2 rounded-xl shadow-dark-lg overflow-hidden z-20 animate-scale-in bg-[#151526]">
+    <div className="absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-20 animate-scale-in bg-[#0e0e19] *:backdrop-blur-sm">
       {suggestions.map((suggestion, idx) => (
         <div
           key={`${suggestion.text}-${idx}`}
