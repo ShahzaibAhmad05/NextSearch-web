@@ -69,7 +69,7 @@ export function Modal({
 
   return createPortal(
     <div
-      className="fixed inset-0 flex items-center justify-center z-[100] bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       onClick={(e) => {

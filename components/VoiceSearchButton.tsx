@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Mic, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -223,7 +224,17 @@ interface VoiceSearchModalProps {
  * Modal overlay showing voice search status
  */
 function VoiceSearchModal({ transcript, error, onClose }: VoiceSearchModalProps) {
-  return (
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted (for Next.js SSR)
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-3 animate-fade-in"
       role="dialog"
@@ -275,6 +286,7 @@ function VoiceSearchModal({ transcript, error, onClose }: VoiceSearchModalProps)
           Cancel
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
