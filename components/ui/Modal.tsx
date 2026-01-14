@@ -1,7 +1,8 @@
 // components/ui/Modal.tsx
 'use client';
 
-import { type ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 
 interface ModalProps {
@@ -30,6 +31,14 @@ export function Modal({
   maxWidth = 'max-w-195',
   preventClose = false,
 }: ModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted (for Next.js SSR)
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
   // Handle escape key
   useEffect(() => {
     if (!show || preventClose) return;
@@ -56,11 +65,11 @@ export function Modal({
     };
   }, [show]);
 
-  if (!show) return null;
+  if (!show || !mounted) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-3 animate-fade-in"
+      className="fixed inset-0 flex items-center justify-center z-[100] bg-black/50 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       onClick={(e) => {
@@ -92,6 +101,7 @@ export function Modal({
         )}
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
