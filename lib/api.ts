@@ -10,6 +10,7 @@ import type {
   SearchResponse,
   SuggestResponse,
   AddDocumentResponse,
+  AIOverviewResponse,
 } from './types';
 import { ApiError } from './types';
 
@@ -199,6 +200,54 @@ export async function addCordSlice(
           'Please ensure the server is running on 127.0.0.1:8080 and /health endpoint is accessible.',
         undefined,
         API_CONFIG.ENDPOINTS.ADD_DOCUMENT
+      );
+    }
+    throw err;
+  }
+}
+
+/**
+ * Get an AI-generated overview for a search query
+ *
+ * @param query - Search query string
+ * @param signal - Optional AbortSignal for cancellation
+ * @returns AI overview response with generated summary
+ * @throws ApiError on failure
+ */
+export async function getAIOverview(
+  query: string,
+  signal?: AbortSignal
+): Promise<AIOverviewResponse> {
+  const url = buildUrl(API_CONFIG.ENDPOINTS.AI_OVERVIEW, {
+    q: query,
+  });
+
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+      signal,
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new ApiError(
+        `AI overview failed (${res.status}): ${text}`,
+        res.status,
+        API_CONFIG.ENDPOINTS.AI_OVERVIEW
+      );
+    }
+
+    return (await res.json()) as AIOverviewResponse;
+  } catch (err) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      throw err;
+    }
+    if (isNetworkError(err)) {
+      throw new ApiError(
+        'Failed to connect to the backend for AI overview.',
+        undefined,
+        API_CONFIG.ENDPOINTS.AI_OVERVIEW
       );
     }
     throw err;

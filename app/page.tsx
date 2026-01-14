@@ -7,12 +7,14 @@ import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
 import Footer from '@/components/Footer';
 import SettingsMenu from '@/components/SettingsMenu';
+import AIOverview from '@/components/AIOverview';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
-import { useClickOutside, useRecentSearches } from '@/hooks';
+import { useClickOutside, useRecentSearches, useAIOverview } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
 import type { SearchResult } from '@/lib/types';
+import type { AIOverviewResponse } from '@/lib/types';
 import type { SortOption } from '@/lib/constants';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -49,6 +51,15 @@ export default function Home() {
   const [backendTotalMs, setBackendTotalMs] = useState<number | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
+  // AI Overview
+  const {
+    overview: aiOverview,
+    loading: aiOverviewLoading,
+    error: aiOverviewError,
+    fetchOverview: fetchAIOverview,
+    reset: resetAIOverview,
+  } = useAIOverview();
+
   // UI state
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -80,6 +91,9 @@ export default function Home() {
       setError(null);
       setLoading(true);
 
+      // Fetch AI overview in parallel (fire and forget - managed by its own hook)
+      fetchAIOverview(q);
+
       try {
         const data = await apiSearch(q, k);
         setResults(data.results);
@@ -99,7 +113,7 @@ export default function Home() {
         setLoading(false);
       }
     },
-    [query, k, addSearch]
+    [query, k, addSearch, fetchAIOverview]
   );
 
 
@@ -201,6 +215,9 @@ export default function Home() {
           advancedRef={advancedRef}
           results={sortedResults}
           recentSearches={recentSearchQueries}
+          aiOverview={aiOverview}
+          aiOverviewLoading={aiOverviewLoading}
+          aiOverviewError={aiOverviewError}
           onChangeQuery={setQuery}
           onChangeK={(v) => setK(clampK(v))}
           onSubmit={handleSubmit}
@@ -367,6 +384,9 @@ interface PostSearchViewProps {
   advancedRef: React.RefObject<HTMLDivElement | null>;
   results: SearchResult[];
   recentSearches: string[];
+  aiOverview: AIOverviewResponse | null;
+  aiOverviewLoading: boolean;
+  aiOverviewError: string | null;
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
@@ -390,6 +410,9 @@ function PostSearchView({
   advancedRef,
   results,
   recentSearches,
+  aiOverview,
+  aiOverviewLoading,
+  aiOverviewError,
   onChangeQuery,
   onChangeK,
   onSubmit,
@@ -465,9 +488,17 @@ function PostSearchView({
             <div className="font-semibold">{error}</div>
           </Alert>
         )}
-        <br />
-        <hr />
-          
+
+        <hr className="my-4 mt-6 border-t border-[#acbcff73]" />
+
+        {/* AI Overview - shown above results */}
+        <div className="px-3 mt-5">
+          <AIOverview
+            overview={aiOverview}
+            loading={aiOverviewLoading}
+            error={aiOverviewError}
+          />
+        </div>
 
         {/* Results */}
         <div className="px-3">

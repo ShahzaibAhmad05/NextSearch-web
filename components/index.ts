@@ -9,6 +9,7 @@ export { default as Footer } from './Footer';
 export { default as SearchFilters, defaultFilters } from './SearchFilters';
 export { default as VoiceSearchButton } from './VoiceSearchButton';
 export { default as SettingsMenu } from './SettingsMenu';
+export { default as AIOverview } from './AIOverview';
 export type { SearchFiltersState } from './SearchFilters';
 
 // Re-export UI components

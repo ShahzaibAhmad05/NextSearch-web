@@ -10,3 +10,4 @@ export { useSuggestions, type SuggestionItem } from './useSuggestions';
 export { useSearch } from './useSearch';
 export { useRecentSearches } from './useRecentSearches';
 export { useVisitedLinks } from './useVisitedLinks';
+export { useAIOverview } from './useAIOverview';

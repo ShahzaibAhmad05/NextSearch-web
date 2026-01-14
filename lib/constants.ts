@@ -75,6 +75,7 @@ export const API_CONFIG = {
     SEARCH: '/api/search',
     SUGGEST: '/api/suggest',
     ADD_DOCUMENT: '/api/add_document',
+    AI_OVERVIEW: '/api/ai_overview',
   },
 } as const;
 
