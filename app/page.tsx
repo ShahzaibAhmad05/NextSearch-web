@@ -6,6 +6,7 @@ import SearchBar from '@/components/SearchBar';
 import SearchResults from '@/components/SearchResults';
 import AddDocumentModal from '@/components/AddDocumentModal';
 import Footer from '@/components/Footer';
+import SettingsMenu from '@/components/SettingsMenu';
 import { Button, Dropdown, Card, Alert } from '@/components/ui';
 import { useClickOutside, useRecentSearches } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
@@ -55,7 +56,7 @@ export default function Home() {
   const [showSort, setShowSort] = useState(false);
 
   // Recent searches
-  const { recentSearches, addSearch } = useRecentSearches();
+  const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
 
   // Extract just the query strings for the SearchBar
   const recentSearchQueries = useMemo(
@@ -165,7 +166,12 @@ export default function Home() {
   return (
     <div className={hasSearched ? "min-h-screen" : "h-screen overflow-hidden"}>
       {/* Navigation bar */}
-      <Navbar onAddDocument={() => setShowAddModal(true)} />
+      <Navbar
+        onAddDocument={() => setShowAddModal(true)}
+        recentSearches={recentSearches}
+        onRemoveSearch={removeSearch}
+        onClearHistory={clearHistory}
+      />
 
       {/* Pre-search view (centered hero) */}
       {!hasSearched && (
@@ -220,14 +226,23 @@ export default function Home() {
 // Sub-components
 // ─────────────────────────────────────────────────────────────────────────────
 
+interface RecentSearch {
+  query: string;
+  timestamp: number;
+  resultCount?: number;
+}
+
 interface NavbarProps {
   onAddDocument: () => void;
+  recentSearches: RecentSearch[];
+  onRemoveSearch: (query: string) => void;
+  onClearHistory: () => void;
 }
 
 /**
  * Fixed navigation bar
  */
-function Navbar({ onAddDocument }: NavbarProps) {
+function Navbar({ onAddDocument, recentSearches, onRemoveSearch, onClearHistory }: NavbarProps) {
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-245 mx-auto px-4 py-3 flex items-center justify-between">
@@ -250,6 +265,11 @@ function Navbar({ onAddDocument }: NavbarProps) {
             <span className="text-2xl leading-none relative -top-px -mx-0.5 pb-1">+</span>
             <span>Index</span>
           </Button>
+          <SettingsMenu
+            recentSearches={recentSearches}
+            onRemoveSearch={onRemoveSearch}
+            onClearHistory={onClearHistory}
+          />
         </div>
       </div>
     </nav>
