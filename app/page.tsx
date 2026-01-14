@@ -518,7 +518,7 @@ function AdvancedPopover({ k, status, onChangeK, onClose }: AdvancedPopoverProps
       <hr className="my-3 border-white/10" />
 
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-sm text-white">No. of results (k)</label>
+        <label className="font-semibold text-sm">Number of results to fetch</label>
         <span className="text-sm text-indigo-300">{k}</span>
       </div>
 
@@ -532,32 +532,6 @@ function AdvancedPopover({ k, status, onChangeK, onClose }: AdvancedPopoverProps
           value={k}
           onChange={(e) => onChangeK(Number(e.target.value))}
         />
-      </div>
-
-      <div className="mt-2 flex gap-2 items-center">
-        <input
-          type="number"
-          className="w-20 px-2 py-1 text-sm bg-white/5 border border-white/20 rounded text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500"
-          value={k}
-          min={1}
-          max={100}
-          onChange={(e) => onChangeK(Number(e.target.value))}
-        />
-        {[25, 50, 100].map((preset) => (
-          <button
-            key={preset}
-            type="button"
-            className="px-2 py-1 text-sm border border-white/20 text-gray-300 rounded hover:bg-indigo-500/20 hover:border-indigo-500/50 hover:text-white transition-all duration-200"
-            onClick={() => onChangeK(preset)}
-          >
-            {preset}
-          </button>
-        ))}
-      </div>
-
-      <div className="mt-2 text-sm text-gray-400">
-        Changing <span className="font-semibold text-indigo-300">k</span> re-runs the
-        search automatically.
       </div>
     </div>
   );
