@@ -14,6 +14,8 @@ interface UseAIOverviewReturn {
   error: string | null;
   /** Fetch AI overview for a query */
   fetchOverview: (query: string) => Promise<void>;
+  /** Set AI overview data directly (without fetching) */
+  setOverview: (data: AIOverviewResponse | null) => void;
   /** Reset the AI overview state */
   reset: () => void;
 }
@@ -67,6 +69,18 @@ export function useAIOverview(): UseAIOverviewReturn {
     }
   }, []);
 
+  const setOverviewData = useCallback((data: AIOverviewResponse | null) => {
+    // Cancel any pending request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+
+    setOverview(data);
+    setLoading(false);
+    setError(null);
+  }, []);
+
   const reset = useCallback(() => {
     // Cancel any pending request
     if (abortControllerRef.current) {
@@ -84,6 +98,7 @@ export function useAIOverview(): UseAIOverviewReturn {
     loading,
     error,
     fetchOverview,
+    setOverview: setOverviewData,
     reset,
   };
 }

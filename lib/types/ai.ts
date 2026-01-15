@@ -12,14 +12,14 @@ export interface AIOverviewResponse {
   query: string;
   /** AI-generated overview/summary */
   overview: string;
-  /** Sources used for the overview */
-  sources?: Array<{
-    title: string;
-    url?: string;
-    docId?: number;
-  }>;
-  /** Time taken to generate overview (ms) */
-  generation_time_ms?: number;
+  /** AI model used for generation */
+  model: string;
+  /** Token usage statistics */
+  usage: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
 }
 
 /**

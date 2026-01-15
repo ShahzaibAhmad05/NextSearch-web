@@ -87,6 +87,7 @@ export default function Home() {
 
       setError(null);
       setLoading(true);
+      resetAIOverview();
 
       // Fetch AI overview in parallel (fire and forget - managed by its own hook)
       fetchAIOverview(q);
@@ -112,7 +113,7 @@ export default function Home() {
         setLoading(false);
       }
     },
-    [query, k, addSearch, fetchAIOverview]
+    [query, k, addSearch, resetAIOverview, fetchAIOverview]
   );
 
   // Auto-refresh on k change (debounced)

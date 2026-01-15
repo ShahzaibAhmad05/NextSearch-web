@@ -66,15 +66,4 @@ NextSearch-web/
 - **Lucide React** - Icon library
 
 
-DO NOT TOUCH!
-I'm going to use azure openAI and deploy and get the keys in this format in .env file:
-
-AZURE_OPENAI_ENDPOINT=
-AZURE_OPENAI_API_KEY=
-AZURE_OPENAI_MODEL=gpt-5.2-chat
-
-Assume I have
-
-
-
 

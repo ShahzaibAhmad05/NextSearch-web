@@ -1,6 +1,9 @@
-// components/AIOverview.tsx
+﻿// components/AIOverview.tsx
 'use client';
 
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Spinner } from './ui';
 import type { AIOverviewResponse } from '@/lib/types';
 
@@ -18,14 +21,57 @@ interface AIOverviewProps {
  * Shows a loading skeleton while fetching, and gracefully handles errors.
  */
 export default function AIOverview({ overview, loading, error }: AIOverviewProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
   // Don't render anything if there's no content and no loading state
   if (!loading && !overview && !error) {
     return null;
   }
 
+  // Smart truncation: find the best position to truncate at a horizontal rule
+  const MAX_PREVIEW_LENGTH = 500;
+  const shouldTruncate = overview && overview.overview && overview.overview.length > MAX_PREVIEW_LENGTH;
+  
+  const getSmartTruncatePosition = (content: string, maxLength: number): number => {
+    // Find all positions of horizontal rules (---)
+    const hrPattern = /^---+$/gm;
+    const matches = [];
+    let match;
+    
+    while ((match = hrPattern.exec(content)) !== null) {
+      matches.push(match.index);
+    }
+    
+    if (matches.length === 0) {
+      // No horizontal rules found, use max length
+      return maxLength;
+    }
+    
+    // Find the last horizontal rule that is before maxLength
+    for (let i = matches.length - 1; i >= 0; i--) {
+      if (matches[i] < maxLength) {
+        return matches[i];
+      }
+    }
+    
+    // All horizontal rules are after maxLength, use the first one if it's reasonable
+    if (matches[0] < maxLength * 1.5) {
+      return matches[0];
+    }
+    
+    // Otherwise use max length
+    return maxLength;
+  };
+  
+  const displayContent = overview && overview.overview 
+    ? (shouldTruncate && !isExpanded 
+        ? overview.overview.substring(0, getSmartTruncatePosition(overview.overview, MAX_PREVIEW_LENGTH))
+        : overview.overview)
+    : '';
+
   return (
-    <div className="mb-6 animate-fade-in">
-      <div className="glass-card rounded-2xl p-5 border border-white/10">
+    <div className="mb-6 animate-fade-in flex justify-left max-w-3xl w-full">
+      <div className="glass-card rounded-2xl p-5 border border-white/10 w-full">
         {/* Header */}
         <div className="flex items-center gap-2 mb-3">
           <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-linear-to-br from-indigo-500 to-purple-600">
@@ -45,11 +91,9 @@ export default function AIOverview({ overview, loading, error }: AIOverviewProps
             </svg>
           </div>
           <h2 className="text-sm font-semibold text-white/90">AI Overview</h2>
-          {loading && (
-            <div className="ml-auto">
-              <Spinner size="sm" />
-            </div>
-          )}
+          <div className="ml-auto flex items-center gap-2">
+            {loading && <Spinner size="sm" />}
+          </div>
         </div>
 
         {/* Loading skeleton */}
@@ -70,53 +114,69 @@ export default function AIOverview({ overview, loading, error }: AIOverviewProps
         )}
 
         {/* Overview content */}
-        {overview && (
+        {overview && overview.overview && (
           <div className="space-y-3">
-            {/* Main overview text */}
-            <div className="text-sm text-gray-300 leading-relaxed whitespace-pre-wrap">
-              {overview.overview}
+            {/* Main overview text with markdown rendering */}
+            <div className={`text-sm text-gray-300 leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-h1:text-lg prose-h2:text-base prose-h3:text-sm prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4 ${!isExpanded && shouldTruncate ? 'max-h-40 overflow-hidden relative' : ''}`}>
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({node, ...props}) => <h1 className="text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="text-base font-semibold text-white/90 mt-4 mb-2" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="text-sm font-semibold text-white/90 mt-3 mb-2" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-relaxed" {...props} />,
+                  strong: ({node, ...props}) => <strong className="font-semibold text-white/95" {...props} />,
+                  em: ({node, ...props}) => <em className="text-gray-200" {...props} />,
+                  ul: ({node, ...props}) => <ul className="my-3 list-disc pl-5 space-y-1" {...props} />,
+                  ol: ({node, ...props}) => <ol className="my-3 list-decimal pl-5 space-y-1" {...props} />,
+                  li: ({node, ...props}) => <li className="my-1" {...props} />,
+                  hr: ({node, ...props}) => <hr className="border-white/20 my-4" {...props} />,
+                  a: ({node, ...props}) => <a className="text-indigo-400 hover:text-indigo-300 no-underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                  code: ({node, className, children, ...props}) => {
+                    const isInline = !className?.includes('language-');
+                    return isInline 
+                      ? <code className="text-indigo-300 bg-white/5 px-1.5 py-0.5 rounded text-xs" {...props}>{children}</code>
+                      : <code className="block" {...props}>{children}</code>;
+                  },
+                  pre: ({node, ...props}) => <pre className="bg-white/5 border border-white/10 rounded-lg p-3 overflow-x-auto" {...props} />,
+                }}
+              >
+                {displayContent.replace(/\\n/g, '\n')}
+              </ReactMarkdown>
             </div>
 
-            {/* Sources */}
-            {overview.sources && overview.sources.length > 0 && (
-              <div className="pt-2 border-t border-white/10">
-                <div className="text-xs text-gray-500 mb-2">Sources</div>
-                <div className="flex flex-wrap gap-2">
-                  {overview.sources.map((source, idx) => (
-                    <a
-                      key={source.docId ?? idx}
-                      href={source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 px-2 py-1 text-xs text-indigo-300 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
-                    >
-                      <span className="truncate max-w-40">{source.title}</span>
-                      {source.url && (
-                        <svg
-                          className="w-3 h-3 shrink-0"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      )}
-                    </a>
-                  ))}
-                </div>
+            {/* Show More/Less Button */}
+            {shouldTruncate && (
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="flex items-center gap-2 px-4 py-2 text-sm text-indigo-400 hover:text-indigo-300 transition-colors group"
+                >
+                  <span>{isExpanded ? 'Show less' : 'Show more'}</span>
+                  <svg
+                    className={`w-4 h-4 transition-transform duration-300 ${isExpanded ? 'rotate-180' : 'animate-bounce'}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
               </div>
             )}
 
-            {/* Generation time */}
-            {overview.generation_time_ms != null && (
-              <div className="text-xs text-gray-500">
-                Generated in {overview.generation_time_ms.toFixed(0)}ms
+            {/* Model info */}
+            {overview.model && (
+              <div className="pt-2 border-t border-white/10 flex flex-wrap gap-3 text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <span>Model:</span>
+                  <span className="text-gray-400">{overview.model}</span>
+                </div>
               </div>
             )}
           </div>

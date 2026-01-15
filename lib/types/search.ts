@@ -50,6 +50,21 @@ export interface SearchResponse {
   cache_lookup_ms?: number;
   /** Array of search results */
   results: SearchResult[];
+  /** AI-generated overview of search results */
+  ai_overview?: {
+    /** The query that was executed */
+    query: string;
+    /** AI-generated overview text */
+    overview: string;
+    /** AI model used for generation */
+    model: string;
+    /** Token usage statistics */
+    usage: {
+      prompt_tokens: number;
+      completion_tokens: number;
+      total_tokens: number;
+    };
+  };
 }
 
 /**
