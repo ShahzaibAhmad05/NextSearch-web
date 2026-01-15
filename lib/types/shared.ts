@@ -9,3 +9,9 @@ export interface RecentSearch {
   timestamp: number;
   resultCount?: number;
 }
+
+export interface VisitedLink {
+  url: string;
+  timestamp: number;
+  title?: string;
+}

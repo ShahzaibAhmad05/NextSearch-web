@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AddDocumentModal } from '@/components';
 import { Alert } from '@/components/ui';
-import { useClickOutside, useRecentSearches, useAIOverview, useAdminAccess } from '@/hooks';
+import { useClickOutside, useRecentSearches, useAIOverview, useAdminAccess, useVisitedLinks } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -50,6 +50,9 @@ export default function Home() {
 
   // Recent searches
   const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
+
+  // Visited links
+  const { visitedLinks, removeVisited, clearHistory: clearVisitedLinks } = useVisitedLinks();
 
   // Extract just the query strings for the SearchBar
   const recentSearchQueries = useMemo(
@@ -206,6 +209,9 @@ export default function Home() {
         recentSearches={recentSearches}
         onRemoveSearch={removeSearch}
         onClearHistory={clearHistory}
+        visitedLinks={visitedLinks}
+        onRemoveVisited={removeVisited}
+        onClearVisitedLinks={clearVisitedLinks}
       />
 
       {/* Auth Alert */}

@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Wrench, Plus, BarChart3 } from 'lucide-react';
 import { SettingsMenu } from '@/components';
 import type { RecentSearch } from '../types';
+import type { VisitedLink } from '@/lib/types/shared';
 import { cn } from '@/lib/utils';
 
 interface NavbarProps {
@@ -13,6 +14,9 @@ interface NavbarProps {
   recentSearches: RecentSearch[];
   onRemoveSearch: (query: string) => void;
   onClearHistory: () => void;
+  visitedLinks: VisitedLink[];
+  onRemoveVisited: (url: string) => void;
+  onClearVisitedLinks: () => void;
 }
 
 /**
@@ -23,7 +27,10 @@ export function Navbar({
   isAdminActive, 
   recentSearches, 
   onRemoveSearch, 
-  onClearHistory 
+  onClearHistory,
+  visitedLinks,
+  onRemoveVisited,
+  onClearVisitedLinks,
 }: NavbarProps) {
   const [toolsOpen, setToolsOpen] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
@@ -129,6 +136,9 @@ export function Navbar({
             recentSearches={recentSearches}
             onRemoveSearch={onRemoveSearch}
             onClearHistory={onClearHistory}
+            visitedLinks={visitedLinks}
+            onRemoveVisited={onRemoveVisited}
+            onClearVisitedLinks={onClearVisitedLinks}
           />
         </div>
       </div>

@@ -36,4 +36,5 @@ export type {
 // Shared types
 export type {
   RecentSearch,
+  VisitedLink,
 } from './shared';
