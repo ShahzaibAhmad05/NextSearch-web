@@ -10,6 +10,9 @@ import type { StatsResponse } from '../types/stats';
 import { buildUrl, isNetworkError } from './utils';
 import { getAdminToken } from './admin';
 
+// Re-export types
+export type { StatsResponse };
+
 /**
  * Fetch statistics from the backend (requires admin authentication)
  *
