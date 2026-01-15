@@ -1,7 +1,7 @@
-// lib/api/search.ts
+// lib/services/search.ts
 
 /**
- * Search-related API functions
+ * Search-related service functions
  */
 
 import { API_CONFIG } from '../constants';

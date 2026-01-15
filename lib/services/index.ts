@@ -1,7 +1,7 @@
-// lib/api/index.ts
+// lib/services/index.ts
 
 /**
- * Centralized API exports
+ * Centralized service exports
  */
 
 // Search APIs

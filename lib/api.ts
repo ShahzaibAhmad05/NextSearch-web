@@ -7,4 +7,4 @@ export {
   addCordSlice,
   getAIOverview,
   getResultSummary,
-} from './api/index';
+} from './services/index';

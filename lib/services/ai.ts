@@ -1,7 +1,7 @@
-// lib/api/ai.ts
+// lib/services/ai.ts
 
 /**
- * AI-related API functions
+ * AI-related service functions
  */
 
 import { API_CONFIG } from '../constants';

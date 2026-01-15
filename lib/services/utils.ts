@@ -1,7 +1,7 @@
-// lib/api/utils.ts
+// lib/services/utils.ts
 
 /**
- * Internal API utilities
+ * Internal service utilities
  */
 
 import { API_CONFIG } from '../constants';

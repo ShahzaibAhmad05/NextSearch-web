@@ -1,7 +1,7 @@
-// lib/api/document.ts
+// lib/services/document.ts
 
 /**
- * Document management API functions
+ * Document management service functions
  */
 
 import { API_CONFIG } from '../constants';
