@@ -1,9 +1,11 @@
 // app/(home)/components/Navbar.tsx
 'use client';
 
-import { Button } from '@/components/ui';
+import { useState, useRef, useEffect } from 'react';
+import { Wrench, Plus, BarChart3 } from 'lucide-react';
 import { SettingsMenu } from '@/components';
 import type { RecentSearch } from '../types';
+import { cn } from '@/lib/utils';
 
 interface NavbarProps {
   onAddDocument: () => void;
@@ -23,6 +25,34 @@ export function Navbar({
   onRemoveSearch, 
   onClearHistory 
 }: NavbarProps) {
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const toolsRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside or escape
+  useEffect(() => {
+    if (!toolsOpen) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
+        setToolsOpen(false);
+      }
+    }
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setToolsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [toolsOpen]);
+
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-310 mx-auto px-4 py-3 flex items-center justify-between">
@@ -37,16 +67,64 @@ export function Navbar({
           >
             About
           </a>
-          <Button
-            variant="secondary"
-            className="px-3! py-0.5! m-0! h-auto! leading-none! inline-flex items-center"
-            onClick={onAddDocument}
-            disabled={!isAdminActive}
-            title={!isAdminActive ? "Admin access required to add documents" : "Add document to index"}
-          >
-            <span className="text-2xl leading-none relative -top-px -mx-0.5 pb-1">+</span>
-            <span>Index</span>
-          </Button>
+          <div className="relative" ref={toolsRef}>
+            <button
+              type="button"
+              onClick={() => setToolsOpen(!toolsOpen)}
+              className={cn(
+                'p-2 rounded-lg transition-all duration-300',
+                'text-gray-400 hover:text-white hover:bg-white/10',
+                toolsOpen && 'text-white bg-white/10'
+              )}
+              aria-label="Tools"
+              aria-expanded={toolsOpen}
+            >
+              <Wrench size={20} />
+            </button>
+            {toolsOpen && (
+              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 animate-scale-in bg-[#151526] border border-white/10">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isAdminActive) {
+                      onAddDocument();
+                      setToolsOpen(false);
+                    }
+                  }}
+                  disabled={!isAdminActive}
+                  title={!isAdminActive ? "Admin access required" : "Add document to index"}
+                  className={cn(
+                    'w-full px-4 py-3 text-sm text-left transition-all duration-200 flex items-center gap-3',
+                    isAdminActive 
+                      ? 'text-gray-300 hover:bg-white/10 hover:text-white'
+                      : 'text-gray-600 cursor-not-allowed'
+                  )}
+                >
+                  <Plus size={16} className="text-gray-400" />
+                  <span>Index</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (isAdminActive) {
+                      window.location.href = '/stats';
+                    }
+                  }}
+                  disabled={!isAdminActive}
+                  title={!isAdminActive ? "Admin access required" : "View statistics"}
+                  className={cn(
+                    'w-full px-4 py-3 text-sm text-left transition-all duration-200 flex items-center gap-3 border-t border-white/5',
+                    isAdminActive 
+                      ? 'text-gray-300 hover:bg-white/10 hover:text-white'
+                      : 'text-gray-600 cursor-not-allowed'
+                  )}
+                >
+                  <BarChart3 size={16} className="text-gray-400" />
+                  <span>Stats</span>
+                </button>
+              </div>
+            )}
+          </div>
           <SettingsMenu
             recentSearches={recentSearches}
             onRemoveSearch={onRemoveSearch}
