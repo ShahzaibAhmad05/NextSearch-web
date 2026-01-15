@@ -24,6 +24,7 @@ interface UseRecentSearchesReturn {
  */
 export function useRecentSearches(): UseRecentSearchesReturn {
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -38,16 +39,19 @@ export function useRecentSearches(): UseRecentSearchesReturn {
     } catch {
       // Invalid data, ignore
     }
+    setIsInitialized(true);
   }, []);
 
-  // Save to localStorage whenever history changes
+  // Save to localStorage whenever history changes (but only after initial load)
   useEffect(() => {
+    if (!isInitialized) return;
+    
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(recentSearches));
     } catch {
       // localStorage might be full or disabled
     }
-  }, [recentSearches]);
+  }, [recentSearches, isInitialized]);
 
   const addSearch = useCallback((query: string, resultCount?: number) => {
     const trimmed = query.trim();
