@@ -133,6 +133,17 @@ export default function Home() {
     return () => window.clearTimeout(timer);
   }, [k, hasSearched, query, loading, handleSubmit]);
 
+  // Format number to show first 3 significant digits
+  const formatResultCount = (count: number): string => {
+    if (count < 1000) return count.toString();
+    
+    const magnitude = Math.floor(Math.log10(count));
+    const divisor = Math.pow(10, magnitude - 2);
+    const rounded = Math.round(count / divisor) * divisor;
+    
+    return rounded.toLocaleString();
+  };
+
   // Status message
   const status = useMemo(() => {
     if (!hasSearched) return '';
@@ -141,7 +152,8 @@ export default function Home() {
     if (results.length === 0) return 'No results found';
 
     const n = found ?? results.length;
-    const parts: string[] = [`About ${n} result${n === 1 ? '' : 's'}`];
+    const formattedCount = formatResultCount(n);
+    const parts: string[] = [`About ${formattedCount} result${n === 1 ? '' : 's'}`];
 
     if (backendTotalMs != null) {
       parts.push(`(${backendTotalMs.toFixed(2)} ms)`);
