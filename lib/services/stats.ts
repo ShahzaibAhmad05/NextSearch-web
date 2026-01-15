@@ -6,21 +6,9 @@
 
 import { API_CONFIG } from '../constants';
 import { ApiError } from '../types';
+import type { StatsResponse } from '../types/stats';
 import { buildUrl, isNetworkError } from './utils';
 import { getAdminToken } from './admin';
-
-export interface StatsResponse {
-  total_documents?: number;
-  total_segments?: number;
-  index_size_bytes?: number;
-  last_indexed?: string; // ISO date string
-  search_stats?: {
-    total_searches?: number;
-    avg_latency_ms?: number;
-    cache_hit_rate?: number;
-  };
-  [key: string]: unknown; // Allow additional fields from backend
-}
 
 /**
  * Fetch statistics from the backend (requires admin authentication)

@@ -38,3 +38,9 @@ export type {
   RecentSearch,
   VisitedLink,
 } from './shared';
+
+// Stats types
+export type {
+  StatsResponse,
+  FeedbackEntry,
+} from './stats';

@@ -201,3 +201,18 @@ export function getAdminToken(): string | null {
   localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
   return null;
 }
+
+/**
+ * Verify if user is authenticated as admin
+ *
+ * @returns true if authenticated, false otherwise
+ */
+export async function verifyAdmin(): Promise<boolean> {
+  try {
+    const result = await verifyToken();
+    return result.valid;
+  } catch {
+    return false;
+  }
+}
+
