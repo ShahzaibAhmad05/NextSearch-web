@@ -29,6 +29,7 @@ export { ApiError } from './errors';
 export type {
   SearchBarProps,
   FeedbackModalProps,
+  AddDocumentModalProps,
 } from './components';
 
 // Shared types

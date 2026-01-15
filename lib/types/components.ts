@@ -33,3 +33,13 @@ export interface FeedbackModalProps {
   /** Callback to close the modal */
   onClose: () => void;
 }
+
+/**
+ * Props for the AddDocumentModal component
+ */
+export interface AddDocumentModalProps {
+  /** Whether the modal is visible */
+  show: boolean;
+  /** Callback to close the modal */
+  onClose: () => void;
+}
