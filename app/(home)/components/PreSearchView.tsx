@@ -80,7 +80,7 @@ export function PreSearchView({
         </div>
 
         {/* Footer - shown in pre-search */}
-        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto pr-5">
+        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto pr-3">
           <Footer showScrollToTop={false} />
         </div>
       </div>

@@ -1,6 +1,7 @@
 // app/(home)/components/PostSearchView.tsx
 'use client';
 
+import { useRef } from 'react';
 import { SearchBar, SearchResults, AIOverview, Footer } from '@/components';
 import { Button, Card, Alert, Dropdown } from '@/components/ui';
 import type { SearchResult, AIOverviewResponse } from '@/lib/types';
@@ -57,6 +58,8 @@ export function PostSearchView({
   onSortChange,
   onShowAdvancedChange,
 }: PostSearchViewProps) {
+  const hrRef = useRef<HTMLHRElement>(null);
+  
   return (
     <div className="pt-15 animate-fade-in">
       <div className="max-w-245 mx-auto px-4 pt-4">
@@ -121,7 +124,7 @@ export function PostSearchView({
           </Alert>
         )}
 
-        <hr className="my-4 mt-6 border-t border-[#acbcff73]" />
+        <hr ref={hrRef} className="my-4 mt-6 border-t border-[#acbcff73]" />
 
         {/* AI Overview - shown above results */}
         <div className="px-3 mt-5">
@@ -129,6 +132,7 @@ export function PostSearchView({
             overview={aiOverview}
             loading={aiOverviewLoading}
             error={aiOverviewError}
+            hrRef={hrRef}
           />
         </div>
 

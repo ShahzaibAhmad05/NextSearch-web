@@ -1,7 +1,7 @@
 ﻿// components/AIOverview.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Spinner } from './ui';
@@ -14,19 +14,37 @@ interface AIOverviewProps {
   loading: boolean;
   /** Error message if fetch failed */
   error: string | null;
+  /** Optional ref to scroll to when expanding (e.g., hr element above) */
+  hrRef?: React.RefObject<HTMLHRElement>;
 }
 
 /**
  * Displays an AI-generated overview of the search query.
  * Shows a loading skeleton while fetching, and gracefully handles errors.
  */
-export default function AIOverview({ overview, loading, error }: AIOverviewProps) {
+export default function AIOverview({ overview, loading, error, hrRef }: AIOverviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   // Don't render anything if there's no content and no loading state
   if (!loading && !overview && !error) {
     return null;
   }
+
+  const handleToggleExpand = () => {
+    if (isExpanded) {
+      // Scroll to top when collapsing
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+    else {
+      // Scroll just above the hr element
+      window.scrollTo({ top: 75, behavior: 'smooth' });
+    }
+    setIsExpanded(!isExpanded);
+  };
 
   // Smart truncation: find the best position to truncate at a horizontal rule
   const MAX_PREVIEW_LENGTH = 500;
@@ -70,7 +88,7 @@ export default function AIOverview({ overview, loading, error }: AIOverviewProps
     : '';
 
   return (
-    <div className="mb-6 animate-fade-in flex justify-left max-w-3xl w-full">
+    <div ref={containerRef} className="mb-6 animate-fade-in flex justify-left max-w-3xl w-full">
       <div className="glass-card rounded-2xl p-5 border border-white/10 w-full">
         {/* Header */}
         <div className="flex items-center gap-2 mb-3">
@@ -149,7 +167,7 @@ export default function AIOverview({ overview, loading, error }: AIOverviewProps
             {shouldTruncate && (
               <div className="flex justify-center">
                 <button
-                  onClick={() => setIsExpanded(!isExpanded)}
+                  onClick={handleToggleExpand}
                   className="flex items-center gap-2 px-4 py-2 text-sm text-indigo-400 hover:text-indigo-300 transition-colors group"
                 >
                   <span>{isExpanded ? 'Show less' : 'Show more'}</span>
