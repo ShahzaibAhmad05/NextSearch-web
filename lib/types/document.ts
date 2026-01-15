@@ -16,4 +16,12 @@ export interface AddDocumentResponse {
   docId?: number;
   /** Processing time in milliseconds (optional) */
   processing_time_ms?: number;
+  /** Total time in milliseconds (optional) */
+  total_time_ms?: number;
+  /** Number of documents indexed (optional) */
+  docs_indexed?: number;
+  /** Segment name (optional) */
+  segment?: string;
+  /** Whether the index was reloaded (optional) */
+  reloaded?: boolean;
 }

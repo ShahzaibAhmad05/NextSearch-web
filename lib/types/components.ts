@@ -1,5 +1,7 @@
 // lib/types/components.ts
 
+import type { SearchResult } from './search';
+
 /**
  * Component prop type definitions
  */
@@ -42,4 +44,14 @@ export interface AddDocumentModalProps {
   show: boolean;
   /** Callback to close the modal */
   onClose: () => void;
+}
+
+/**
+ * Props for the SearchResults component
+ */
+export interface SearchResultsProps {
+  /** Array of search results to display */
+  results: SearchResult[];
+  /** Number of results per page */
+  pageSize?: number;
 }

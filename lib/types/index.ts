@@ -30,6 +30,7 @@ export type {
   SearchBarProps,
   FeedbackModalProps,
   AddDocumentModalProps,
+  SearchResultsProps,
 } from './components';
 
 // Shared types

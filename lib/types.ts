@@ -10,6 +10,8 @@ export type {
   AddDocumentResponse,
   SearchBarProps,
   FeedbackModalProps,
+  AddDocumentModalProps,
+  SearchResultsProps,
   RecentSearch,
 } from './types/index';
 
