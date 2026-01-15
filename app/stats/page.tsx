@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 import { getStats } from '@/lib/services/stats';
 import { verifyAdmin } from '@/lib/services/admin';
 import type { StatsResponse } from '@/lib/types/stats';
-import { MetricCard, ChartCard, QuotaCard, FeedbackCard } from './components';
+import { MetricCard, QuotaCard, FeedbackCard, DonutChart } from './components';
 
 export default function StatsPage() {
   const [stats, setStats] = useState<StatsResponse | null>(null);
@@ -87,55 +87,26 @@ export default function StatsPage() {
           <p className="text-sm text-slate-400">System performance metrics and insights</p>
         </div>
 
-        {/* Search Metrics */}
+        {/* Performance Overview */}
         <div className="mb-10">
-          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Search Performance</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <MetricCard
-              label="Total Searches"
-              value={stats.total_searches.toLocaleString()}
-              trend="neutral"
-            />
-            <ChartCard
-              label="Cache Efficiency"
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Performance Overview</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <DonutChart
+              label="Search Performance"
               percentage={stats.search_cache_hit_rate}
               hits={stats.search_cache_hits}
               misses={stats.total_searches - stats.search_cache_hits}
               color="emerald"
             />
-          </div>
-        </div>
-
-        {/* AI Overview Metrics */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">AI Overview Analytics</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <MetricCard
-              label="Total Requests"
-              value={stats.ai_overview_calls.toLocaleString()}
-              trend="neutral"
-            />
-            <ChartCard
-              label="Cache Efficiency"
+            <DonutChart
+              label="AI Overview Performance"
               percentage={stats.ai_overview_cache_hit_rate}
               hits={stats.ai_overview_cache_hits}
               misses={stats.ai_overview_calls - stats.ai_overview_cache_hits}
               color="blue"
             />
-          </div>
-        </div>
-
-        {/* AI Summary Metrics */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">AI Summary Analytics</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <MetricCard
-              label="Total Requests"
-              value={stats.ai_summary_calls.toLocaleString()}
-              trend="neutral"
-            />
-            <ChartCard
-              label="Cache Efficiency"
+            <DonutChart
+              label="AI Summary Performance"
               percentage={stats.ai_summary_cache_hit_rate}
               hits={stats.ai_summary_cache_hits}
               misses={stats.ai_summary_calls - stats.ai_summary_cache_hits}
@@ -143,6 +114,7 @@ export default function StatsPage() {
             />
           </div>
         </div>
+
 
         {/* AI API Quota */}
         <div className="mb-10">

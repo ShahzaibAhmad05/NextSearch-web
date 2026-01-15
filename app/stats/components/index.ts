@@ -3,3 +3,5 @@ export { MetricCard } from './MetricCard';
 export { ChartCard } from './ChartCard';
 export { QuotaCard } from './QuotaCard';
 export { FeedbackCard } from './FeedbackCard';
+export { DonutChart } from './DonutChart';
+export { BarChart } from './BarChart';
