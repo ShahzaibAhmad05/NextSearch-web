@@ -13,6 +13,7 @@ interface PostSearchViewProps {
   loading: boolean;
   error: string | null;
   status: string;
+  cached: boolean;
   sortBy: SortOption;
   sortOptions: Array<{ value: SortOption; label: string }>;
   showAdvanced: boolean;
@@ -40,6 +41,7 @@ export function PostSearchView({
   loading,
   error,
   status,
+  cached,
   sortBy,
   sortOptions,
   showAdvanced,
@@ -105,6 +107,7 @@ export function PostSearchView({
               <AdvancedPopover
                 k={k}
                 status={status}
+                cached={cached}
                 onChangeK={onChangeK}
                 onClose={() => onShowAdvancedChange(false)}
               />

@@ -26,6 +26,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [found, setFound] = useState<number | undefined>();
   const [backendTotalMs, setBackendTotalMs] = useState<number | null>(null);
+  const [cached, setCached] = useState<boolean>(false);
   const [hasSearched, setHasSearched] = useState(false);
 
   // AI Overview
@@ -96,6 +97,7 @@ export default function Home() {
         setFound(data.found);
         setHasSearched(true);
         setBackendTotalMs(data.total_time_ms ?? null);
+        setCached(data.cached ?? false);
 
         // Add to recent searches
         addSearch(q, data.found ?? data.results.length);
@@ -105,6 +107,7 @@ export default function Home() {
         setResults([]);
         setHasSearched(true);
         setBackendTotalMs(null);
+        setCached(false);
       } finally {
         setLoading(false);
       }
@@ -140,9 +143,11 @@ export default function Home() {
     const n = found ?? results.length;
     const parts: string[] = [`About ${n} result${n === 1 ? '' : 's'}`];
 
-    if (backendTotalMs != null) parts.push(`(${backendTotalMs.toFixed(2)} ms)`);
+    if (backendTotalMs != null) {
+      parts.push(`(${backendTotalMs.toFixed(2)} ms)`);
+    }
     return parts.join(' ');
-  }, [hasSearched, loading, error, results.length, backendTotalMs, found]);
+  }, [hasSearched, loading, error, results.length, backendTotalMs, found, cached]);
 
   // Sorted results
   const sortedResults = useMemo(() => {
@@ -220,6 +225,7 @@ export default function Home() {
           loading={loading}
           error={error}
           status={status}
+          cached={cached}
           sortBy={sortBy}
           sortOptions={sortOptions}
           showAdvanced={showAdvanced}

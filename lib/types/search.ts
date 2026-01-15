@@ -44,6 +44,10 @@ export interface SearchResponse {
   total_time_ms?: number;
   /** Total number of matching documents */
   found?: number;
+  /** Whether the results were served from cache */
+  cached?: boolean;
+  /** Time spent looking up cache (ms) */
+  cache_lookup_ms?: number;
   /** Array of search results */
   results: SearchResult[];
 }

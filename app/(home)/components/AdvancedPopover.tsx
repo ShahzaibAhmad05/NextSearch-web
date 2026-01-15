@@ -4,6 +4,7 @@
 interface AdvancedPopoverProps {
   k: number;
   status: string;
+  cached: boolean;
   onChangeK: (k: number) => void;
   onClose: () => void;
 }
@@ -11,7 +12,7 @@ interface AdvancedPopoverProps {
 /**
  * Advanced search options popover
  */
-export function AdvancedPopover({ k, status, onChangeK, onClose }: AdvancedPopoverProps) {
+export function AdvancedPopover({ k, status, cached, onChangeK, onClose }: AdvancedPopoverProps) {
   return (
     <div
       className="absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 animate-scale-in bg-[#151526]"
@@ -36,7 +37,14 @@ export function AdvancedPopover({ k, status, onChangeK, onClose }: AdvancedPopov
         </button>
       </div>
 
-      {status && <div className="mt-3 text-sm text-indigo-300">{status}</div>}
+      {status && (
+        <div className="mt-3 text-sm text-indigo-300 flex items-center gap-2">
+          {status}
+          {cached && (
+            <span className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full font-medium ml-auto">cached</span>
+          )}
+        </div>
+      )}
 
       <hr className="my-3 border-white/10" />
 
