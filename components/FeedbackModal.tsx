@@ -76,7 +76,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   };
 
   return (
-    <Modal show={isOpen} onClose={handleClose}>
+    <Modal show={isOpen} onClose={handleClose} maxWidth="max-w-md">
       <>
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
@@ -187,7 +187,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-2">
-                    <Spinner size="sm" />
+                    <Spinner size="sm" color="white" />
                     <span>Sending...</span>
                   </div>
                 ) : (
