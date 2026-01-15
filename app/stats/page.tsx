@@ -43,10 +43,10 @@ export default function StatsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] flex items-center justify-center">
-        <div className="glass-card p-8 rounded-2xl">
+        <div className="glass-card p-8 rounded-lg border border-white/5">
           <div className="flex items-center gap-3">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-indigo-500"></div>
-            <p className="text-gray-300">Loading statistics...</p>
+            <div className="animate-spin rounded-full h-5 w-5 border-2 border-slate-400 border-t-transparent"></div>
+            <p className="text-sm font-medium text-slate-300">Loading statistics...</p>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@ export default function StatsPage() {
   if (error || !isAuthenticated) {
     return (
       <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] flex items-center justify-center">
-        <div className="glass-card p-8 rounded-2xl max-w-md mx-4">
-          <h1 className="text-2xl font-bold text-red-400 mb-2">Error</h1>
-          <p className="text-gray-400">{error || 'Authentication required'}</p>
+        <div className="glass-card p-8 rounded-lg border border-red-500/20 max-w-md mx-4">
+          <h1 className="text-xl font-semibold text-red-400 mb-2">Error</h1>
+          <p className="text-sm text-slate-400">{error || 'Authentication required'}</p>
         </div>
       </div>
     );
@@ -71,140 +71,127 @@ export default function StatsPage() {
   const formatPercentage = (rate: number) => `${(rate * 100).toFixed(1)}%`;
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] py-8 px-4">
+    <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold gradient-text mb-2">Statistics Dashboard</h1>
-          <p className="text-gray-400">System metrics and performance analytics</p>
+        <div className="mb-12">
+          <h1 className="text-3xl font-semibold text-white mb-2 tracking-tight">Analytics Dashboard</h1>
+          <p className="text-sm text-slate-400">System performance metrics and insights</p>
         </div>
 
         {/* Search Metrics */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-200 mb-4">Search Metrics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <StatCard
-              title="Total Searches"
+        <div className="mb-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Search Performance</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <MetricCard
+              label="Total Searches"
               value={stats.total_searches.toLocaleString()}
-              icon="🔍"
-              color="blue"
+              trend="neutral"
             />
-            <StatCard
-              title="Cache Hits"
+            <MetricCard
+              label="Cache Hits"
               value={stats.search_cache_hits.toLocaleString()}
-              subtitle={`${formatPercentage(stats.search_cache_hit_rate)} hit rate`}
-              icon="⚡"
-              color="green"
+              subtitle={`${formatPercentage(stats.search_cache_hit_rate)} efficiency`}
+              trend="positive"
             />
-            <StatCard
-              title="Cache Performance"
-              value={formatPercentage(stats.search_cache_hit_rate)}
-              subtitle={`${stats.total_searches - stats.search_cache_hits} cache misses`}
-              icon="📊"
-              color="purple"
+            <MetricCard
+              label="Cache Misses"
+              value={(stats.total_searches - stats.search_cache_hits).toLocaleString()}
+              subtitle={`${formatPercentage(1 - stats.search_cache_hit_rate)} miss rate`}
+              trend="neutral"
             />
           </div>
         </div>
 
         {/* AI Overview Metrics */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-200 mb-4">AI Overview Metrics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <StatCard
-              title="Total Calls"
+        <div className="mb-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">AI Overview Analytics</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <MetricCard
+              label="Total Requests"
               value={stats.ai_overview_calls.toLocaleString()}
-              icon="🤖"
-              color="indigo"
+              trend="neutral"
             />
-            <StatCard
-              title="Cache Hits"
+            <MetricCard
+              label="Cached Responses"
               value={stats.ai_overview_cache_hits.toLocaleString()}
-              subtitle={`${formatPercentage(stats.ai_overview_cache_hit_rate)} hit rate`}
-              icon="💾"
-              color="cyan"
+              subtitle={`${formatPercentage(stats.ai_overview_cache_hit_rate)} efficiency`}
+              trend="positive"
             />
-            <StatCard
-              title="Cache Performance"
-              value={formatPercentage(stats.ai_overview_cache_hit_rate)}
-              subtitle={`${stats.ai_overview_calls - stats.ai_overview_cache_hits} cache misses`}
-              icon="📈"
-              color="teal"
+            <MetricCard
+              label="API Calls"
+              value={(stats.ai_overview_calls - stats.ai_overview_cache_hits).toLocaleString()}
+              subtitle="Actual OpenAI requests"
+              trend="neutral"
             />
           </div>
         </div>
 
         {/* AI Summary Metrics */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-200 mb-4">AI Summary Metrics</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <StatCard
-              title="Total Calls"
+        <div className="mb-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">AI Summary Analytics</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <MetricCard
+              label="Total Requests"
               value={stats.ai_summary_calls.toLocaleString()}
-              icon="📝"
-              color="violet"
+              trend="neutral"
             />
-            <StatCard
-              title="Cache Hits"
+            <MetricCard
+              label="Cached Responses"
               value={stats.ai_summary_cache_hits.toLocaleString()}
-              subtitle={`${formatPercentage(stats.ai_summary_cache_hit_rate)} hit rate`}
-              icon="💿"
-              color="pink"
+              subtitle={`${formatPercentage(stats.ai_summary_cache_hit_rate)} efficiency`}
+              trend="positive"
             />
-            <StatCard
-              title="Cache Performance"
-              value={formatPercentage(stats.ai_summary_cache_hit_rate)}
-              subtitle={`${stats.ai_summary_calls - stats.ai_summary_cache_hits} cache misses`}
-              icon="📉"
-              color="rose"
+            <MetricCard
+              label="API Calls"
+              value={(stats.ai_summary_calls - stats.ai_summary_cache_hits).toLocaleString()}
+              subtitle="Actual OpenAI requests"
+              trend="neutral"
             />
           </div>
         </div>
 
         {/* AI API Quota */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-200 mb-4">AI API Quota</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <StatCard
-              title="API Calls Remaining"
+        <div className="mb-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">API Quota Management</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <MetricCard
+              label="Remaining Quota"
               value={stats.ai_api_calls_remaining.toLocaleString()}
-              icon="🔑"
-              color="amber"
+              subtitle="Available API calls"
+              trend="positive"
               large
             />
-            <StatCard
-              title="Total AI API Calls"
+            <MetricCard
+              label="Total Consumed"
               value={(
                 (stats.ai_overview_calls - stats.ai_overview_cache_hits) +
                 (stats.ai_summary_calls - stats.ai_summary_cache_hits)
               ).toLocaleString()}
-              subtitle="Actual Azure OpenAI calls"
-              icon="☁️"
-              color="orange"
+              subtitle="Azure OpenAI API calls made"
+              trend="neutral"
               large
             />
           </div>
         </div>
 
         {/* Feedback Section */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-200 mb-4">User Feedback</h2>
-          <div className="grid grid-cols-1 gap-4">
-            <StatCard
-              title="Total Feedback"
-              value={stats.total_feedback_count.toLocaleString()}
-              icon="💬"
-              color="emerald"
-              large
-            />
-          </div>
+        <div className="mb-10">
+          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">User Feedback</h2>
+          <MetricCard
+            label="Total Feedback Submissions"
+            value={stats.total_feedback_count.toLocaleString()}
+            trend="positive"
+            large
+          />
         </div>
 
         {/* Recent Feedback */}
         {stats.last_10_feedback.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-gray-200 mb-4">Recent Feedback</h2>
-            <Card className="overflow-hidden">
-              <div className="divide-y divide-gray-700/50">
+          <div className="mb-10">
+            <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Recent Feedback Entries</h2>
+            <Card className="border border-white/5 overflow-hidden bg-slate-900/20 backdrop-blur-sm" padding="none">
+              <div className="divide-y divide-white/5">
                 {stats.last_10_feedback.map((feedback, idx) => (
                   <FeedbackItem key={idx} feedback={feedback} />
                 ))}
@@ -218,42 +205,35 @@ export default function StatsPage() {
 }
 
 // Helper Components
-interface StatCardProps {
-  title: string;
+interface MetricCardProps {
+  label: string;
   value: string;
   subtitle?: string;
-  icon: string;
-  color: string;
+  trend?: 'positive' | 'negative' | 'neutral';
   large?: boolean;
 }
 
-function StatCard({ title, value, subtitle, icon, color, large = false }: StatCardProps) {
-  const colorClasses: Record<string, string> = {
-    blue: 'from-blue-500/20 to-blue-600/10 border-blue-500/30',
-    green: 'from-green-500/20 to-green-600/10 border-green-500/30',
-    purple: 'from-purple-500/20 to-purple-600/10 border-purple-500/30',
-    indigo: 'from-indigo-500/20 to-indigo-600/10 border-indigo-500/30',
-    cyan: 'from-cyan-500/20 to-cyan-600/10 border-cyan-500/30',
-    teal: 'from-teal-500/20 to-teal-600/10 border-teal-500/30',
-    violet: 'from-violet-500/20 to-violet-600/10 border-violet-500/30',
-    pink: 'from-pink-500/20 to-pink-600/10 border-pink-500/30',
-    rose: 'from-rose-500/20 to-rose-600/10 border-rose-500/30',
-    amber: 'from-amber-500/20 to-amber-600/10 border-amber-500/30',
-    orange: 'from-orange-500/20 to-orange-600/10 border-orange-500/30',
-    emerald: 'from-emerald-500/20 to-emerald-600/10 border-emerald-500/30',
+function MetricCard({ label, value, subtitle, trend = 'neutral', large = false }: MetricCardProps) {
+  const trendColors = {
+    positive: 'border-emerald-500/20 bg-emerald-500/5',
+    negative: 'border-red-500/20 bg-red-500/5',
+    neutral: 'border-white/5 bg-white/[0.02]',
   };
 
   return (
     <Card 
-      className={`bg-linear-to-br ${colorClasses[color]} border backdrop-blur-xl transition-all hover:scale-105`}
+      className={`border backdrop-blur-sm ${trendColors[trend]} transition-all hover:border-white/10`}
       padding={large ? 'lg' : 'md'}
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide">{title}</h3>
-        <span className="text-2xl">{icon}</span>
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{label}</p>
+        <p className={`font-semibold text-white tabular-nums ${large ? 'text-4xl' : 'text-3xl'}`}>
+          {value}
+        </p>
+        {subtitle && (
+          <p className="text-xs text-slate-500 font-medium">{subtitle}</p>
+        )}
       </div>
-      <p className={`font-bold text-gray-100 ${large ? 'text-4xl' : 'text-3xl'} mb-1`}>{value}</p>
-      {subtitle && <p className="text-sm text-gray-400">{subtitle}</p>}
     </Card>
   );
 }
@@ -263,35 +243,29 @@ interface FeedbackItemProps {
 }
 
 function FeedbackItem({ feedback }: FeedbackItemProps) {
-  const getRatingStars = (rating?: number) => {
-    if (!rating) return null;
-    return '⭐'.repeat(rating);
-  };
-
   return (
-    <div className="p-4 hover:bg-white/5 transition-colors">
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-medium text-indigo-400 uppercase tracking-wide">
-              {feedback.type.replace(/_/g, ' ')}
-            </span>
-            {feedback.rating && (
-              <span className="text-sm">{getRatingStars(feedback.rating)}</span>
-            )}
-          </div>
-          {feedback.query && (
-            <p className="text-sm text-gray-300 mb-1">
-              Query: <span className="font-medium">&ldquo;{feedback.query}&rdquo;</span>
-            </p>
-          )}
-          {feedback.comment && (
-            <p className="text-sm text-gray-400 italic">&ldquo;{feedback.comment}&rdquo;</p>
-          )}
-        </div>
-        <span className="text-xs text-gray-500 ml-4 whitespace-nowrap">
+    <div className="p-5 hover:bg-white/[0.02] transition-colors">
+      <div className="flex items-start justify-between gap-4 mb-3">
+        <span className="px-2.5 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded text-xs font-medium text-indigo-300 uppercase tracking-wide">
+          {feedback.type}
+        </span>
+        <span className="text-xs text-slate-500 font-medium whitespace-nowrap">
           {formatDistanceToNow(new Date(feedback.timestamp))}
         </span>
+      </div>
+      
+      <div className="space-y-2.5">
+        <div>
+          <span className="text-xs font-medium text-slate-500 uppercase tracking-wide block mb-1">Message:</span>
+          <p className="text-sm text-slate-200 leading-relaxed">{feedback.message}</p>
+        </div>
+        
+        {feedback.email && (
+          <div>
+            <span className="text-xs font-medium text-slate-500 uppercase tracking-wide block mb-1">Email:</span>
+            <p className="text-sm text-slate-300 font-medium">{feedback.email}</p>
+          </div>
+        )}
       </div>
     </div>
   );

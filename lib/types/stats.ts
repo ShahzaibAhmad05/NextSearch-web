@@ -8,10 +8,9 @@
  * Feedback entry from the backend
  */
 export interface FeedbackEntry {
-  type: string;
-  query?: string;
-  rating?: number;
-  comment?: string;
+  type: string; // 'anonymous' | 'replyable'
+  email: string | null;
+  message: string;
   timestamp: string; // ISO date string
 }
 
