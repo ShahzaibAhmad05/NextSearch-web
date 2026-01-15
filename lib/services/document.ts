@@ -8,6 +8,7 @@ import { API_CONFIG } from '../constants';
 import { ApiError } from '../types';
 import type { AddDocumentResponse } from '../types';
 import { buildUrl, parseResponseBody, formatErrorMessage, isNetworkError } from './utils';
+import { getAdminToken } from './admin';
 
 /**
  * Upload and index a CORD-19 slice zip file
@@ -26,10 +27,17 @@ export async function addCordSlice(
 
   const url = buildUrl(API_CONFIG.ENDPOINTS.ADD_DOCUMENT);
 
+  // Get admin token if available
+  const token = getAdminToken();
+  const headers: HeadersInit = { Accept: 'application/json' };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
   try {
     const res = await fetch(url, {
       method: 'POST',
-      headers: { Accept: 'application/json' },
+      headers,
       body: formData,
       signal,
     });

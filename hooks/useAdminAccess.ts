@@ -7,7 +7,7 @@ const ADMIN_TOKEN_KEY = 'nextsearch-admin-token';
 const ADMIN_TOKEN_EXPIRY_KEY = 'nextsearch-admin-token-expiry';
 
 /**
- * Hook to check if admin access is currently active
+ * Hook to check if admin access is currently active with valid JWT token
  */
 export function useAdminAccess() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -15,11 +15,13 @@ export function useAdminAccess() {
   useEffect(() => {
     // Check authentication status
     const checkAuth = () => {
+      const token = localStorage.getItem(ADMIN_TOKEN_KEY);
       const expiry = localStorage.getItem(ADMIN_TOKEN_EXPIRY_KEY);
-      if (expiry && Date.now() < parseInt(expiry, 10)) {
+      
+      if (token && expiry && Date.now() < parseInt(expiry, 10)) {
         setIsAuthenticated(true);
       } else {
-        // Clear expired token
+        // Clear expired or invalid token
         localStorage.removeItem(ADMIN_TOKEN_KEY);
         localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
         setIsAuthenticated(false);
@@ -53,4 +55,21 @@ export function useAdminAccess() {
   }, []);
 
   return isAuthenticated;
+}
+
+/**
+ * Get the current admin token if available and not expired
+ */
+export function getAdminToken(): string | null {
+  const token = localStorage.getItem(ADMIN_TOKEN_KEY);
+  const expiry = localStorage.getItem(ADMIN_TOKEN_EXPIRY_KEY);
+  
+  if (token && expiry && Date.now() < parseInt(expiry, 10)) {
+    return token;
+  }
+  
+  // Token is expired or doesn't exist
+  localStorage.removeItem(ADMIN_TOKEN_KEY);
+  localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
+  return null;
 }

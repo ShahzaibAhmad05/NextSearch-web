@@ -77,6 +77,10 @@ export const API_CONFIG = {
     ADD_DOCUMENT: '/api/add_document',
     AI_OVERVIEW: '/api/ai_overview',
     AI_SUMMARY: '/api/ai_summary',
+    STATS: '/api/stats',
+    ADMIN_LOGIN: '/api/admin/login',
+    ADMIN_LOGOUT: '/api/admin/logout',
+    ADMIN_VERIFY: '/api/admin/verify',
   },
 } as const;
 

@@ -7,11 +7,10 @@ import { Modal } from './ui';
 import { cn } from '@/lib/utils';
 import type { RecentSearch } from '@/lib/types';
 import type { VisitedLink } from '@/lib/types/shared';
+import { login as adminLogin, logout as adminLogout } from '@/lib/services/admin';
 
 const ADMIN_TOKEN_KEY = 'nextsearch-admin-token';
 const ADMIN_TOKEN_EXPIRY_KEY = 'nextsearch-admin-token-expiry';
-/** Token expires after 1 day (in milliseconds) */
-const TOKEN_EXPIRY_TIME = 24 * 60 * 60 * 1000;
 
 interface SettingsMenuProps {
   /** Recent searches from the hook */
@@ -341,6 +340,7 @@ interface AdminAccessModalProps {
 function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   // Check if already authenticated on mount
@@ -357,10 +357,11 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
       }
       setPassword('');
       setMessage(null);
+      setLoading(false);
     }
   }, [show]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!password.trim()) {
@@ -368,27 +369,42 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
       return;
     }
 
-    // Store password in localStorage with 1 day expiry
-    const expiryTime = Date.now() + TOKEN_EXPIRY_TIME;
-    localStorage.setItem(ADMIN_TOKEN_KEY, password);
-    localStorage.setItem(ADMIN_TOKEN_EXPIRY_KEY, expiryTime.toString());
-    
-    setIsAuthenticated(true);
-    setMessage({ type: 'success', text: 'Admin access granted for 24 hours' });
-    setPassword('');
+    setLoading(true);
+    setMessage(null);
 
-    // Trigger storage event for same-tab detection
-    window.dispatchEvent(new Event('storage'));
+    try {
+      // Call backend API to verify password and get token
+      await adminLogin(password);
+      
+      setIsAuthenticated(true);
+      setMessage({ type: 'success', text: 'Admin access granted for 1 hour' });
+      setPassword('');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Authentication failed';
+      setMessage({ type: 'error', text: errorMessage });
+      setPassword('');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem(ADMIN_TOKEN_KEY);
-    localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
-    setIsAuthenticated(false);
-    setMessage({ type: 'success', text: 'Logged out successfully' });
+  const handleLogout = async () => {
+    setLoading(true);
+    setMessage(null);
 
-    // Trigger storage event for same-tab detection
-    window.dispatchEvent(new Event('storage'));
+    try {
+      // Call backend to logout (also clears local storage)
+      await adminLogout();
+      
+      setIsAuthenticated(false);
+      setMessage({ type: 'success', text: 'Logged out successfully' });
+    } catch (err) {
+      // Even if backend call fails, we've already cleared local storage
+      setIsAuthenticated(false);
+      setMessage({ type: 'success', text: 'Logged out successfully' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -406,9 +422,10 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
           <button
             type="button"
             onClick={handleLogout}
-            className="w-full px-4 py-2.5 text-sm text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300"
+            disabled={loading}
+            className="w-full px-4 py-2.5 text-sm text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Revoke Access
+            {loading ? 'Logging out...' : 'Revoke Access'}
           </button>
         </div>
       ) : (
@@ -443,9 +460,10 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
 
           <button
             type="submit"
-            className="w-full px-4 py-2.5 text-sm text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-all duration-300"
+            disabled={loading}
+            className="w-full px-4 py-2.5 text-sm text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Authenticate
+            {loading ? 'Authenticating...' : 'Authenticate'}
           </button>
         </form>
       )}
