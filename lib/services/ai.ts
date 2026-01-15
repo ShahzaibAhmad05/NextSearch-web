@@ -60,34 +60,32 @@ export async function getAIOverview(
 /**
  * Get an AI-generated summary for a specific search result
  *
- * @param result - The search result object to summarize
+ * @param cordUid - The CORD-19 unique identifier for the result
  * @param signal - Optional AbortSignal for cancellation
  * @returns Result summary response with generated summary
  * @throws ApiError on failure
  */
 export async function getResultSummary(
-  result: { url?: string; title: string; docId: number },
+  cordUid: string,
   signal?: AbortSignal
 ): Promise<ResultSummaryResponse> {
-  const url = buildUrl(API_CONFIG.ENDPOINTS.RESULT_SUMMARY);
+  const url = buildUrl(API_CONFIG.ENDPOINTS.AI_SUMMARY, {
+    cord_uid: cordUid,
+  });
 
   try {
     const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(result),
+      method: 'GET',
+      headers: { Accept: 'application/json' },
       signal,
     });
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
       throw new ApiError(
-        `Result summary failed (${res.status}): ${text}`,
+        `AI summary failed (${res.status}): ${text}`,
         res.status,
-        API_CONFIG.ENDPOINTS.RESULT_SUMMARY
+        API_CONFIG.ENDPOINTS.AI_SUMMARY
       );
     }
 
@@ -98,9 +96,9 @@ export async function getResultSummary(
     }
     if (isNetworkError(err)) {
       throw new ApiError(
-        'Failed to connect to the backend for result summary.',
+        'Failed to connect to the backend for AI summary.',
         undefined,
-        API_CONFIG.ENDPOINTS.RESULT_SUMMARY
+        API_CONFIG.ENDPOINTS.AI_SUMMARY
       );
     }
     throw err;

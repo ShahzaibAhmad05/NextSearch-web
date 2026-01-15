@@ -76,7 +76,7 @@ export const API_CONFIG = {
     SUGGEST: '/api/suggest',
     ADD_DOCUMENT: '/api/add_document',
     AI_OVERVIEW: '/api/ai_overview',
-    RESULT_SUMMARY: '/api/result_summary',
+    AI_SUMMARY: '/api/ai_summary',
   },
 } as const;
 

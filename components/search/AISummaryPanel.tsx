@@ -3,6 +3,8 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import type { SearchResult } from '@/lib/types';
 import { getResultSummary } from '@/lib/api';
 import { Spinner } from '@/components/ui';
@@ -39,11 +41,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
     setSummary(null);
 
     try {
-      const response = await getResultSummary({
-        url: result.url,
-        title: result.title,
-        docId: result.docId,
-      });
+      const response = await getResultSummary(result.cord_uid);
       setSummary(response.summary);
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
@@ -53,7 +51,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
     } finally {
       setLoading(false);
     }
-  }, [result]);
+  }, [result.cord_uid]);
 
   useEffect(() => {
     if (show) {
@@ -90,23 +88,21 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
   if (!mounted || !show) return null;
 
   return createPortal(
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 z-100 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
+    <div 
+      className="fixed inset-0 z-100 flex items-end justify-end bg-black/50 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+      data-lenis-prevent
+    >
       {/* Side Panel */}
       <div
-        className="fixed top-0 right-0 z-100 h-full w-full max-w-lg glass-card border-l border-white/10 shadow-dark-lg animate-fade-in-right"
-        role="dialog"
-        aria-modal="true"
-        aria-label="AI Summary"
+        className="h-full w-full max-w-lg glass-card border-l border-white/10 shadow-dark-lg animate-fade-in-right flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+        data-lenis-prevent
       >
         {/* Header */}
-        <div className="flex items-center justify-between gap-3 p-5 border-b border-white/10">
+        <div className="flex items-center justify-between gap-3 p-5 border-b border-white/10 shrink-0">
           <div className="flex items-center gap-2">
             <svg
               className="w-5 h-5 text-indigo-400"
@@ -134,7 +130,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
         </div>
 
         {/* Result Info */}
-        <div className="p-5 border-b border-white/10 bg-white/5">
+        <div className="p-5 border-b border-white/10 bg-white/5 shrink-0">
           <h3 className="font-medium text-white line-clamp-2 mb-1">
             {result.title || '(untitled)'}
           </h3>
@@ -151,7 +147,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
         </div>
 
         {/* Content */}
-        <div className="p-5 overflow-y-auto h-[calc(100%-180px)]">
+        <div className="flex-1 overflow-y-auto p-5" data-lenis-prevent>
           {loading && (
             <div className="flex flex-col items-center justify-center py-12 gap-4">
               <Spinner size="lg" />
@@ -190,15 +186,37 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
           )}
 
           {summary && !loading && !error && (
-            <div className="prose prose-invert prose-sm max-w-none">
-              <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
-                {summary}
-              </p>
+            <div className="prose prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-bold prose-headings:mt-5 prose-headings:mb-3 prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4">
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h1: ({node, ...props}) => <h1 className="text-2xl font-bold text-white/90 mt-6 mb-3" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="text-xl font-bold text-white/90 mt-5 mb-3" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-gray-300 text-base" {...props} />,
+                  strong: ({node, ...props}) => <strong className="font-semibold text-white/95" {...props} />,
+                  em: ({node, ...props}) => <em className="text-gray-200" {...props} />,
+                  ul: ({node, ...props}) => <ul className="my-3 list-disc pl-5 space-y-1" {...props} />,
+                  ol: ({node, ...props}) => <ol className="my-3 list-decimal pl-5 space-y-1" {...props} />,
+                  li: ({node, ...props}) => <li className="my-1" {...props} />,
+                  hr: ({node, ...props}) => <hr className="border-white/20 my-4" {...props} />,
+                  a: ({node, ...props}) => <a className="text-indigo-400 hover:text-indigo-300 no-underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                  code: ({node, className, children, ...props}) => {
+                    const isInline = !className?.includes('language-');
+                    return isInline 
+                      ? <code className="text-indigo-300 bg-white/5 px-1.5 py-0.5 rounded text-xs" {...props}>{children}</code>
+                      : <code className="block" {...props}>{children}</code>;
+                  },
+                  pre: ({node, ...props}) => <pre className="bg-white/5 border border-white/10 rounded-lg p-3 overflow-x-auto" {...props} />,
+                }}
+              >
+                {summary.replace(/\\n/g, '\n')}
+              </ReactMarkdown>
             </div>
           )}
         </div>
       </div>
-    </>,
+    </div>,
     document.body
   );
 }

@@ -135,14 +135,14 @@ export default function AIOverview({ overview, loading, error, hrRef }: AIOvervi
         {overview && overview.overview && (
           <div className="space-y-3">
             {/* Main overview text with markdown rendering */}
-            <div className={`text-sm text-gray-300 leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-h1:text-lg prose-h2:text-base prose-h3:text-sm prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4 ${!isExpanded && shouldTruncate ? 'max-h-40 overflow-hidden relative' : ''}`}>
+            <div className={`text-gray-300 leading-relaxed prose prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-bold prose-headings:mt-5 prose-headings:mb-3 prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4 ${!isExpanded && shouldTruncate ? 'max-h-40 overflow-hidden relative' : ''}`}>
               <ReactMarkdown 
                 remarkPlugins={[remarkGfm]}
                 components={{
-                  h1: ({node, ...props}) => <h1 className="text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
-                  h2: ({node, ...props}) => <h2 className="text-base font-semibold text-white/90 mt-4 mb-2" {...props} />,
-                  h3: ({node, ...props}) => <h3 className="text-sm font-semibold text-white/90 mt-3 mb-2" {...props} />,
-                  p: ({node, ...props}) => <p className="my-3 leading-relaxed" {...props} />,
+                  h1: ({node, ...props}) => <h1 className="text-2xl font-bold text-white/90 mt-6 mb-3" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="text-xl font-bold text-white/90 mt-5 mb-3" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-base" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-semibold text-white/95" {...props} />,
                   em: ({node, ...props}) => <em className="text-gray-200" {...props} />,
                   ul: ({node, ...props}) => <ul className="my-3 list-disc pl-5 space-y-1" {...props} />,

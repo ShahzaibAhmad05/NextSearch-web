@@ -23,13 +23,13 @@ export interface AIOverviewResponse {
 }
 
 /**
- * Response from the result summary API endpoint
+ * Response from the AI summary API endpoint
  */
 export interface ResultSummaryResponse {
-  /** The URL of the result being summarized */
-  url: string;
-  /** AI-generated summary of the result */
+  /** Whether the summary was served from cache */
+  cached: boolean;
+  /** CORD-19 unique identifier */
+  cord_uid: string;
+  /** AI-generated summary in Markdown format */
   summary: string;
-  /** Time taken to generate summary (ms) */
-  generation_time_ms?: number;
 }
