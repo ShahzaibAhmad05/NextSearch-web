@@ -3,12 +3,7 @@
 
 import { Clock, X, Trash2 } from 'lucide-react';
 import { Card, Button } from './ui';
-
-interface RecentSearch {
-  query: string;
-  timestamp: number;
-  resultCount?: number;
-}
+import type { RecentSearch } from '@/lib/types';
 
 interface RecentSearchesProps {
   /** List of recent searches */

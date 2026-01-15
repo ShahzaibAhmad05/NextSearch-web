@@ -2,15 +2,10 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import type { RecentSearch } from '@/lib/types';
 
 const STORAGE_KEY = 'nextsearch-recent-searches';
 const MAX_RECENT_SEARCHES = 10;
-
-interface RecentSearch {
-  query: string;
-  timestamp: number;
-  resultCount?: number;
-}
 
 interface UseRecentSearchesReturn {
   /** List of recent searches */

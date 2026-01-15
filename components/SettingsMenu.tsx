@@ -5,17 +5,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Settings, History, Shield, Trash2, X } from 'lucide-react';
 import { Modal } from './ui';
 import { cn } from '@/lib/utils';
+import type { RecentSearch } from '@/lib/types';
 
 const ADMIN_TOKEN_KEY = 'nextsearch-admin-token';
 const ADMIN_TOKEN_EXPIRY_KEY = 'nextsearch-admin-token-expiry';
 /** Token expires after 1 day (in milliseconds) */
 const TOKEN_EXPIRY_TIME = 24 * 60 * 60 * 1000;
-
-interface RecentSearch {
-  query: string;
-  timestamp: number;
-  resultCount?: number;
-}
 
 interface SettingsMenuProps {
   /** Recent searches from the hook */
