@@ -36,6 +36,7 @@ export interface StatsResponse {
 
   // AI API quota
   ai_api_calls_remaining: number;
+  ai_api_calls_used: number;
 
   // Feedback metrics
   total_feedback_count: number;

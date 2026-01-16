@@ -7,7 +7,7 @@ interface QuotaCardProps {
 }
 
 export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
-  const total = consumed + remaining; // Default limit from documentation
+  const total = consumed + remaining; 
   const usedPercentage = total > 0 ? (consumed / total) * 100 : 0;
   
   const getQuotaColor = () => {

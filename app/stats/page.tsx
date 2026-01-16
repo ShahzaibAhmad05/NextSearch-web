@@ -121,7 +121,7 @@ export default function StatsPage() {
           <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">API Quota Management</h2>
           <QuotaCard
             remaining={stats.ai_api_calls_remaining}
-            consumed={(stats.ai_overview_calls - stats.ai_overview_cache_hits) + (stats.ai_summary_calls - stats.ai_summary_cache_hits)}
+            consumed={stats.ai_api_calls_used}
           />
         </div>
 
