@@ -97,8 +97,21 @@ export async function getResultSummary(
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
+      
+      // Try to parse the error as JSON to check for specific error messages
+      let errorMessage = `AI summary failed (${res.status}): ${text}`;
+      
+      try {
+        const errorData = JSON.parse(text);
+        if (errorData.error && errorData.error.includes('No abstract available')) {
+          errorMessage = 'NO_ABSTRACT_AVAILABLE';
+        }
+      } catch (parseError) {
+        // If parsing fails, use the original error message
+      }
+      
       throw new ApiError(
-        `AI summary failed (${res.status}): ${text}`,
+        errorMessage,
         res.status,
         API_CONFIG.ENDPOINTS.AI_SUMMARY
       );

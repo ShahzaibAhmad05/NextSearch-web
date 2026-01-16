@@ -194,14 +194,22 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
                   />
                 </svg>
                 <div>
-                  <p className="text-red-300 font-medium">Failed to load summary</p>
-                  <p className="text-red-400/80 text-sm mt-1">{error}</p>
-                  <button
-                    onClick={fetchSummary}
-                    className="mt-3 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
-                  >
-                    Try again
-                  </button>
+                  <p className="text-red-300 font-medium">
+                    {error === 'NO_ABSTRACT_AVAILABLE' ? 'Abstract Not Available' : 'Failed to load summary'}
+                  </p>
+                  <p className="text-red-400/80 text-sm mt-1">
+                    {error === 'NO_ABSTRACT_AVAILABLE' 
+                      ? 'Summary cannot be loaded without an abstract of this research document.' 
+                      : error}
+                  </p>
+                  {error !== 'NO_ABSTRACT_AVAILABLE' && (
+                    <button
+                      onClick={fetchSummary}
+                      className="mt-3 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                    >
+                      Try again
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

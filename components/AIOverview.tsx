@@ -126,8 +126,10 @@ export default function AIOverview({ overview, loading, error, hrRef }: AIOvervi
 
         {/* Error state */}
         {error && !loading && (
-          <div className="text-sm text-red-400/80">
-            Unable to generate AI overview. {error}
+          <div className="text-sm text-gray-400/80">
+            {error === 'NO_ABSTRACT_AVAILABLE' 
+              ? 'Summary cannot be loaded without an abstract of this research document.'
+              : `Unable to generate AI overview. ${error}`}
           </div>
         )}
 
