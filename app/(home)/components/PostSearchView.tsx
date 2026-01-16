@@ -71,14 +71,14 @@ export function PostSearchView({
   
   return (
     <div className="pt-15 animate-fade-in">
-      <div className="max-w-245 mx-auto px-4 pt-4">
+      <div className="max-w-245 mx-auto px-4 pt-4 backdrop-blur-2xl">
         {/* Search area */}
         <div
-          className="py-3 sticky z-40"
+          className="pt-3 sticky z-40 rounded-b-2xl backdrop-blur-md"
           style={{
             top: 60,
             background:
-              'linear-gradient(135deg, rgba(20, 20, 31, 0.8) 0%, rgba(26, 26, 46, 0.8) 50%, rgba(18, 28, 55, 0.5) 100%)',
+              'linear-gradient(135deg, rgba(15, 15, 23, 0.9) 40%, rgba(21, 21, 38, 0.9) 60%',
           }}
         >
           <Card className="shadow-dark animate-fade-in-up">
@@ -94,7 +94,7 @@ export function PostSearchView({
           </Card>
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2 items-center">
+        <div className="mt-5 flex flex-wrap gap-2 items-center">
           {/* Sort dropdown */}
           <Dropdown
             value={sortBy}

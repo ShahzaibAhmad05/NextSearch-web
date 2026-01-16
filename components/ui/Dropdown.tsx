@@ -88,8 +88,8 @@ export function Dropdown<T extends string>({
     <div className="relative" ref={wrapperRef}>
       <button
         className={cn(
-          'px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg',
-          'hover:bg-white/10 hover:border-indigo-500/50 hover:text-white',
+          'px-3 py-1.5 text-sm border border-violet-500/30 text-gray-200 rounded-lg',
+          'hover:bg-linear-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:border-violet-500/50 hover:text-white',
           'transition-all duration-300 flex items-center gap-1',
           className
         )}
@@ -120,7 +120,7 @@ export function Dropdown<T extends string>({
       {open && (
         <div
           className={cn(
-            "absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden bg-[#151526]",
+            "absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden bg-[#0e0e19]",
             isClosing ? "animate-scale-out" : "animate-scale-in"
           )}
           role="listbox">
@@ -129,10 +129,10 @@ export function Dropdown<T extends string>({
             <button
               key={String(opt.value)}
               className={cn(
-                'w-full text-left px-4 py-2.5 text-sm transition-all duration-200',
+                'w-full text-left px-4 py-2.5 text-sm transition-colors duration-200',
                 opt.value === value
-                  ? 'bg-indigo-500/30 text-white'
-                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                  ? 'bg-violet-500/30 text-white'
+                  : 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
               )}
               onClick={() => {
                 onChange(opt.value);

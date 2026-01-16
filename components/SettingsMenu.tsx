@@ -115,13 +115,13 @@ export default function SettingsMenu({
         {/* Dropdown menu */}
         {isDropdownOpen && (
           <div className={cn(
-            "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#151526] border border-white/10",
+            "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
             isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
           )}>
             <button
               type="button"
               onClick={handleSiteHistoryClick}
-              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 flex items-center gap-3 border-t border-white/5"
+              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-3 border-t border-white/5"
             >
               <Globe size={16} className="text-gray-400" />
               <span>Site History</span>
@@ -129,7 +129,7 @@ export default function SettingsMenu({
             <button
               type="button"
               onClick={handleHistoryClick}
-              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 flex items-center gap-3 border-t border-white/5"
+              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-3 border-t border-white/5"
             >
               <History size={16} className="text-gray-400" />
               <span>Search History</span>
@@ -137,7 +137,7 @@ export default function SettingsMenu({
             <button
               type="button"
               onClick={handleAdminClick}
-              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-white/10 hover:text-white transition-all duration-200 flex items-center gap-3 border-t border-white/5"
+              className="w-full px-4 py-3 text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-3 border-t border-white/5"
             >
               <Shield size={16} className="text-gray-400" />
               <span>Admin Access</span>

@@ -20,7 +20,7 @@ export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosi
   return (
     <div
       className={cn(
-        "absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 bg-[#151526]",
+        "absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 bg-[#0e0e19]",
         isClosing ? "animate-scale-out" : "animate-scale-in"
       )}
       role="dialog"
@@ -28,7 +28,7 @@ export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosi
     >
       <div className="flex items-start justify-between gap-2">
         <div>
-          <div className="font-semibold text-white">Advanced search</div>
+          <div className="font-semibold text-gray-200 pb-3">Advanced search</div>
           <div className="text-sm text-gray-400">
             Tune how many results are requested from the backend.
           </div>
@@ -45,7 +45,7 @@ export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosi
       </div>
 
       {status && (
-        <div className="mt-3 text-sm text-indigo-300 flex items-center gap-2">
+        <div className="mt-3 text-sm text-violet-300 flex items-center gap-2">
           {status}
           {cached && (
             <span className="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full font-medium ml-auto">cached</span>
@@ -56,8 +56,8 @@ export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosi
       <hr className="my-3 border-white/10" />
 
       <div className="flex items-center justify-between">
-        <label className="font-semibold text-sm">Number of results to fetch</label>
-        <span className="text-sm text-indigo-300">{k}</span>
+        <label className="text-sm">Number of results to fetch</label>
+        <span className="text-sm text-violet-300">{k}</span>
       </div>
 
       <div className="mt-2">

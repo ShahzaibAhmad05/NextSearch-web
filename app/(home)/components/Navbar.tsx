@@ -100,7 +100,7 @@ export function Navbar({
             </button>
             {toolsOpen && (
               <div className={cn(
-                "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#151526] border border-white/10",
+                "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
                 toolsClosing ? "animate-scale-out" : "animate-scale-in"
               )}>
                 <button
@@ -114,9 +114,9 @@ export function Navbar({
                   disabled={!isAdminActive}
                   title={!isAdminActive ? "Admin access required" : "Add document to index"}
                   className={cn(
-                    'w-full px-4 py-3 text-sm text-left transition-all duration-200 flex items-center gap-3',
+                    'w-full px-4 py-3 text-sm text-left transition-colors duration-200 flex items-center gap-3',
                     isAdminActive 
-                      ? 'text-gray-300 hover:bg-white/10 hover:text-white'
+                      ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >
@@ -133,9 +133,9 @@ export function Navbar({
                   disabled={!isAdminActive}
                   title={!isAdminActive ? "Admin access required" : "View statistics"}
                   className={cn(
-                    'w-full px-4 py-3 text-sm text-left transition-all duration-200 flex items-center gap-3 border-t border-white/5',
+                    'w-full px-4 py-3 text-sm text-left transition-colors duration-200 flex items-center gap-3 border-t border-white/5',
                     isAdminActive 
-                      ? 'text-gray-300 hover:bg-white/10 hover:text-white'
+                      ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >
