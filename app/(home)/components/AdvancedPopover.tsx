@@ -8,7 +8,9 @@ interface AdvancedPopoverProps {
   k: number;
   status: string;
   cached: boolean;
+  showNonEnglish: boolean;
   onChangeK: (k: number) => void;
+  onToggleNonEnglish: (show: boolean) => void;
   onClose: () => void;
   isClosing?: boolean;
 }
@@ -16,7 +18,7 @@ interface AdvancedPopoverProps {
 /**
  * Advanced search options popover
  */
-export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosing = false }: AdvancedPopoverProps) {
+export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, onToggleNonEnglish, onClose, isClosing = false }: AdvancedPopoverProps) {
   return (
     <div
       className={cn(
@@ -70,6 +72,32 @@ export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosi
           value={k}
           onChange={(e) => onChangeK(Number(e.target.value))}
         />
+      </div>
+
+      <hr className="my-3 border-white/10" />
+
+      <div className="flex items-center justify-between">
+        <label htmlFor="show-non-english" className="text-sm text-gray-200">
+          Show non-English results
+        </label>
+        <button
+          id="show-non-english"
+          type="button"
+          role="switch"
+          aria-checked={showNonEnglish}
+          onClick={() => onToggleNonEnglish(!showNonEnglish)}
+          className={cn(
+            "relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus-visible:outline-none",
+            showNonEnglish ? "bg-violet-500" : "bg-gray-600"
+          )}
+        >
+          <span
+            className={cn(
+              "inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200",
+              showNonEnglish ? "translate-x-6" : "translate-x-1"
+            )}
+          />
+        </button>
       </div>
     </div>
   );

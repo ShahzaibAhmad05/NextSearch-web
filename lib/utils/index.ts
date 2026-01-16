@@ -15,3 +15,6 @@ export { safeHostname, faviconUrl } from './url';
 
 // Date utilities
 export { publishTimeToMs } from './date';
+
+// Language utilities
+export { isEnglish, isResultTitleEnglish } from './language';

@@ -19,6 +19,7 @@ interface PostSearchViewProps {
   sortOptions: Array<{ value: SortOption; label: string }>;
   showAdvanced: boolean;
   showSort: boolean;
+  showNonEnglish: boolean;
   advancedRef: React.RefObject<HTMLDivElement | null>;
   results: SearchResult[];
   recentSearches: string[];
@@ -31,6 +32,7 @@ interface PostSearchViewProps {
   onSortChange: (sort: SortOption) => void;
   onShowSortChange: (show: boolean) => void;
   onShowAdvancedChange: (show: boolean) => void;
+  onToggleNonEnglish: (show: boolean) => void;
 }
 
 /**
@@ -46,6 +48,7 @@ export function PostSearchView({
   sortBy,
   sortOptions,
   showAdvanced,
+  showNonEnglish,
   advancedRef,
   results,
   recentSearches,
@@ -57,6 +60,7 @@ export function PostSearchView({
   onSubmit,
   onSortChange,
   onShowAdvancedChange,
+  onToggleNonEnglish,
 }: PostSearchViewProps) {
   const hrRef = useRef<HTMLHRElement>(null);
   const [isAdvancedClosing, setIsAdvancedClosing] = useState(false);
@@ -120,7 +124,9 @@ export function PostSearchView({
                 k={k}
                 status={status}
                 cached={cached}
+                showNonEnglish={showNonEnglish}
                 onChangeK={onChangeK}
+                onToggleNonEnglish={onToggleNonEnglish}
                 onClose={handleCloseAdvanced}
                 isClosing={isAdvancedClosing}
               />
@@ -148,7 +154,7 @@ export function PostSearchView({
 
         {/* Results */}
         <div className="px-3">
-          <SearchResults results={results} />
+          <SearchResults results={results} showNonEnglish={showNonEnglish} />
         </div>
 
         {/* Footer with scroll-to-top enabled */}

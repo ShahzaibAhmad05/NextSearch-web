@@ -44,6 +44,7 @@ export default function Home() {
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
   const [showAuthAlert, setShowAuthAlert] = useState(false);
+  const [showNonEnglish, setShowNonEnglish] = useState(false);
 
   // Admin access
   const isAdminActive = useAdminAccess();
@@ -249,6 +250,7 @@ export default function Home() {
           sortOptions={sortOptions}
           showAdvanced={showAdvanced}
           showSort={showSort}
+          showNonEnglish={showNonEnglish}
           advancedRef={advancedRef}
           results={sortedResults}
           recentSearches={recentSearchQueries}
@@ -261,6 +263,7 @@ export default function Home() {
           onSortChange={setSortBy}
           onShowSortChange={setShowSort}
           onShowAdvancedChange={setShowAdvanced}
+          onToggleNonEnglish={setShowNonEnglish}
         />
       )}
 

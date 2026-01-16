@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { ResultCard, Pagination } from './search';
 import { SEARCH_CONFIG } from '@/lib/constants';
 import { useVisitedLinks } from '@/hooks';
+import { isResultTitleEnglish } from '@/lib/utils/language';
 import type { SearchResultsProps } from '@/lib/types';
 
 /**
@@ -14,12 +15,21 @@ import type { SearchResultsProps } from '@/lib/types';
 export default function SearchResults({
   results,
   pageSize = SEARCH_CONFIG.DEFAULT_PAGE_SIZE,
+  showNonEnglish = false,
 }: SearchResultsProps) {
   const [page, setPage] = useState(1);
   const topRef = useRef<HTMLDivElement>(null);
   const { isVisited, markVisited } = useVisitedLinks();
 
-  const totalPages = Math.max(1, Math.ceil(results.length / pageSize));
+  // Filter results based on language preference
+  const filteredResults = useMemo(() => {
+    if (showNonEnglish) {
+      return results;
+    }
+    return results.filter(result => isResultTitleEnglish(result.title));
+  }, [results, showNonEnglish]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredResults.length / pageSize));
   const safePage = Math.min(Math.max(1, page), totalPages);
 
   // Scroll to top of results when page changes
@@ -37,23 +47,30 @@ export default function SearchResults({
   // Reset to page 1 when results change
   useEffect(() => {
     setPage(1);
-  }, [results]);
+  }, [results, showNonEnglish]);
 
   // Get results for current page
   const pageResults = useMemo(() => {
     const start = (safePage - 1) * pageSize;
-    return results.slice(start, start + pageSize);
-  }, [results, safePage, pageSize]);
+    return filteredResults.slice(start, start + pageSize);
+  }, [filteredResults, safePage, pageSize]);
 
   // Handle page changes
   const handlePageChange = (newPage: number) => {
     setPage(Math.min(Math.max(1, newPage), totalPages));
   };
 
-  if (!results.length) {
+  if (!filteredResults.length) {
+    const hiddenCount = results.length - filteredResults.length;
     return (
       <div className="mt-3 text-gray-400">
-        No results.
+        {hiddenCount > 0 ? (
+          <>
+            No English results. {hiddenCount} non-English result{hiddenCount === 1 ? '' : 's'} hidden.
+          </>
+        ) : (
+          'No results.'
+        )}
       </div>
     );
   }

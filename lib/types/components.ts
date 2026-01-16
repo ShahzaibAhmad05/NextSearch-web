@@ -54,4 +54,6 @@ export interface SearchResultsProps {
   results: SearchResult[];
   /** Number of results per page */
   pageSize?: number;
+  /** Whether to show non-English results */
+  showNonEnglish?: boolean;
 }
