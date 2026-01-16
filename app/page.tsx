@@ -41,6 +41,7 @@ export default function Home() {
   // UI state
   const [showAddModal, setShowAddModal] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isAdvancedClosing, setIsAdvancedClosing] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
   const [showAuthAlert, setShowAuthAlert] = useState(false);
@@ -61,9 +62,18 @@ export default function Home() {
     [recentSearches]
   );
 
+  // Close advanced with animation
+  const handleCloseAdvanced = useCallback(() => {
+    setIsAdvancedClosing(true);
+    setTimeout(() => {
+      setShowAdvanced(false);
+      setIsAdvancedClosing(false);
+    }, 200); // Match animation duration
+  }, []);
+
   // Refs
   const advancedRef = useClickOutside<HTMLDivElement>(
-    () => setShowAdvanced(false),
+    handleCloseAdvanced,
     showAdvanced
   );
   const prevKRef = useRef(k);
@@ -73,7 +83,7 @@ export default function Home() {
     if (!showAdvanced) return;
 
     function handleScroll() {
-      setShowAdvanced(false);
+      handleCloseAdvanced();
     }
 
     window.addEventListener('scroll', handleScroll, true);
@@ -81,7 +91,7 @@ export default function Home() {
     return () => {
       window.removeEventListener('scroll', handleScroll, true);
     };
-  }, [showAdvanced]);
+  }, [showAdvanced, handleCloseAdvanced]);
 
   // Submit search
   const handleSubmit = useCallback(
@@ -249,6 +259,7 @@ export default function Home() {
           sortBy={sortBy}
           sortOptions={sortOptions}
           showAdvanced={showAdvanced}
+          isAdvancedClosing={isAdvancedClosing}
           showSort={showSort}
           showNonEnglish={showNonEnglish}
           advancedRef={advancedRef}
@@ -263,6 +274,7 @@ export default function Home() {
           onSortChange={setSortBy}
           onShowSortChange={setShowSort}
           onShowAdvancedChange={setShowAdvanced}
+          onCloseAdvanced={handleCloseAdvanced}
           onToggleNonEnglish={setShowNonEnglish}
         />
       )}
