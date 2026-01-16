@@ -74,11 +74,11 @@ export function PostSearchView({
       <div className="max-w-245 mx-auto px-4 pt-4 backdrop-blur-2xl">
         {/* Search area */}
         <div
-          className="pt-3 sticky z-40 rounded-b-2xl backdrop-blur-md"
+          className="pt-3 sticky z-40 rounded-2xl backdrop-blur-md"
           style={{
             top: 60,
             background:
-              'linear-gradient(135deg, rgba(15, 15, 23, 0.9) 40%, rgba(21, 21, 38, 0.9) 60%',
+              'linear-gradient(135deg, rgba(15, 10, 22, 0.8) 20%, rgba(18, 17, 25, 0.8) 30%, rgba(20, 20, 35, 0.8) 50%',
           }}
         >
           <Card className="shadow-dark animate-fade-in-up">
