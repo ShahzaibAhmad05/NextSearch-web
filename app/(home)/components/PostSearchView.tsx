@@ -74,13 +74,13 @@ export function PostSearchView({
   };
   
   return (
-    <div className="pt-15 animate-fade-in">
-      <div className="max-w-245 mx-auto px-4 pt-4 backdrop-blur-2xl">
+    <div className="pt-12 sm:pt-15 animate-fade-in">
+      <div className="max-w-245 mx-auto px-3 sm:px-4 pt-3 sm:pt-4 backdrop-blur-2xl">
         {/* Search area */}
         <div
-          className="pt-3 sticky z-40 rounded-2xl backdrop-blur-md"
+          className="pt-2 sm:pt-3 sticky z-40 rounded-2xl backdrop-blur-md"
           style={{
-            top: 60,
+            top: 50,
             background:
               'linear-gradient(135deg, rgba(15, 10, 22, 0.8) 20%, rgba(18, 17, 25, 0.8) 30%, rgba(20, 20, 35, 0.8) 50%',
           }}
@@ -98,7 +98,7 @@ export function PostSearchView({
           </Card>
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-2 items-center">
+        <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap gap-2 items-stretch sm:items-center">
           {/* Sort dropdown */}
           <Dropdown
             value={sortBy}

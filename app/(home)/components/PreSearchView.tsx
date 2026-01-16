@@ -50,13 +50,13 @@ export function PreSearchView({
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="max-w-250 mx-auto px-4">
-        <div className="text-center mb-8">
-          <h1 className="text-6xl font-bold mb-4 gradient-text animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
+      <div className="max-w-250 mx-auto px-4 sm:px-6 w-full mb-32">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4 gradient-text animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
             NextSearch
           </h1>
           <div
-            className="tagline-container text-gray-400 text-lg animate-fade-in-down opacity-0"
+            className="tagline-container text-gray-400 text-base sm:text-lg animate-fade-in-down opacity-0"
             style={{ animationDelay: '300ms' }}
           >
             <div
@@ -80,7 +80,7 @@ export function PreSearchView({
         </div>
 
         {/* Footer - shown in pre-search */}
-        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto pr-3">
+        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto px-3 z-10">
           <Footer showScrollToTop={false} />
         </div>
       </div>

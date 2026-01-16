@@ -72,15 +72,15 @@ export function Navbar({
 
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
-      <div className="max-w-310 mx-auto px-4 py-3 flex items-center justify-between">
-        <a className="font-bold text-xl text-white/90" href="/">
+      <div className="max-w-310 mx-auto px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
+        <a className="font-bold text-lg sm:text-xl text-white/90" href="/">
           <span className="gradient-text">Next</span>
           <span className="text-gray-300">Search</span>
         </a>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <a
             href="/about"
-            className="px-3 py-2 text-sm text-gray-400 hover:text-white transition-colors"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
           >
             About
           </a>
@@ -89,18 +89,18 @@ export function Navbar({
               type="button"
               onClick={() => setToolsOpen(!toolsOpen)}
               className={cn(
-                'p-2 rounded-lg transition-all duration-300',
+                'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
                 'text-gray-400 hover:text-white hover:bg-white/10',
                 toolsOpen && 'text-white bg-white/10'
               )}
               aria-label="Tools"
               aria-expanded={toolsOpen}
             >
-              <Wrench size={20} />
+              <Wrench size={18} className="sm:w-5 sm:h-5" />
             </button>
             {toolsOpen && (
               <div className={cn(
-                "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
+                "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
                 toolsClosing ? "animate-scale-out" : "animate-scale-in"
               )}>
                 <button
@@ -114,13 +114,13 @@ export function Navbar({
                   disabled={!isAdminActive}
                   title={!isAdminActive ? "Admin access required" : "Add document to index"}
                   className={cn(
-                    'w-full px-4 py-3 text-sm text-left transition-colors duration-200 flex items-center gap-3',
+                    'w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left transition-colors duration-200 flex items-center gap-2 sm:gap-3',
                     isAdminActive 
                       ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >
-                  <Plus size={16} className="text-gray-400" />
+                  <Plus size={14} className="sm:w-4 sm:h-4 text-gray-400" />
                   <span>Index</span>
                 </button>
                 <button
@@ -133,13 +133,13 @@ export function Navbar({
                   disabled={!isAdminActive}
                   title={!isAdminActive ? "Admin access required" : "View statistics"}
                   className={cn(
-                    'w-full px-4 py-3 text-sm text-left transition-colors duration-200 flex items-center gap-3 border-t border-white/5',
+                    'w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5',
                     isAdminActive 
                       ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >
-                  <BarChart3 size={16} className="text-gray-400" />
+                  <BarChart3 size={14} className="sm:w-4 sm:h-4 text-gray-400" />
                   <span>Stats</span>
                 </button>
               </div>

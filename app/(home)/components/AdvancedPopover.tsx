@@ -22,7 +22,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
   return (
     <div
       className={cn(
-        "absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 bg-[#0e0e19]",
+        "absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-80 max-w-80 rounded-2xl shadow-dark-lg p-3 sm:p-4 z-50 bg-[#0e0e19]",
         isClosing ? "animate-scale-out" : "animate-scale-in"
       )}
       role="dialog"

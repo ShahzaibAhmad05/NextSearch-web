@@ -88,7 +88,7 @@ export function Dropdown<T extends string>({
     <div className="relative" ref={wrapperRef}>
       <button
         className={cn(
-          'px-3 py-1.5 text-sm border border-violet-500/30 text-gray-200 rounded-lg',
+          'px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm border border-violet-500/30 text-gray-200 rounded-lg',
           'hover:bg-linear-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:border-violet-500/50 hover:text-white',
           'transition-all duration-300 flex items-center gap-1',
           className

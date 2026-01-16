@@ -89,7 +89,7 @@ export default function AIOverview({ overview, loading, error, hrRef }: AIOvervi
 
   return (
     <div ref={containerRef} className="mb-6 animate-fade-in flex justify-left max-w-3xl w-full">
-      <div className="glass-card rounded-2xl p-5 border border-white/10 w-full">
+      <div className="glass-card rounded-2xl p-3 sm:p-5 border border-white/10 w-full">
         {/* Header */}
         <div className="flex items-center gap-2 mb-3">
           <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-linear-to-br from-indigo-500 to-purple-600">

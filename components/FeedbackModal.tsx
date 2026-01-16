@@ -102,7 +102,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <form onSubmit={handleSubmit}>
             {/* Feedback Type Selection */}
             <div className="mb-4">
-              <div className="flex items-center gap-3 mb-2">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                 <label className="text-sm font-medium text-gray-300">
                   Feedback Type:
                 </label>

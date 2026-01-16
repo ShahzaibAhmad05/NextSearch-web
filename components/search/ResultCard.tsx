@@ -36,19 +36,19 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
   return (
     <div
       className={cn(
-        'rounded-2xl card-hover animate-fade-in-up p-5',
+        'rounded-2xl card-hover animate-fade-in-up p-3 sm:p-5',
         index > 0 && 'mt-0' // gap handled by parent
       )}
       style={{ animationDelay: `${index * 60}ms` }}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3 sm:gap-4">
         {favicon && (
           <Image
             src={favicon}
             alt=""
-            width={44}
-            height={44}
-            className="rounded-lg shrink-0 mt-0.5 ring-2 ring-white/10"
+            width={36}
+            height={36}
+            className="rounded-lg shrink-0 mt-0.5 ring-2 ring-white/10 sm:w-11 sm:h-11"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
             }}
@@ -58,7 +58,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
 
         <div className="grow min-w-0">
           {/* Title */}
-          <div className="font-semibold text-base line-clamp-2">
+          <div className="font-semibold text-sm sm:text-base line-clamp-2">
             {result.url ? (
               <a
                 className="clean-link"
@@ -77,7 +77,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
           {/* Recently viewed tag */}
           {isVisited && (
             <div className="mt-1.5">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-violet-300 border border-violet-400/40 shadow-sm shadow-violet-500/20">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-linear-to-r from-violet-500/20 to-fuchsia-500/20 text-violet-300 border border-violet-400/40 shadow-sm shadow-violet-500/20">
                 <svg
                   className="w-3 h-3"
                   fill="none"
@@ -103,20 +103,20 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
 
           {/* External link button */}
           {result.url && domain && (
-            <div className="mt-4 flex items-center gap-2">
+            <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <a
                 href={result.url}
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleLinkClick}
-                className="btn-view-at inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-teal-500/30 text-gray-300 hover:bg-teal-500/10 hover:border-teal-400/50 hover:text-white transition-all duration-300">
+                className="btn-view-at inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-teal-500/30 text-gray-300 hover:bg-teal-500/10 hover:border-teal-400/50 hover:text-white transition-all duration-300">
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>
               </a>
               <button
                 type="button"
                 onClick={() => setShowSummaryPanel(true)}
-                className="inline-flex items-center gap-2 px-3 py-2 text-sm rounded-lg border border-white/20 text-gray-300 hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-white/20 text-gray-300 hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
                 aria-label="Get AI summary"
               >
                 <svg

@@ -102,7 +102,7 @@ export function Modal({
   return createPortal(
     <div
       className={cn(
-        "fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm",
+        "fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm p-4",
         isClosing ? "animate-fade-out" : "animate-fade-in"
       )}
       role="dialog"
@@ -116,7 +116,7 @@ export function Modal({
     >
       <div
         className={cn(
-          'w-full max-h-[calc(100vh-24px)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-5',
+          'w-full max-h-[calc(100vh-2rem)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-4 sm:p-5',
           isClosing ? 'animate-scale-out' : 'animate-scale-in',
           maxWidth
         )}
