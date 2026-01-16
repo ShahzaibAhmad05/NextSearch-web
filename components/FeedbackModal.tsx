@@ -1,7 +1,7 @@
 // components/FeedbackModal.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Mail, MessageSquare, Send } from 'lucide-react';
 import { Modal, Button, Input, Spinner } from './ui';
 
@@ -19,6 +19,21 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Clean up state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      // Delay cleanup to allow modal to fully close with animation
+      const timer = setTimeout(() => {
+        setMessage('');
+        setEmail('');
+        setFeedbackType('anonymous');
+        setSubmitStatus('idle');
+        setErrorMessage('');
+      }, 250); // Slightly longer than modal animation
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +71,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
       setSubmitStatus('success');
       setTimeout(() => {
-        handleClose();
+        onClose();
       }, 2000);
     } catch (error) {
       setSubmitStatus('error');
@@ -66,17 +81,8 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     }
   };
 
-  const handleClose = () => {
-    setMessage('');
-    setEmail('');
-    setFeedbackType('anonymous');
-    setSubmitStatus('idle');
-    setErrorMessage('');
-    onClose();
-  };
-
   return (
-    <Modal show={isOpen} onClose={handleClose} maxWidth="max-w-md">
+    <Modal show={isOpen} onClose={onClose} maxWidth="max-w-md">
       <>
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
@@ -174,7 +180,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <div className="flex gap-3 justify-end">
               <Button
                 type="button"
-                onClick={handleClose}
+                onClick={onClose}
                 variant="secondary"
                 disabled={isSubmitting}
               >

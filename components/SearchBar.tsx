@@ -1,7 +1,7 @@
 // components/SearchBar.tsx
 'use client';
 
-import { useRef, useState, useEffect, type KeyboardEvent } from 'react';
+import { useRef, useState, useLayoutEffect, useCallback, type KeyboardEvent } from 'react';
 import { Search, History } from 'lucide-react';
 import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
@@ -26,6 +26,11 @@ export default function SearchBar({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isClosing, setIsClosing] = useState(false);
 
+  // Memoize the callback to prevent unnecessary hook updates
+  const handleBeforeClose = useCallback(() => {
+    setIsClosing(true);
+  }, []);
+
   const {
     suggestions,
     isOpen,
@@ -38,12 +43,12 @@ export default function SearchBar({
   } = useSuggestions({ 
     query, 
     recentSearches,
-    onBeforeClose: () => setIsClosing(true),
+    onBeforeClose: handleBeforeClose,
     closeDelayMs: 200,
   });
 
-  // Reset isClosing when dropdown opens
-  useEffect(() => {
+  // Reset isClosing when dropdown opens - use layout effect to run before paint
+  useLayoutEffect(() => {
     if (isOpen) {
       setIsClosing(false);
     }

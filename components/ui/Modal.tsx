@@ -1,7 +1,7 @@
 // components/ui/Modal.tsx
 'use client';
 
-import { type ReactNode, useEffect, useState } from 'react';
+import { type ReactNode, useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils';
 
@@ -33,6 +33,7 @@ export function Modal({
 }: ModalProps) {
   const [mounted, setMounted] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const wasShowingRef = useRef(false);
 
   // Ensure component is mounted (for Next.js SSR)
   useEffect(() => {
@@ -40,16 +41,18 @@ export function Modal({
     return () => setMounted(false);
   }, []);
 
-  // Handle show/hide with animation
-  useEffect(() => {
+  // Handle show/hide with animation - use layout effect to run before paint
+  useLayoutEffect(() => {
     if (show) {
       setIsClosing(false);
-    } else if (mounted) {
-      // Trigger closing animation when show becomes false
+      wasShowingRef.current = true;
+    } else if (mounted && wasShowingRef.current) {
+      // Only trigger closing animation if we were previously showing
       setIsClosing(true);
       // Reset isClosing after animation completes
       const timer = setTimeout(() => {
         setIsClosing(false);
+        wasShowingRef.current = false;
       }, 200);
       return () => clearTimeout(timer);
     }
@@ -57,7 +60,7 @@ export function Modal({
 
   // Close with animation
   const handleClose = () => {
-    if (preventClose) return;
+    if (preventClose || isClosing) return;
     setIsClosing(true);
     setTimeout(() => {
       onClose();
