@@ -103,7 +103,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
 
           {/* External link button */}
           {result.url && domain && (
-            <div className="mt-3 sm:mt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <div className="mt-3 sm:mt-4 flex flex-row flex-wrap items-center gap-2">
               <a
                 href={result.url}
                 target="_blank"

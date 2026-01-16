@@ -98,7 +98,7 @@ export function PostSearchView({
           </Card>
         </div>
 
-        <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap gap-2 items-stretch sm:items-center">
+        <div className="mt-4 sm:mt-5 flex flex-row flex-wrap gap-2 items-center">
           {/* Sort dropdown */}
           <Dropdown
             value={sortBy}

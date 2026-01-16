@@ -24,20 +24,24 @@ export function Pagination({
   onPageChange,
   maxButtons = 10,
 }: PaginationProps) {
-  // Calculate which page numbers to show
+  // Calculate which page numbers to show - fewer on mobile
   const pageItems = useMemo(() => {
-    if (totalPages <= maxButtons) {
+    // Reduce to 5 buttons on mobile, 10 on desktop
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+    const effectiveMaxButtons = isMobile ? 5 : maxButtons;
+    
+    if (totalPages <= effectiveMaxButtons) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
     }
 
     // Show pages around current page
-    const half = Math.floor(maxButtons / 2);
+    const half = Math.floor(effectiveMaxButtons / 2);
     let start = Math.max(1, currentPage - half);
-    const end = Math.min(totalPages, start + maxButtons - 1);
+    const end = Math.min(totalPages, start + effectiveMaxButtons - 1);
 
     // Adjust start if we're near the end
-    if (end - start < maxButtons - 1) {
-      start = Math.max(1, end - maxButtons + 1);
+    if (end - start < effectiveMaxButtons - 1) {
+      start = Math.max(1, end - effectiveMaxButtons + 1);
     }
 
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
@@ -51,7 +55,7 @@ export function Pagination({
   };
 
   const buttonBase =
-    'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300';
+    'px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300';
   const buttonDisabled = 'text-gray-600 cursor-not-allowed';
   const buttonEnabled = 'text-gray-300 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20';
   const buttonActive =
@@ -99,7 +103,7 @@ export function Pagination({
               <li key={`page-${page}`}>
                 <button
                   className={cn(
-                    'min-w-10',
+                    'min-w-7 sm:min-w-10',
                     buttonBase,
                     page === currentPage ? buttonActive : buttonEnabled
                   )}
@@ -147,7 +151,7 @@ export function Pagination({
           </ul>
         </nav>
 
-        <div className="text-sm text-gray-400">
+        <div className="text-xs sm:text-sm text-gray-400">
           Page{' '}
           <span className="font-semibold bg-linear-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">{currentPage}</span>{' '}
           of{' '}

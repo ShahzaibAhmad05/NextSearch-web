@@ -42,62 +42,65 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
   return (
     <div className="mt-3 mb-8 px-3">
 
-      {/* Footer Content - Single Row */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Left: Copyright */}
-        <a
-          href="https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-gray-400 hover:text-white transition-colors duration-200"
-        >
-          © {new Date().getFullYear()} NextSearch
-        </a>
-
-        {/* Right: Links */}
-        <div className="flex flex-wrap items-center gap-4">
-          {/* Back to Top Button - Only shown in post-search view when scrolled */}
-          {showScrollToTop && showScrollTop && (
-            <button
-              onClick={scrollToTop}
-              className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-linear-to-r from-indigo-600/20 to-purple-600/20 hover:from-indigo-600/30 hover:to-purple-600/30 border border-indigo-500/30 hover:border-indigo-400/50 text-gray-300 hover:text-white transition-all duration-300"
-              aria-label="Scroll to top"
-            >
-              <ArrowUp size={14} className="group-hover:-translate-y-0.5 transition-transform duration-300" />
-              <span className="text-xs font-medium">Top</span>
-            </button>
-          )}
-
-          {/* Give Feedback */}
+      {/* Footer Content */}
+      <div className="flex flex-col sm:flex-row sm:flex-wrap items-center sm:justify-between gap-2 sm:gap-4">
+        {/* Back to Top Button - Only shown in post-search view when scrolled - First on mobile, centered */}
+        {showScrollToTop && showScrollTop && (
           <button
-            onClick={() => setIsFeedbackModalOpen(true)}
-            className="group flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors duration-200"
+            onClick={scrollToTop}
+            className="group flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-linear-to-r from-indigo-600/20 to-purple-600/20 hover:from-indigo-600/30 hover:to-purple-600/30 border border-indigo-500/30 hover:border-indigo-400/50 text-gray-300 hover:text-white transition-all duration-300 sm:order-3 -mt-1 mb-1"
+            aria-label="Scroll to top"
           >
-            <MessageSquare size={14} className="group-hover:scale-110 transition-transform duration-300" />
-            <span>Feedback</span>
+            <ArrowUp size={12} className="sm:w-3.5 sm:h-3.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            <span className="text-[10px] sm:text-xs font-medium">Top</span>
           </button>
-
-          {/* GitHub */}
+        )}
+        
+        {/* Copyright and Links Container */}
+        <div className="flex flex-wrap items-center justify-center sm:justify-between gap-2 sm:gap-4 w-full sm:w-auto">
+          {/* Left: Copyright */}
           <a
-            href="https://github.com/shahzaibahmad05/NextSearch"
+            href="https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors duration-200"
+            className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200"
           >
-            <Github size={14} className="group-hover:rotate-12 transition-transform duration-300" />
-            <span>GitHub</span>
+            © {new Date().getFullYear()} NextSearch
           </a>
 
-          {/* LinkedIn */}
-          <a
-            href="https://www.linkedin.com/in/yourprofile"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors duration-200"
-          >
-            <Linkedin size={14} className="group-hover:scale-110 transition-transform duration-300" />
-            <span>LinkedIn</span>
-          </a>
+          {/* Right: Links */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
+            {/* Give Feedback */}
+            <button
+              onClick={() => setIsFeedbackModalOpen(true)}
+              className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200"
+            >
+              <MessageSquare size={12} className="sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform duration-300" />
+              <span>Feedback</span>
+            </button>
+
+            {/* GitHub */}
+            <a
+              href="https://github.com/shahzaibahmad05/NextSearch"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200"
+            >
+              <Github size={12} className="sm:w-3.5 sm:h-3.5 group-hover:rotate-12 transition-transform duration-300" />
+              <span>GitHub</span>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href="https://www.linkedin.com/in/yourprofile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200"
+            >
+              <Linkedin size={12} className="sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform duration-300" />
+              <span>LinkedIn</span>
+            </a>
+          </div>
         </div>
       </div>
 
