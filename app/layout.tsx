@@ -8,6 +8,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'NextSearch',
   description: 'Search across 1M+ Cord19 research papers',
+  themeColor: '#0a0a0f',
 };
 
 export const viewport: Viewport = {

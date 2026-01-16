@@ -90,7 +90,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
 
           {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/in/yourprofile"
+            href="https://www.linkedin.com/in/shahzaibahmad05/"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors duration-200"
