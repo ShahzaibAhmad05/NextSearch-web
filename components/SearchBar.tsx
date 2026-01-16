@@ -98,7 +98,7 @@ export default function SearchBar({
       <div className="flex gap-2 items-center flex-wrap">
         {/* Search input with glow border */}
         <div
-          className="relative flex-1 min-w-0 w-full sm:min-w-[200px] duration-200">
+          className="relative flex-1 min-w-0 w-full sm:min-w-50 duration-200">
           <Search
             size={20}
             className="text-gray-400 absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
@@ -166,7 +166,7 @@ function SuggestionsDropdown({
 }: SuggestionsDropdownProps) {
   return (
     <div className={cn(
-      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-[100] bg-[#0e0e19] backdrop-blur-sm",
+      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-100 bg-[#0e0e19] backdrop-blur-sm",
       isClosing ? "animate-scale-out" : "animate-scale-in"
     )}>
       {suggestions.map((suggestion, idx) => (
@@ -202,7 +202,7 @@ function SuggestionsDropdown({
  */
 function LoadingIndicator() {
   return (
-    <div className="text-sm bg-linear-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent mt-2 flex items-center gap-2 animate-fade-in">
+    <div className="text-sm text-gray-300 bg-clip-text mt-2 flex items-center gap-2 animate-fade-in">
       <Spinner size="sm" />
       <span>Searching…</span>
     </div>
