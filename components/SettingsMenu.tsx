@@ -410,11 +410,9 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
       await adminLogout();
       
       setIsAuthenticated(false);
-      setMessage({ type: 'success', text: 'Logged out successfully' });
     } catch (err) {
       // Even if backend call fails, we've already cleared local storage
       setIsAuthenticated(false);
-      setMessage({ type: 'success', text: 'Logged out successfully' });
     } finally {
       setLoading(false);
     }
