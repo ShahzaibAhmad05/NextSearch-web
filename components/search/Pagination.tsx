@@ -55,7 +55,7 @@ export function Pagination({
   const buttonDisabled = 'text-gray-600 cursor-not-allowed';
   const buttonEnabled = 'text-gray-300 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20';
   const buttonActive =
-    'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-violet-500/50';
+    'bg-gradient-to-r from-violet-500/70 to-fuchsia-500/70 text-white shadow-violet-500/50';
 
   return (
     <div className="mt-8 animate-fade-in">

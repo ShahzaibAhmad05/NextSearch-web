@@ -157,12 +157,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #8b5cf6, #ec4899);
+    background: rgba(13, 15, 46, 0.9);
     border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #a78bfa, #f472b6);
+    background: rgba(13, 15, 46, 1);
   }
 
   /* Dark shadows */
