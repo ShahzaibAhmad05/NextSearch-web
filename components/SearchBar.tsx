@@ -106,7 +106,7 @@ export default function SearchBar({
 
           <input
             ref={inputRef}
-            className={cn("w-full py-3.5 pl-12 pr-4 text-lg bg-black/45 backdrop-blur-sm text-white placeholder-gray-500 rounded-3xl focus:outline-none transition-all duration-300 border border-white/8",
+            className={cn("w-full py-3.5 pl-12 pr-4 text-lg bg-black/50 backdrop-blur-sm text-white placeholder-gray-400 rounded-3xl focus:outline-none transition-all duration-300 border border-violet-500/20 focus:border-violet-500/50 focus:shadow-lg focus:shadow-violet-500/20",
             isOpen && suggestions.length > 0 && "rounded-b-none"
             )}
             value={query}
@@ -173,10 +173,10 @@ function SuggestionsDropdown({
         <div
           key={`${suggestion.text}-${idx}`}
           className={cn(
-            'text-sm px-4 py-2 cursor-pointer transition-all duration-200 flex items-center gap-3',
+            'text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
             idx === activeIndex
-              ? 'bg-indigo-500/30 text-white'
-              : 'text-gray-300 hover:bg-white/10 hover:text-white'
+              ? 'bg-violet-500/30 text-white'
+              : 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
           )}
           onMouseDown={(e) => {
             // Prevent input blur before we pick
@@ -202,7 +202,7 @@ function SuggestionsDropdown({
  */
 function LoadingIndicator() {
   return (
-    <div className="text-sm text-indigo-300 mt-2 flex items-center gap-2 animate-fade-in">
+    <div className="text-sm bg-linear-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent mt-2 flex items-center gap-2 animate-fade-in">
       <Spinner size="sm" />
       <span>Searching…</span>
     </div>

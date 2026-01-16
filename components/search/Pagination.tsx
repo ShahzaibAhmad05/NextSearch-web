@@ -51,11 +51,11 @@ export function Pagination({
   };
 
   const buttonBase =
-    'px-3 py-2 rounded-lg text-sm transition-all duration-300';
+    'px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300';
   const buttonDisabled = 'text-gray-600 cursor-not-allowed';
-  const buttonEnabled = 'text-gray-300 hover:bg-white/10 hover:text-white';
+  const buttonEnabled = 'text-gray-300 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:text-white hover:border hover:border-violet-500/30';
   const buttonActive =
-    'bg-linear-to-r from-indigo-500 to-purple-500 text-white shadow-glow';
+    'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/50';
 
   return (
     <div className="mt-8 animate-fade-in">
@@ -149,9 +149,9 @@ export function Pagination({
 
         <div className="text-sm text-gray-400">
           Page{' '}
-          <span className="font-semibold text-indigo-300">{currentPage}</span>{' '}
+          <span className="font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">{currentPage}</span>{' '}
           of{' '}
-          <span className="font-semibold text-indigo-300">{totalPages}</span>
+          <span className="font-semibold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">{totalPages}</span>
         </div>
       </div>
     </div>
