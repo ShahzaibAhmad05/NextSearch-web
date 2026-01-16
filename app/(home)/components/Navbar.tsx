@@ -33,7 +33,17 @@ export function Navbar({
   onClearVisitedLinks,
 }: NavbarProps) {
   const [toolsOpen, setToolsOpen] = useState(false);
+  const [toolsClosing, setToolsClosing] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
+
+  // Close tools dropdown with animation
+  const handleCloseTools = () => {
+    setToolsClosing(true);
+    setTimeout(() => {
+      setToolsOpen(false);
+      setToolsClosing(false);
+    }, 200); // Match animation duration
+  };
 
   // Close dropdown on click outside or escape
   useEffect(() => {
@@ -41,13 +51,13 @@ export function Navbar({
 
     function handleClickOutside(e: MouseEvent) {
       if (toolsRef.current && !toolsRef.current.contains(e.target as Node)) {
-        setToolsOpen(false);
+        handleCloseTools();
       }
     }
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        setToolsOpen(false);
+        handleCloseTools();
       }
     }
 
@@ -89,13 +99,16 @@ export function Navbar({
               <Wrench size={20} />
             </button>
             {toolsOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 animate-scale-in bg-[#151526] border border-white/10">
+              <div className={cn(
+                "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#151526] border border-white/10",
+                toolsClosing ? "animate-scale-out" : "animate-scale-in"
+              )}>
                 <button
                   type="button"
                   onClick={() => {
                     if (isAdminActive) {
                       onAddDocument();
-                      setToolsOpen(false);
+                      handleCloseTools();
                     }
                   }}
                   disabled={!isAdminActive}

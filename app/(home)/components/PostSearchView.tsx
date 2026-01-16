@@ -1,7 +1,7 @@
 // app/(home)/components/PostSearchView.tsx
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { SearchBar, SearchResults, AIOverview, Footer } from '@/components';
 import { Button, Card, Alert, Dropdown } from '@/components/ui';
 import type { SearchResult, AIOverviewResponse } from '@/lib/types';
@@ -59,6 +59,15 @@ export function PostSearchView({
   onShowAdvancedChange,
 }: PostSearchViewProps) {
   const hrRef = useRef<HTMLHRElement>(null);
+  const [isAdvancedClosing, setIsAdvancedClosing] = useState(false);
+
+  const handleCloseAdvanced = () => {
+    setIsAdvancedClosing(true);
+    setTimeout(() => {
+      onShowAdvancedChange(false);
+      setIsAdvancedClosing(false);
+    }, 200); // Match animation duration
+  };
   
   return (
     <div className="pt-15 animate-fade-in">
@@ -112,7 +121,8 @@ export function PostSearchView({
                 status={status}
                 cached={cached}
                 onChangeK={onChangeK}
-                onClose={() => onShowAdvancedChange(false)}
+                onClose={handleCloseAdvanced}
+                isClosing={isAdvancedClosing}
               />
             )}
           </div>

@@ -39,10 +39,20 @@ export default function SettingsMenu({
   onClearVisitedLinks,
 }: SettingsMenuProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownClosing, setIsDropdownClosing] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showSiteHistoryModal, setShowSiteHistoryModal] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown with animation
+  const handleCloseDropdown = () => {
+    setIsDropdownClosing(true);
+    setTimeout(() => {
+      setIsDropdownOpen(false);
+      setIsDropdownClosing(false);
+    }, 200); // Match animation duration
+  };
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -50,13 +60,13 @@ export default function SettingsMenu({
 
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setIsDropdownOpen(false);
+        handleCloseDropdown();
       }
     }
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        setIsDropdownOpen(false);
+        handleCloseDropdown();
       }
     }
 
@@ -70,17 +80,17 @@ export default function SettingsMenu({
   }, [isDropdownOpen]);
 
   const handleHistoryClick = () => {
-    setIsDropdownOpen(false);
+    handleCloseDropdown();
     setShowHistoryModal(true);
   };
 
   const handleSiteHistoryClick = () => {
-    setIsDropdownOpen(false);
+    handleCloseDropdown();
     setShowSiteHistoryModal(true);
   };
 
   const handleAdminClick = () => {
-    setIsDropdownOpen(false);
+    handleCloseDropdown();
     setShowAdminModal(true);
   };
 
@@ -104,7 +114,10 @@ export default function SettingsMenu({
 
         {/* Dropdown menu */}
         {isDropdownOpen && (
-          <div className="absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 animate-scale-in bg-[#151526] border border-white/10">
+          <div className={cn(
+            "absolute right-0 top-full mt-2 w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#151526] border border-white/10",
+            isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
+          )}>
             <button
               type="button"
               onClick={handleSiteHistoryClick}

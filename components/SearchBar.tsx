@@ -1,7 +1,7 @@
 // components/SearchBar.tsx
 'use client';
 
-import { useRef, type KeyboardEvent } from 'react';
+import { useRef, useState, useEffect, type KeyboardEvent } from 'react';
 import { Search, History } from 'lucide-react';
 import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
@@ -24,6 +24,7 @@ export default function SearchBar({
   onSubmit,
 }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isClosing, setIsClosing] = useState(false);
 
   const {
     suggestions,
@@ -34,7 +35,19 @@ export default function SearchBar({
     handleBlur,
     handleKeyDown,
     pickSuggestion,
-  } = useSuggestions({ query, recentSearches });
+  } = useSuggestions({ 
+    query, 
+    recentSearches,
+    onBeforeClose: () => setIsClosing(true),
+    closeDelayMs: 200,
+  });
+
+  // Reset isClosing when dropdown opens
+  useEffect(() => {
+    if (isOpen) {
+      setIsClosing(false);
+    }
+  }, [isOpen]);
 
   /**
    * Handle selecting a suggestion
@@ -106,6 +119,7 @@ export default function SearchBar({
               activeIndex={activeIndex}
               onSelect={selectSuggestion}
               onMouseEnter={setActiveIndex}
+              isClosing={isClosing}
             />
           )}
         </div>
@@ -132,6 +146,7 @@ interface SuggestionsDropdownProps {
   activeIndex: number;
   onSelect: (value: string) => void;
   onMouseEnter: (index: number) => void;
+  isClosing?: boolean;
 }
 
 /**
@@ -142,9 +157,13 @@ function SuggestionsDropdown({
   activeIndex,
   onSelect,
   onMouseEnter,
+  isClosing = false,
 }: SuggestionsDropdownProps) {
   return (
-    <div className="absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-20 animate-scale-in bg-[#0e0e19] *:backdrop-blur-sm">
+    <div className={cn(
+      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-20 bg-[#0e0e19] *:backdrop-blur-sm",
+      isClosing ? "animate-scale-out" : "animate-scale-in"
+    )}>
       {suggestions.map((suggestion, idx) => (
         <div
           key={`${suggestion.text}-${idx}`}

@@ -24,6 +24,7 @@ interface AISummaryPanelProps {
  */
 export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
   const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -33,6 +34,21 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
     setMounted(true);
     return () => setMounted(false);
   }, []);
+
+  // Handle show/hide with animation
+  useEffect(() => {
+    if (show) {
+      setIsClosing(false);
+    }
+  }, [show]);
+
+  // Close with animation
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 300); // Match animation duration
+  };
 
   // Fetch summary when panel opens
   const fetchSummary = useCallback(async () => {
@@ -65,13 +81,13 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     }
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [show, onClose]);
+  }, [show]);
 
   // Prevent body scroll when panel is open
   useEffect(() => {
@@ -89,15 +105,21 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
 
   return createPortal(
     <div 
-      className="fixed inset-0 z-100 flex items-end justify-end bg-black/50 backdrop-blur-sm"
+      className={cn(
+        "fixed inset-0 z-100 flex items-end justify-end bg-black/50 backdrop-blur-sm",
+        isClosing ? "animate-fade-out" : "animate-fade-in"
+      )}
       role="dialog"
       aria-modal="true"
-      onClick={onClose}
+      onClick={handleClose}
       data-lenis-prevent
     >
       {/* Side Panel */}
       <div
-        className="h-full w-full max-w-lg glass-card border-l border-white/10 shadow-dark-lg animate-fade-in-right flex flex-col overflow-hidden"
+        className={cn(
+          "h-full w-full max-w-lg glass-card border-l border-white/10 shadow-dark-lg flex flex-col overflow-hidden",
+          isClosing ? "animate-fade-out-right" : "animate-fade-in-right"
+        )}
         onClick={(e) => e.stopPropagation()}
         data-lenis-prevent
       >
@@ -122,7 +144,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
           <button
             className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             aria-label="Close panel"
           >
             ✕

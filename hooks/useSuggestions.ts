@@ -27,6 +27,10 @@ interface UseSuggestionsOptions {
   debounceMs?: number;
   /** Minimum query length before fetching */
   minQueryLength?: number;
+  /** Callback to trigger before closing (for animations) */
+  onBeforeClose?: () => void;
+  /** Delay before actually closing (for animations) in ms */
+  closeDelayMs?: number;
 }
 
 interface UseSuggestionsReturn {
@@ -65,6 +69,8 @@ export function useSuggestions({
   maxSuggestions = SEARCH_CONFIG.MAX_SUGGESTIONS,
   debounceMs = SEARCH_CONFIG.SUGGESTION_DEBOUNCE_MS,
   minQueryLength = SEARCH_CONFIG.MIN_QUERY_LENGTH,
+  onBeforeClose,
+  closeDelayMs = 200,
 }: UseSuggestionsOptions): UseSuggestionsReturn {
   const [apiSuggestions, setApiSuggestions] = useState<string[]>([]);
   const [suggestions, setSuggestions] = useState<SuggestionItem[]>([]);
@@ -196,15 +202,20 @@ export function useSuggestions({
     // Mark inactive immediately so async suggestions can't reopen after blur
     isActiveRef.current = false;
 
-    // Delay closing so click events on suggestions can fire
+    // Trigger closing animation if callback provided
+    if (onBeforeClose) {
+      onBeforeClose();
+    }
+
+    // Delay closing so click events on suggestions can fire and animation completes
     if (blurTimerRef.current != null) {
       window.clearTimeout(blurTimerRef.current);
     }
     blurTimerRef.current = window.setTimeout(
       () => setOpen(false),
-      UI_CONFIG.BLUR_DELAY_MS
+      onBeforeClose ? closeDelayMs : UI_CONFIG.BLUR_DELAY_MS
     );
-  }, []);
+  }, [onBeforeClose, closeDelayMs]);
 
   /**
    * Handle keyboard navigation.
@@ -240,8 +251,17 @@ export function useSuggestions({
       if (e.key === 'Escape') {
         if (isOpen) {
           e.preventDefault();
-          setOpen(false);
-          setActiveIndex(-1);
+          // Trigger closing animation if callback provided
+          if (onBeforeClose) {
+            onBeforeClose();
+            setTimeout(() => {
+              setOpen(false);
+              setActiveIndex(-1);
+            }, closeDelayMs);
+          } else {
+            setOpen(false);
+            setActiveIndex(-1);
+          }
         }
         return null;
       }
@@ -264,7 +284,7 @@ export function useSuggestions({
 
       return null;
     },
-    [suggestions, isOpen, activeIndex]
+    [suggestions, isOpen, activeIndex, onBeforeClose, closeDelayMs]
   );
 
   const reset = useCallback(() => {

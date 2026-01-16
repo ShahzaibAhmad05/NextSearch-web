@@ -1,21 +1,28 @@
 // app/(home)/components/AdvancedPopover.tsx
 'use client';
 
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+
 interface AdvancedPopoverProps {
   k: number;
   status: string;
   cached: boolean;
   onChangeK: (k: number) => void;
   onClose: () => void;
+  isClosing?: boolean;
 }
 
 /**
  * Advanced search options popover
  */
-export function AdvancedPopover({ k, status, cached, onChangeK, onClose }: AdvancedPopoverProps) {
+export function AdvancedPopover({ k, status, cached, onChangeK, onClose, isClosing = false }: AdvancedPopoverProps) {
   return (
     <div
-      className="absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 animate-scale-in bg-[#151526]"
+      className={cn(
+        "absolute right-0 mt-2 w-80 rounded-2xl shadow-dark-lg p-4 z-50 bg-[#151526]",
+        isClosing ? "animate-scale-out" : "animate-scale-in"
+      )}
       role="dialog"
       aria-label="Advanced search"
     >

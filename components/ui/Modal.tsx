@@ -32,6 +32,7 @@ export function Modal({
   preventClose = false,
 }: ModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
   // Ensure component is mounted (for Next.js SSR)
   useEffect(() => {
@@ -39,19 +40,43 @@ export function Modal({
     return () => setMounted(false);
   }, []);
 
+  // Handle show/hide with animation
+  useEffect(() => {
+    if (show) {
+      setIsClosing(false);
+    } else if (mounted) {
+      // Trigger closing animation when show becomes false
+      setIsClosing(true);
+      // Reset isClosing after animation completes
+      const timer = setTimeout(() => {
+        setIsClosing(false);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [show, mounted]);
+
+  // Close with animation
+  const handleClose = () => {
+    if (preventClose) return;
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 200); // Match animation duration
+  };
+
   // Handle escape key
   useEffect(() => {
     if (!show || preventClose) return;
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     }
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [show, onClose, preventClose]);
+  }, [show, preventClose]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -65,23 +90,31 @@ export function Modal({
     };
   }, [show]);
 
-  if (!show || !mounted) return null;
+  // Don't render if never mounted
+  if (!mounted) return null;
+
+  // Don't render if not showing and not closing
+  if (!show && !isClosing) return null;
 
   return createPortal(
     <div
-      className="fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm"
+      className={cn(
+        "fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm",
+        isClosing ? "animate-fade-out" : "animate-fade-in"
+      )}
       role="dialog"
       aria-modal="true"
       onClick={(e) => {
         // Close on backdrop click
         if (e.target === e.currentTarget && !preventClose) {
-          onClose();
+          handleClose();
         }
       }}
     >
       <div
         className={cn(
-          'w-full max-h-[calc(100vh-24px)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-5 animate-scale-in',
+          'w-full max-h-[calc(100vh-24px)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-5',
+          isClosing ? 'animate-scale-out' : 'animate-scale-in',
           maxWidth
         )}
       >
@@ -91,7 +124,7 @@ export function Modal({
             <button
               className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               disabled={preventClose}
               aria-label="Close modal"
             >

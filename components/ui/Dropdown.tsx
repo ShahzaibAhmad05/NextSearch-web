@@ -33,7 +33,23 @@ export function Dropdown<T extends string>({
   className,
 }: DropdownProps<T>) {
   const [open, setOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // Close with animation
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setOpen(false);
+      setIsClosing(false);
+    }, 200); // Match animation duration
+  };
+
+  // Open dropdown
+  const handleOpen = () => {
+    setOpen(true);
+    setIsClosing(false);
+  };
 
   // Close on click outside, escape, or scroll
   useEffect(() => {
@@ -41,18 +57,18 @@ export function Dropdown<T extends string>({
 
     function handleClickOutside(e: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
+        handleClose();
       }
     }
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') {
-        setOpen(false);
+        handleClose();
       }
     }
 
     function handleScroll() {
-      setOpen(false);
+      handleClose();
     }
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -78,7 +94,7 @@ export function Dropdown<T extends string>({
           className
         )}
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => open ? handleClose() : handleOpen()}
         aria-expanded={open}
         aria-haspopup="listbox"
       >
@@ -103,7 +119,10 @@ export function Dropdown<T extends string>({
 
       {open && (
         <div
-          className="absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden animate-scale-in bg-[#151526]"
+          className={cn(
+            "absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden bg-[#151526]",
+            isClosing ? "animate-scale-out" : "animate-scale-in"
+          )}
           role="listbox">
 
           {options.map((opt) => (
@@ -117,7 +136,7 @@ export function Dropdown<T extends string>({
               )}
               onClick={() => {
                 onChange(opt.value);
-                setOpen(false);
+                handleClose();
               }}
               type="button"
               role="option"
