@@ -390,6 +390,12 @@
   overflow: hidden;
 }
 
+@media (max-width: 640px) {
+  .tagline-container {
+    height: 1.5em;
+  }
+}
+
 .tagline-text {
   position: absolute;
   width: 100%;

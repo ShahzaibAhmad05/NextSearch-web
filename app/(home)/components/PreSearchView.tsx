@@ -16,7 +16,7 @@ interface PreSearchViewProps {
 }
 
 const TAGLINES = [
-  'Discover insights across 1M+ CORD-19 research papers',
+  'Insights across 1M+ CORD-19 research papers',
   'A powerful crawler for the CORD-19 dataset',
 ];
 
@@ -50,13 +50,13 @@ export function PreSearchView({
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="max-w-250 mx-auto px-4 sm:px-6 w-full mb-32">
+      <div className="max-w-250 mx-auto px-4 sm:px-6 w-full mb-16 sm:mb-0">
         <div className="text-center mb-6 sm:mb-8">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 sm:mb-4 gradient-text animate-fade-in-down opacity-0" style={{ animationDelay: '100ms' }}>
             NextSearch
           </h1>
           <div
-            className="tagline-container text-gray-400 text-base sm:text-lg animate-fade-in-down opacity-0"
+            className="tagline-container text-gray-400 text-sm sm:text-lg animate-fade-in-down opacity-0"
             style={{ animationDelay: '300ms' }}
           >
             <div
