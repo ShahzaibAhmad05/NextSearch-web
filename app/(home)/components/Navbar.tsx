@@ -75,7 +75,7 @@ export function Navbar({
       <div className="max-w-310 mx-auto px-4 py-3 flex items-center justify-between">
         <a className="font-bold text-xl text-white/90" href="/">
           <span className="gradient-text">Next</span>
-          <span className="text-white">Search</span>
+          <span className="text-gray-300">Search</span>
         </a>
         <div className="flex items-center gap-2">
           <a

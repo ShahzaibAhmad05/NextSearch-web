@@ -184,10 +184,10 @@ export default function VoiceSearchButton({
         className={cn(
           'p-3.5 rounded-full border transition-all duration-300',
           'bg-black/45 backdrop-blur-sm border-white/8',
-          'hover:bg-white/10 hover:border-indigo-500/50',
+          'hover:bg-white/10 hover:border-violet-500/50',
           'focus:outline-none focus:ring-1 focus:ring-white/10',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          isListening && 'bg-indigo-500/30 border-indigo-500/50'
+          isListening && 'bg-violet-500/30 border-violet-500/50'
         )}
         aria-label={isListening ? 'Stop listening' : 'Start voice search'}
       >
