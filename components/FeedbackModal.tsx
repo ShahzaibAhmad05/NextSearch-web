@@ -112,8 +112,8 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('anonymous')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'anonymous'
-                        ? 'border-green-500 bg-green-500/10 text-white'
-                        : 'border-gray-600 bg-gray-800/50 text-gray-400 hover:border-gray-500'
+                        ? 'border-green-500/50 bg-green-500/10 text-white'
+                        : 'border-white/10 bg-[#0a0a0a] text-gray-400 hover:border-white/20 hover:bg-[#0f0f0f]'
                     }`}
                   >
                     <MessageSquare size={14} />
@@ -124,8 +124,8 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('replyable')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'replyable'
-                        ? 'border-green-500 bg-green-500/10 text-white'
-                        : 'border-gray-600 bg-gray-800/50 text-gray-400 hover:border-gray-500'
+                        ? 'border-green-500/50 bg-green-500/10 text-white'
+                        : 'border-white/10 bg-[#0a0a0a] text-gray-400 hover:border-white/20 hover:bg-[#0f0f0f]'
                     }`}
                   >
                     <Mail size={14} />
@@ -147,7 +147,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full bg-gray-800/50 border-gray-600 text-white placeholder-gray-500 pl-5 pr-5 text-sm"
+                  className="w-full bg-[#0a0a0a] border-white/10 text-white placeholder-gray-500 pl-5 pr-5 text-sm hover:border-white/20 focus:border-green-500/50"
                   required={feedbackType === 'replyable'}
                 />
               </div>
@@ -164,7 +164,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell us what you think..."
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none transition-all"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent hover:border-white/20 resize-none transition-all"
                 required
               />
             </div>
