@@ -288,7 +288,7 @@
 
   /* Theme-aware borders */
   .border-theme {
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(200, 200, 200, 0.1);
   }
 
   [data-theme='light'] .border-theme {
