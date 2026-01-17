@@ -36,6 +36,8 @@ export default function Home() {
     error: aiOverviewError,
     fetchOverview: fetchAIOverview,
     reset: resetAIOverview,
+    isRateLimited,
+    remainingRequests,
   } = useAIOverview();
 
   // UI state
@@ -268,6 +270,8 @@ export default function Home() {
           aiOverview={aiOverview}
           aiOverviewLoading={aiOverviewLoading}
           aiOverviewError={aiOverviewError}
+          remainingRequests={remainingRequests}
+          isRateLimited={isRateLimited}
           isVisited={isVisited}
           markVisited={markVisited}
           onChangeQuery={setQuery}

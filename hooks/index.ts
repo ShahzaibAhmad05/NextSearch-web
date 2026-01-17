@@ -12,3 +12,4 @@ export { useRecentSearches } from './useRecentSearches';
 export { useVisitedLinks } from './useVisitedLinks';
 export { useAIOverview } from './useAIOverview';
 export { useAdminAccess, getAdminToken } from './useAdminAccess';
+export { useAIRateLimit } from './useAIRateLimit';

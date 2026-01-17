@@ -16,13 +16,17 @@ interface AIOverviewProps {
   error: string | null;
   /** Optional ref to scroll to when expanding (e.g., hr element above) */
   hrRef?: React.RefObject<HTMLHRElement>;
+  /** Optional: Number of remaining AI requests */
+  remainingRequests?: number;
+  /** Optional: Whether rate limit is exceeded */
+  isRateLimited?: boolean;
 }
 
 /**
  * Displays an AI-generated overview of the search query.
  * Shows a loading skeleton while fetching, and gracefully handles errors.
  */
-export default function AIOverview({ overview, loading, error, hrRef }: AIOverviewProps) {
+export default function AIOverview({ overview, loading, error, hrRef, remainingRequests, isRateLimited }: AIOverviewProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
@@ -111,6 +115,12 @@ export default function AIOverview({ overview, loading, error, hrRef }: AIOvervi
           <h2 className="text-sm font-semibold text-white/90">AI Overview</h2>
           <div className="ml-auto flex items-center gap-2">
             {loading && <Spinner size="sm" />}
+            {/* Show remaining requests if getting low */}
+            {!loading && remainingRequests !== undefined && remainingRequests <= 5 && !isRateLimited && (
+              <span className="text-xs text-yellow-400/80">
+                {remainingRequests} request{remainingRequests !== 1 ? 's' : ''} left
+              </span>
+            )}
           </div>
         </div>
 

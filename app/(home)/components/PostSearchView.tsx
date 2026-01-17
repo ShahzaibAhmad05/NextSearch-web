@@ -27,6 +27,8 @@ interface PostSearchViewProps {
   aiOverview: AIOverviewResponse | null;
   aiOverviewLoading: boolean;
   aiOverviewError: string | null;
+  remainingRequests?: number;
+  isRateLimited?: boolean;
   isVisited: (url: string) => boolean;
   markVisited: (url: string, title?: string) => void;
   onChangeQuery: (q: string) => void;
@@ -60,6 +62,8 @@ export function PostSearchView({
   aiOverview,
   aiOverviewLoading,
   aiOverviewError,
+  remainingRequests,
+  isRateLimited,
   isVisited,
   markVisited,
   onChangeQuery,
@@ -146,6 +150,8 @@ export function PostSearchView({
           <AIOverview
             overview={aiOverview}
             loading={aiOverviewLoading}
+            remainingRequests={remainingRequests}
+            isRateLimited={isRateLimited}
             error={aiOverviewError}
             hrRef={hrRef}
           />
