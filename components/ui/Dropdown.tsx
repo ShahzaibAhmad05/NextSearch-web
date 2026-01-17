@@ -131,8 +131,8 @@ export function Dropdown<T extends string>({
               className={cn(
                 'w-full text-left px-4 py-2.5 text-sm transition-colors duration-200',
                 opt.value === value
-                  ? 'bg-violet-500/30 text-white'
-                  : 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
+                  ? 'bg-green-500/30 text-white'
+                  : 'text-gray-300 hover:bg-green-500/20 hover:text-white'
               )}
               onClick={() => {
                 onChange(opt.value);

@@ -142,7 +142,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
         <div className="flex items-center justify-between gap-3 p-5 border-b border-white/10 shrink-0">
           <div className="flex items-center gap-2">
             <svg
-              className="w-5 h-5 text-indigo-400"
+              className="w-5 h-5 text-green-400"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -157,7 +157,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
             <h2 className="text-lg font-semibold gradient-text">AI Summary</h2>
           </div>
           <button
-            className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
+            className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
             type="button"
             onClick={handleClose}
             aria-label="Close panel"
@@ -176,7 +176,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
               href={result.url}
               target="_blank"
               rel="noreferrer"
-              className="text-sm text-indigo-400 hover:text-indigo-300 transition-colors truncate block"
+              className="text-sm text-green-400 hover:text-green-300 transition-colors truncate block"
             >
               {result.url}
             </a>
@@ -220,7 +220,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
                   {error !== 'NO_ABSTRACT_AVAILABLE' && (
                     <button
                       onClick={fetchSummary}
-                      className="mt-3 text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+                      className="mt-3 text-sm text-green-400 hover:text-green-300 transition-colors"
                     >
                       Try again
                     </button>
@@ -231,7 +231,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
           )}
 
           {summary && !loading && !error && (
-            <div className="prose prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-bold prose-headings:mt-5 prose-headings:mb-3 prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-indigo-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4">
+            <div className="prose prose-invert max-w-none prose-p:my-3 prose-p:leading-relaxed prose-headings:text-white/90 prose-headings:font-bold prose-headings:mt-5 prose-headings:mb-3 prose-a:text-green-400 prose-a:no-underline hover:prose-a:text-green-300 prose-strong:text-white/95 prose-strong:font-semibold prose-em:text-gray-200 prose-code:text-green-300 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-pre:bg-white/5 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-lg prose-pre:p-3 prose-ul:my-3 prose-ul:list-disc prose-ul:pl-5 prose-ol:my-3 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-1 prose-hr:border-white/20 prose-hr:my-4">
               <ReactMarkdown 
                 remarkPlugins={[remarkGfm]}
                 components={{
@@ -245,11 +245,11 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
                   ol: ({node, ...props}) => <ol className="my-3 list-decimal pl-5 space-y-1" {...props} />,
                   li: ({node, ...props}) => <li className="my-1" {...props} />,
                   hr: ({node, ...props}) => <hr className="border-white/20 my-4" {...props} />,
-                  a: ({node, ...props}) => <a className="text-indigo-400 hover:text-indigo-300 no-underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                  a: ({node, ...props}) => <a className="text-green-400 hover:text-green-300 no-underline" target="_blank" rel="noopener noreferrer" {...props} />,
                   code: ({node, className, children, ...props}) => {
                     const isInline = !className?.includes('language-');
                     return isInline 
-                      ? <code className="text-indigo-300 bg-white/5 px-1.5 py-0.5 rounded text-xs" {...props}>{children}</code>
+                      ? <code className="text-green-300 bg-white/5 px-1.5 py-0.5 rounded text-xs" {...props}>{children}</code>
                       : <code className="block" {...props}>{children}</code>;
                   },
                   pre: ({node, ...props}) => <pre className="bg-white/5 border border-white/10 rounded-lg p-3 overflow-x-auto" {...props} />,
