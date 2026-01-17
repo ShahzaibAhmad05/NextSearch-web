@@ -84,7 +84,7 @@ export default function StatsPage() {
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-3xl font-semibold text-white mb-2 tracking-tight">Analytics Dashboard</h1>
-          <p className="text-sm text-slate-400">System performance metrics and insights</p>
+          <p className="text-sm text-slate-400">NextSearch Cache Performance, API Quota Metrics, and Recent Feedback</p>
         </div>
 
         {/* Performance Overview */}

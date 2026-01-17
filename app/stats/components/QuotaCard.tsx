@@ -27,13 +27,12 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-medium text-slate-300 uppercase tracking-wider mb-2">API Quota Usage</p>
-            <p className="text-4xl font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
-            <p className="text-xs text-slate-400 font-medium mt-1">calls remaining</p>
+            <p className="text-3xl font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
+            <p className="text-xs text-slate-400 font-medium mt-1">Calls Remaining</p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-white tabular-nums">{usedPercentage.toFixed(1)}%</p>
-            <p className="text-xs text-slate-400">utilized</p>
+            <p className="text-3xl font-semibold text-white tabular-nums">{usedPercentage.toFixed(1)}%</p>
+            <p className="text-xs text-slate-400 font-medium mt-1">Used</p>
           </div>
         </div>
 
