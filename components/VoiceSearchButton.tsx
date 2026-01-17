@@ -182,7 +182,7 @@ export default function VoiceSearchButton({
         onClick={handleButtonClick}
         disabled={disabled}
         className={cn(
-          'p-3.5 rounded-full border transition-all duration-300',
+          'p-2.5 sm:p-3.5 rounded-full border transition-all duration-300',
           'bg-black/45 backdrop-blur-sm border-white/8',
           'hover:bg-white/10 hover:border-violet-500/50',
           'focus:outline-none focus:ring-1 focus:ring-white/10',
@@ -194,7 +194,7 @@ export default function VoiceSearchButton({
         {isListening ? (
           <MicOff size={22} className="text-red-400" />
         ) : (
-          <Mic size={22} className="text-gray-400 hover:text-white" />
+          <Mic className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-gray-400 hover:text-white" />
         )}
       </button>
 
