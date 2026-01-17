@@ -137,6 +137,17 @@ export function Navbar({
           >
             About
           </a>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className={cn(
+              'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
+              'text-theme-secondary hover:text-theme-primary hover-theme'
+            )}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={18} className="sm:w-5 sm:h-5" /> : <Moon size={18} className="sm:w-5 sm:h-5" />}
+          </button>
           <div className="relative" ref={toolsRef}>
             <button
               type="button"
@@ -214,17 +225,6 @@ export function Navbar({
                 </button>
               </div>
             )}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className={cn(
-              'p-1.5 sm:p-2 rounded-lg transition-all duration-300 ml-2',
-              'text-theme-secondary hover:text-theme-primary hover-theme'
-            )}
-            aria-label="Toggle theme"
-          >
-            {theme === 'dark' ? <Sun size={18} className="sm:w-5 sm:h-5" /> : <Moon size={18} className="sm:w-5 sm:h-5" />}
-          </button>
           </div>
           <SettingsMenu
             recentSearches={recentSearches}

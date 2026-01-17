@@ -115,7 +115,7 @@ export default function SettingsMenu({
         {/* Dropdown menu */}
         {isDropdownOpen && (
           <div className={cn(
-            "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
+            "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-theme-tertiary border border-theme",
             isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
           )}>
             <button

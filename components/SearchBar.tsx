@@ -107,7 +107,7 @@ export default function SearchBar({
 
           <input
             ref={inputRef}
-            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg bg-black/50 backdrop-blur-sm text-theme-primary placeholder-theme-muted rounded-3xl focus:outline-none transition-all duration-200 border border-theme [data-theme='light']_&:bg-white/80",
+            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg backdrop-blur-sm text-theme-primary placeholder-theme-muted rounded-3xl focus:outline-none transition-all duration-200 border border-theme bg-theme-tertiary",
             isOpen && suggestions.length > 0 && "rounded-b-none"
             )}
             value={query}
@@ -170,7 +170,7 @@ function SuggestionsDropdown({
 }: SuggestionsDropdownProps) {
   return (
     <div className={cn(
-      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-100 bg-[#0a0a0a] backdrop-blur-sm",
+      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-100 backdrop-blur-sm border-x border-b border-theme bg-theme-tertiary",
       isClosing ? "animate-scale-out" : "animate-scale-in"
     )}>
       {suggestions.map((suggestion, idx) => (
@@ -179,7 +179,7 @@ function SuggestionsDropdown({
           className={cn(
             'group text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
             idx === activeIndex
-              ? 'bg-green-500/30 text-white'
+              ? 'bg-green-500/30 text-theme-primary'
               : 'text-theme-secondary hover:bg-green-500/20 hover:text-theme-primary'
           )}
           onMouseDown={(e) => {

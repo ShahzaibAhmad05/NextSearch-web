@@ -61,7 +61,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
           href="https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
+          className="text-xs sm:text-sm text-theme-secondary hover:text-theme-primary transition-colors duration-200"
         >
           © {new Date().getFullYear()} NextSearch
         </a>
@@ -71,7 +71,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
           {/* Give Feedback */}
           <button
             onClick={() => setIsFeedbackModalOpen(true)}
-            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
+            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-theme-secondary hover:text-theme-primary transition-colors duration-200"
           >
             <MessageSquare size={12} className="sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform duration-300" />
             <span>Feedback</span>
@@ -82,7 +82,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
             href="https://github.com/shahzaibahmad05/NextSearch"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
+            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-theme-secondary hover:text-theme-primary transition-colors duration-200"
           >
             <Github size={12} className="sm:w-3.5 sm:h-3.5 group-hover:rotate-12 transition-transform duration-300" />
             <span>GitHub</span>
@@ -93,7 +93,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
             href="https://www.linkedin.com/in/shahzaibahmad05/"
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
+            className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-theme-secondary hover:text-theme-primary transition-colors duration-200"
           >
             <Linkedin size={12} className="sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform duration-300" />
             <span>LinkedIn</span>
