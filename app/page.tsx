@@ -54,7 +54,7 @@ export default function Home() {
   const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
 
   // Visited links
-  const { visitedLinks, removeVisited, clearHistory: clearVisitedLinks } = useVisitedLinks();
+  const { visitedLinks, isVisited, markVisited, removeVisited, clearHistory: clearVisitedLinks } = useVisitedLinks();
 
   // Extract just the query strings for the SearchBar
   const recentSearchQueries = useMemo(
@@ -268,6 +268,8 @@ export default function Home() {
           aiOverview={aiOverview}
           aiOverviewLoading={aiOverviewLoading}
           aiOverviewError={aiOverviewError}
+          isVisited={isVisited}
+          markVisited={markVisited}
           onChangeQuery={setQuery}
           onChangeK={(v) => setK(clampK(v))}
           onSubmit={handleSubmit}

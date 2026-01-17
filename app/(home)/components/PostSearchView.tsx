@@ -27,6 +27,8 @@ interface PostSearchViewProps {
   aiOverview: AIOverviewResponse | null;
   aiOverviewLoading: boolean;
   aiOverviewError: string | null;
+  isVisited: (url: string) => boolean;
+  markVisited: (url: string, title?: string) => void;
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
@@ -58,6 +60,8 @@ export function PostSearchView({
   aiOverview,
   aiOverviewLoading,
   aiOverviewError,
+  isVisited,
+  markVisited,
   onChangeQuery,
   onChangeK,
   onSubmit,
@@ -149,7 +153,12 @@ export function PostSearchView({
 
         {/* Results */}
         <div className="px-3">
-          <SearchResults results={results} showNonEnglish={showNonEnglish} />
+          <SearchResults 
+            results={results} 
+            showNonEnglish={showNonEnglish}
+            isVisited={isVisited}
+            markVisited={markVisited}
+          />
         </div>
 
         {/* Footer with scroll-to-top enabled */}
