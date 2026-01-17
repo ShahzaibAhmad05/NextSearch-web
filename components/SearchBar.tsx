@@ -234,7 +234,7 @@ function SuggestionsDropdown({
  */
 function LoadingIndicator() {
   return (
-    <div className="text-sm text-gray-300 bg-clip-text mt-2 flex items-center gap-2 animate-fade-in">
+    <div className="text-sm text-gray-300 bg-clip-text mt-2 flex items-center gap-2 animate-fade-in ml-5">
       <Spinner size="sm" />
       <span>Searching…</span>
     </div>
