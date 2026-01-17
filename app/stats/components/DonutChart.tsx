@@ -30,10 +30,10 @@ export function DonutChart({ label, percentage, hits, misses, color }: DonutChar
     <Card className="border border-white/5 bg-white/2 backdrop-blur-sm hover:border-white/10 hover:shadow-lg transition-all" padding="lg">
       <div className="space-y-5">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-medium text-slate-300 uppercase tracking-wider">{label}</p>
+          <p className="text-xs font-medium text-theme-secondary uppercase tracking-wider">{label}</p>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full bg-${color}-500 animate-pulse`}></div>
-            <span className="text-lg font-bold text-white tabular-nums">{(percentage * 100).toFixed(1)}%</span>
+            <span className="text-lg font-bold text-theme-primary tabular-nums">{(percentage * 100).toFixed(1)}%</span>
           </div>
         </div>
 
@@ -68,7 +68,7 @@ export function DonutChart({ label, percentage, hits, misses, color }: DonutChar
               <span className={`text-3xl font-bold ${colorClasses[color].text} tabular-nums`}>
                 {hitsPercentage.toFixed(1)}%
               </span>
-              <span className="text-xs text-slate-400 mt-1">Cache Hit</span>
+              <span className="text-xs text-theme-tertiary mt-1">Cache Hit</span>
             </div>
           </div>
         </div>

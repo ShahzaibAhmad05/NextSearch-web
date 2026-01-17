@@ -102,7 +102,8 @@ export function Modal({
   return createPortal(
     <div
       className={cn(
-        "fixed inset-0 flex items-center justify-center z-100 bg-black/50 backdrop-blur-sm p-4",
+        "fixed inset-0 flex items-center justify-center z-100 backdrop-blur-sm p-4",
+        "bg-black/50 [data-theme='light']_&:bg-black/30",
         isClosing ? "animate-fade-out" : "animate-fade-in"
       )}
       role="dialog"
@@ -116,7 +117,7 @@ export function Modal({
     >
       <div
         className={cn(
-          'w-full max-h-[calc(100vh-2rem)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-4 sm:p-5',
+          'w-full max-h-[calc(100vh-2rem)] overflow-auto glass-card text-theme-primary rounded-2xl shadow-dark-lg p-4 sm:p-5',
           isClosing ? 'animate-scale-out' : 'animate-scale-in',
           maxWidth
         )}
@@ -125,7 +126,7 @@ export function Modal({
           <div className="flex items-center justify-between gap-3 mb-4">
             <h2 className="m-0 text-xl font-semibold gradient-text">{title}</h2>
             <button
-              className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
+              className="px-3 py-1.5 text-sm border border-theme text-theme-secondary rounded-lg hover-theme hover:border-green-500/50 hover:text-theme-primary transition-all duration-300"
               type="button"
               onClick={handleClose}
               disabled={preventClose}

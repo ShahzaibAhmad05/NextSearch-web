@@ -30,10 +30,10 @@ const variantClasses: Record<ButtonVariant, string> = {
   primary:
     'bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700',
   secondary:
-    'border border-green-500/30 text-gray-200 hover:bg-gradient-to-r hover:from-green-500/20 hover:to-green-600/20 hover:border-green-500/50 hover:text-white',
-  ghost: 'text-gray-300 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-600/10 hover:text-white',
+    'border border-green-500/30 text-theme-secondary hover:bg-gradient-to-r hover:from-green-500/20 hover:to-green-600/20 hover:border-green-500/50 hover:text-theme-primary [data-theme="light"]_&:text-gray-700',
+  ghost: 'text-theme-secondary hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-600/10 hover:text-theme-primary',
   danger:
-    'bg-gradient-to-r from-red-500/20 to-rose-500/20 border border-red-500/40 text-red-300 hover:from-red-500/30 hover:to-rose-500/30 hover:border-red-500/60',
+    'bg-gradient-to-r from-red-500/20 to-rose-500/20 border border-red-500/40 text-red-300 hover:from-red-500/30 hover:to-rose-500/30 hover:border-red-500/60 [data-theme="light"]_&:text-red-600',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {

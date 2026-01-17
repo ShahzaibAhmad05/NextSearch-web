@@ -27,12 +27,12 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-3xl font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
-            <p className="text-xs text-slate-400 font-medium mt-1">Calls Remaining</p>
+            <p className="text-3xl font-semibold text-theme-primary tabular-nums">{remaining.toLocaleString()}</p>
+            <p className="text-xs text-theme-tertiary font-medium mt-1">Calls Remaining</p>
           </div>
           <div className="text-right">
-            <p className="text-3xl font-semibold text-white tabular-nums">{usedPercentage.toFixed(1)}%</p>
-            <p className="text-xs text-slate-400 font-medium mt-1">Used</p>
+            <p className="text-3xl font-semibold text-theme-primary tabular-nums">{usedPercentage.toFixed(1)}%</p>
+            <p className="text-xs text-theme-tertiary font-medium mt-1">Used</p>
           </div>
         </div>
 
@@ -47,7 +47,7 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
           {/* Percentage Label inside bar if > 10% */}
           {usedPercentage > 10 && (
             <div className="absolute inset-0 flex items-center px-3">
-              <span className="text-xs font-bold text-white drop-shadow-md">
+              <span className="text-xs font-bold text-white drop-shadow-md [data-theme='light']_&:text-gray-900">
                 {usedPercentage.toFixed(2)}%
               </span>
             </div>
@@ -57,16 +57,16 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-4 pt-2">
           <div className="text-center">
-            <p className="text-xs text-slate-400 mb-1">Total Limit</p>
-            <p className="text-lg font-semibold text-white tabular-nums">{total.toLocaleString()}</p>
+            <p className="text-xs text-theme-tertiary mb-1">Total Limit</p>
+            <p className="text-lg font-semibold text-theme-primary tabular-nums">{total.toLocaleString()}</p>
           </div>
-          <div className="text-center border-x border-white/5">
-            <p className="text-xs text-slate-400 mb-1">Consumed</p>
-            <p className="text-lg font-semibold text-white tabular-nums">{consumed.toLocaleString()}</p>
+          <div className="text-center border-x border-theme">
+            <p className="text-xs text-theme-tertiary mb-1">Consumed</p>
+            <p className="text-lg font-semibold text-theme-primary tabular-nums">{consumed.toLocaleString()}</p>
           </div>
           <div className="text-center">
-            <p className="text-xs text-slate-400 mb-1">Remaining</p>
-            <p className="text-lg font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
+            <p className="text-xs text-theme-tertiary mb-1">Remaining</p>
+            <p className="text-lg font-semibold text-theme-primary tabular-nums">{remaining.toLocaleString()}</p>
           </div>
         </div>
       </div>

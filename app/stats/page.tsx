@@ -47,7 +47,7 @@ export default function StatsPage() {
         <div className="glass-card p-8 rounded-lg border border-white/5">
           <div className="flex items-center gap-3">
             <div className="animate-spin rounded-full h-5 w-5 border-2 border-slate-400 border-t-transparent"></div>
-            <p className="text-sm font-medium text-slate-300">Loading statistics...</p>
+            <p className="text-sm font-medium text-theme-secondary">Loading statistics...</p>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function StatsPage() {
       <div className="min-h-screen bg-linear-to-br from-black via-[#0a0a0a] to-black flex items-center justify-center">
         <div className="glass-card p-8 rounded-lg border border-red-500/20 max-w-md mx-4">
           <h1 className="text-xl font-semibold text-red-400 mb-2">Error</h1>
-          <p className="text-sm text-slate-400">{error || 'Authentication required'}</p>
+          <p className="text-sm text-theme-tertiary">{error || 'Authentication required'}</p>
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ export default function StatsPage() {
         {/* Back Button */}
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-8 group"
+          className="inline-flex items-center gap-2 text-sm text-theme-tertiary hover:text-theme-primary transition-colors mb-8 group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <span>Back to NextSearch</span>
@@ -83,13 +83,13 @@ export default function StatsPage() {
 
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-3xl font-semibold text-white mb-2 tracking-tight">Analytics Dashboard</h1>
-          <p className="text-sm text-slate-400">NextSearch Cache Performance, API Quota Metrics, and Recent Feedback</p>
+          <h1 className="text-3xl font-semibold text-theme-primary mb-2 tracking-tight">Analytics Dashboard</h1>
+          <p className="text-sm text-theme-tertiary">NextSearch Cache Performance, API Quota Metrics, and Recent Feedback</p>
         </div>
 
         {/* Performance Overview */}
         <div className="mb-10">
-          <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Performance Overview</h2>
+          <h2 className="text-lg font-medium text-theme-secondary mb-5 tracking-tight">Performance Overview</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <DonutChart
               label="Search Performance"

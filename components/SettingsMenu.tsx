@@ -103,7 +103,7 @@ export default function SettingsMenu({
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           className={cn(
             'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
-            'text-gray-300 hover:text-white hover:bg-white/10',
+            'text-theme-secondary hover:text-theme-primary hover-theme',
             isDropdownOpen && 'text-white bg-white/10'
           )}
           aria-label="Settings"
@@ -121,25 +121,25 @@ export default function SettingsMenu({
             <button
               type="button"
               onClick={handleSiteHistoryClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-theme-secondary hover:bg-green-500/20 hover:text-theme-primary transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-theme"
             >
-              <Globe size={14} className="sm:w-4 sm:h-4 text-gray-400" />
+              <Globe size={14} className="sm:w-4 sm:h-4 text-theme-tertiary" />
               <span>Site History</span>
             </button>
             <button
               type="button"
               onClick={handleHistoryClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-theme-secondary hover:bg-green-500/20 hover:text-theme-primary transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-theme"
             >
-              <History size={14} className="sm:w-4 sm:h-4 text-gray-400" />
+              <History size={14} className="sm:w-4 sm:h-4 text-theme-tertiary" />
               <span>Search History</span>
             </button>
             <button
               type="button"
               onClick={handleAdminClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-theme-secondary hover:bg-green-500/20 hover:text-theme-primary transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-theme"
             >
-              <Shield size={14} className="sm:w-4 sm:h-4 text-gray-400" />
+              <Shield size={14} className="sm:w-4 sm:h-4 text-theme-tertiary" />
               <span>Admin Access</span>
             </button>
           </div>
@@ -200,7 +200,7 @@ function SearchHistoryModal({
     <Modal show={show} onClose={onClose} title="Search History" maxWidth="max-w-md">
       <div className="space-y-3">
         {recentSearches.length === 0 ? (
-          <p className="text-gray-400 text-sm text-center py-4">
+          <p className="text-theme-tertiary text-sm text-center py-4">
             No search history yet
           </p>
         ) : (
@@ -286,7 +286,7 @@ function SiteHistoryModal({
     <Modal show={show} onClose={onClose} title="Site History" maxWidth="max-w-md">
       <div className="space-y-3">
         {visitedLinks.length === 0 ? (
-          <p className="text-gray-400 text-sm text-center py-4">
+          <p className="text-theme-tertiary text-sm text-center py-4">
             No sites visited yet
           </p>
         ) : (

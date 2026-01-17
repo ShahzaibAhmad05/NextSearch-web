@@ -102,12 +102,12 @@ export default function SearchBar({
           className="relative flex-1 min-w-0 w-full sm:min-w-50 duration-200">
           <Search
             size={20}
-            className="text-gray-300 absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
+            className="text-theme-secondary absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
           />
 
           <input
             ref={inputRef}
-            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg bg-black/50 backdrop-blur-sm text-gray-300 placeholder-gray-400 rounded-3xl focus:outline-none transition-all duration-200 border border-white/8",
+            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg bg-black/50 backdrop-blur-sm text-theme-primary placeholder-theme-muted rounded-3xl focus:outline-none transition-all duration-200 border border-theme [data-theme='light']_&:bg-white/80",
             isOpen && suggestions.length > 0 && "rounded-b-none"
             )}
             value={query}
@@ -180,7 +180,7 @@ function SuggestionsDropdown({
             'group text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
             idx === activeIndex
               ? 'bg-green-500/30 text-white'
-              : 'text-gray-300 hover:bg-green-500/20 hover:text-white'
+              : 'text-theme-secondary hover:bg-green-500/20 hover:text-theme-primary'
           )}
           onMouseDown={(e) => {
             // Prevent input blur before we pick
@@ -190,9 +190,9 @@ function SuggestionsDropdown({
           onMouseEnter={() => onMouseEnter(idx)}
         >
           {suggestion.isRecent ? (
-            <History size={16} className="text-gray-400 shrink-0" />
+            <History size={16} className="text-theme-tertiary shrink-0" />
           ) : (
-            <Search size={16} className="text-gray-400 shrink-0" />
+            <Search size={16} className="text-theme-tertiary shrink-0" />
           )}
           <span className="flex-1">{suggestion.text}</span>
           {onDelete && (
@@ -207,7 +207,7 @@ function SuggestionsDropdown({
                 onMouseDown={(e) => e.preventDefault()}
                 aria-label="Delete suggestion"
               >
-                <X size={14} className="text-gray-400 hover:text-red-400" />
+                <X size={14} className="text-theme-tertiary hover:text-red-400" />
               </button>
               {/* Desktop: "Delete" text on hover */}
               <button
@@ -234,7 +234,7 @@ function SuggestionsDropdown({
  */
 function LoadingIndicator() {
   return (
-    <div className="text-sm text-gray-300 bg-clip-text mt-2 flex items-center gap-2 animate-fade-in">
+    <div className="text-sm text-theme-secondary bg-clip-text mt-2 flex items-center gap-2 animate-fade-in">
       <Spinner size="sm" />
       <span>Searching…</span>
     </div>

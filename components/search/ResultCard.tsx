@@ -97,7 +97,7 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
           )}
 
           {/* Byline */}
-          <div className="text-sm text-gray-400 mt-1.5">
+          <div className="text-sm text-theme-tertiary mt-1.5">
             {formatByline(result)}
           </div>
 
@@ -109,14 +109,14 @@ export function ResultCard({ result, index = 0, isVisited = false, onVisit }: Re
                 target="_blank"
                 rel="noreferrer"
                 onClick={handleLinkClick}
-                className="btn-view-at inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-green-500/30 text-gray-300 hover:bg-green-500/10 hover:border-green-400/50 hover:text-white transition-all duration-300">
+                className="btn-view-at inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-green-500/30 text-theme-secondary hover:bg-green-500/10 hover:border-green-400/50 hover:text-theme-primary transition-all duration-300">
                 <ExternalLinkIcon />
                 <span>View at {domain}</span>
               </a>
               <button
                 type="button"
                 onClick={() => setShowSummaryPanel(true)}
-                className="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-white/20 text-gray-300 hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm rounded-lg border border-theme text-theme-secondary hover-theme hover:border-green-500/50 hover:text-theme-primary transition-all duration-300"
                 aria-label="Get AI summary"
               >
                 <svg

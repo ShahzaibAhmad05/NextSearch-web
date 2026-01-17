@@ -76,8 +76,8 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
         )}
       </div>
       
-      <h3 className="text-xl font-semibold text-white mb-1">{member.name}</h3>
-      <p className="text-gray-400 font-medium mb-4 text-sm">{member.role}</p>
+      <h3 className="text-xl font-semibold text-theme-primary mb-1">{member.name}</h3>
+      <p className="text-theme-tertiary font-medium mb-4 text-sm">{member.role}</p>
       
       {/* Social links */}
       <div className="flex justify-center gap-3">
@@ -86,7 +86,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
             href={member.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg bg-white/10 hover:bg-white/15 text-gray-400 hover:text-white transition-all"
+            className="p-2 rounded-lg hover-theme text-theme-tertiary hover:text-theme-primary transition-all"
             aria-label="GitHub"
           >
             <Github size={20} />
@@ -129,7 +129,7 @@ export default function AboutPage() {
           {/* Back Button */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-sm text-theme-secondary hover:text-theme-primary transition-colors mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back to NextSearch</span>

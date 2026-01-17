@@ -48,7 +48,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
         {showScrollToTop && showScrollTop && (
           <button
             onClick={scrollToTop}
-            className="group flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-linear-to-r from-green-600/20 to-green-700/20 hover:from-green-600/30 hover:to-green-700/30 border border-green-500/30 hover:border-green-400/50 text-gray-300 hover:text-white transition-all duration-300 sm:absolute sm:left-1/2 sm:-translate-x-1/2 -mt-1 mb-1 sm:mt-0 sm:mb-0"
+            className="group flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-linear-to-r from-green-600/20 to-green-700/20 hover:from-green-600/30 hover:to-green-700/30 border border-green-500/30 hover:border-green-400/50 text-theme-secondary hover:text-theme-primary transition-all duration-300 sm:absolute sm:left-1/2 sm:-translate-x-1/2 -mt-1 mb-1 sm:mt-0 sm:mb-0"
             aria-label="Scroll to top"
           >
             <ArrowUp size={12} className="sm:w-3.5 sm:h-3.5 group-hover:-translate-y-0.5 transition-transform duration-300" />

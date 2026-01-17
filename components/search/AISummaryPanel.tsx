@@ -157,7 +157,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
             <h2 className="text-lg font-semibold gradient-text">AI Summary</h2>
           </div>
           <button
-            className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
+            className="px-3 py-1.5 text-sm border border-theme text-theme-secondary rounded-lg hover-theme hover:border-green-500/50 hover:text-theme-primary transition-all duration-300"
             type="button"
             onClick={handleClose}
             aria-label="Close panel"
@@ -188,7 +188,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
           {loading && (
             <div className="flex flex-col items-center justify-center py-12 gap-4">
               <Spinner size="lg" />
-              <p className="text-gray-400 text-sm">Generating AI summary...</p>
+              <p className="text-theme-tertiary text-sm">Generating AI summary...</p>
             </div>
           )}
 
@@ -238,9 +238,9 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
                   h1: ({node, ...props}) => <h1 className="text-2xl font-bold text-white/90 mt-6 mb-3" {...props} />,
                   h2: ({node, ...props}) => <h2 className="text-xl font-bold text-white/90 mt-5 mb-3" {...props} />,
                   h3: ({node, ...props}) => <h3 className="text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
-                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-gray-300 text-base" {...props} />,
-                  strong: ({node, ...props}) => <strong className="font-semibold text-white/95" {...props} />,
-                  em: ({node, ...props}) => <em className="text-gray-200" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-theme-secondary text-base" {...props} />,
+                  strong: ({node, ...props}) => <strong className="font-semibold text-theme-primary" {...props} />,
+                  em: ({node, ...props}) => <em className="text-theme-secondary" {...props} />,
                   ul: ({node, ...props}) => <ul className="my-3 list-disc pl-5 space-y-1" {...props} />,
                   ol: ({node, ...props}) => <ol className="my-3 list-decimal pl-5 space-y-1" {...props} />,
                   li: ({node, ...props}) => <li className="my-1" {...props} />,

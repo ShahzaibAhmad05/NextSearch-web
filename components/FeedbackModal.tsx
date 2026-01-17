@@ -87,7 +87,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
           <MessageSquare className="text-green-400" size={24} />
-          <h2 className="text-xl font-semibold text-gray-200">Send Feedback</h2>
+          <h2 className="text-xl font-semibold text-theme-primary">Send Feedback</h2>
         </div>
 
         {submitStatus === 'success' ? (
@@ -95,15 +95,15 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-4">
               <Send className="text-green-400" size={32} />
             </div>
-            <h3 className="text-lg font-semibold text-gray-100 mb-2">Feedback Sent!</h3>
-            <p className="text-gray-400">Thank you for your feedback. We appreciate it!</p>
+            <h3 className="text-lg font-semibold text-theme-primary mb-2">Feedback Sent!</h3>
+            <p className="text-theme-tertiary">Thank you for your feedback. We appreciate it!</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             {/* Feedback Type Selection */}
             <div className="mb-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                <label className="text-sm font-medium text-gray-300">
+                <label className="text-sm font-medium text-theme-secondary">
                   Feedback Type:
                 </label>
                 <div className="flex gap-2">
@@ -112,8 +112,8 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('anonymous')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'anonymous'
-                        ? 'border-green-500/50 bg-green-500/10 text-gray-200'
-                        : 'border-white/10 bg-[#0a0a0a] text-gray-400 hover:border-white/20 hover:bg-[#0f0f0f]'
+                        ? 'border-green-500/50 bg-green-500/10 text-theme-primary'
+                        : 'border-theme bg-theme-secondary text-theme-tertiary hover:border-theme-strong hover:bg-theme-tertiary'
                     }`}
                   >
                     <MessageSquare size={14} />
@@ -124,8 +124,8 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('replyable')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'replyable'
-                        ? 'border-green-500/50 bg-green-500/10 text-white'
-                        : 'border-white/10 bg-[#0a0a0a] text-gray-400 hover:border-white/20 hover:bg-[#0f0f0f]'
+                        ? 'border-green-500/50 bg-green-500/10 text-theme-primary'
+                        : 'border-theme bg-theme-secondary text-theme-tertiary hover:border-theme-strong hover:bg-theme-tertiary'
                     }`}
                   >
                     <Mail size={14} />
@@ -138,7 +138,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             {/* Email Input (only for replyable) */}
             {feedbackType === 'replyable' && (
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium text-theme-secondary mb-2">
                   Your Email
                 </label>
                 <Input
@@ -155,7 +155,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
 
             {/* Message Input */}
             <div className="mb-4">
-              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="message" className="block text-sm font-medium text-theme-secondary mb-2">
                 Your Feedback
               </label>
               <textarea

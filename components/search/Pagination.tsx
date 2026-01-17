@@ -56,8 +56,8 @@ export function Pagination({
 
   const buttonBase =
     'px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300';
-  const buttonDisabled = 'text-gray-600 cursor-not-allowed';
-  const buttonEnabled = 'text-gray-300 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-500/20';
+  const buttonDisabled = 'text-theme-muted cursor-not-allowed';
+  const buttonEnabled = 'text-theme-secondary hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-500/20';
   const buttonActive =
     'bg-gradient-to-r from-green-500/30 to-green-500/50 text-white';
 
@@ -151,7 +151,7 @@ export function Pagination({
           </ul>
         </nav>
 
-        <div className="text-xs sm:text-sm text-gray-400">
+        <div className="text-xs sm:text-sm text-theme-tertiary">
           Page{' '}
           <span className="font-semibold bg-linear-to-r text-green-600 bg-clip-text">{currentPage}</span>{' '}
           of{' '}
