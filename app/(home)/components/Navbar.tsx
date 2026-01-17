@@ -2,7 +2,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Wrench, Plus, BarChart3 } from 'lucide-react';
+import { Wrench, Plus, BarChart3, Lock } from 'lucide-react';
 import { SettingsMenu } from '@/components';
 import type { RecentSearch } from '../types';
 import type { VisitedLink } from '@/lib/types/shared';
@@ -34,7 +34,10 @@ export function Navbar({
 }: NavbarProps) {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [toolsClosing, setToolsClosing] = useState(false);
+  const [showAccessMessage, setShowAccessMessage] = useState(false);
+  const [accessMessageClosing, setAccessMessageClosing] = useState(false);
   const toolsRef = useRef<HTMLDivElement>(null);
+  const accessMessageRef = useRef<HTMLDivElement>(null);
 
   // Close tools dropdown with animation
   const handleCloseTools = () => {
@@ -43,6 +46,29 @@ export function Navbar({
       setToolsOpen(false);
       setToolsClosing(false);
     }, 200); // Match animation duration
+  };
+
+  // Close access message with animation
+  const handleCloseAccessMessage = () => {
+    setAccessMessageClosing(true);
+    setTimeout(() => {
+      setShowAccessMessage(false);
+      setAccessMessageClosing(false);
+    }, 200);
+  };
+
+  // Handle tools button click
+  const handleToolsClick = () => {
+    if (!isAdminActive && !toolsOpen) {
+      // Show access message for unauthorized users
+      setShowAccessMessage(true);
+      setAccessMessageClosing(false);
+      setTimeout(() => {
+        handleCloseAccessMessage();
+      }, 4000); // Hide after 4 seconds
+    } else {
+      setToolsOpen(!toolsOpen);
+    }
   };
 
   // Close dropdown on click outside or escape
@@ -70,6 +96,31 @@ export function Navbar({
     };
   }, [toolsOpen]);
 
+  // Close access message on click outside or escape
+  useEffect(() => {
+    if (!showAccessMessage) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (accessMessageRef.current && !accessMessageRef.current.contains(e.target as Node)) {
+        handleCloseAccessMessage();
+      }
+    }
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        handleCloseAccessMessage();
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showAccessMessage]);
+
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-310 mx-auto px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
@@ -87,7 +138,7 @@ export function Navbar({
           <div className="relative" ref={toolsRef}>
             <button
               type="button"
-              onClick={() => setToolsOpen(!toolsOpen)}
+              onClick={handleToolsClick}
               className={cn(
                 'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
                 'text-gray-400 hover:text-white hover:bg-white/10',
@@ -98,6 +149,23 @@ export function Navbar({
             >
               <Wrench size={18} className="sm:w-5 sm:h-5" />
             </button>
+            
+            {/* Admin access required message */}
+            {showAccessMessage && (
+              <div 
+                ref={accessMessageRef}
+                className={cn(
+                  "absolute right-0 top-full mt-2 px-4 py-2.5 rounded-lg shadow-lg z-50",
+                  "bg-amber-500/20 border border-amber-500/40 backdrop-blur-sm",
+                  accessMessageClosing ? "animate-scale-out" : "animate-scale-in"
+                )}
+              >
+                <p className="text-xs sm:text-sm text-amber-400 whitespace-nowrap flex items-center gap-2">
+                  <Lock size={14} className="sm:w-4 sm:h-4" />
+                  <span>Admin access required</span>
+                </p>
+              </div>
+            )}
             {toolsOpen && (
               <div className={cn(
                 "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
