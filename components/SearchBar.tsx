@@ -95,7 +95,7 @@ export default function SearchBar({
   };
 
   return (
-    <div>
+    <div className="relative z-50">
       <div className="flex gap-2 items-center flex-wrap">
         {/* Search input with glow border */}
         <div

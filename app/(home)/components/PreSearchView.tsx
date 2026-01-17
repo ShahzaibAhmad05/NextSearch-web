@@ -69,7 +69,7 @@ export function PreSearchView({
           </div>
         </div>
 
-        <div className="animate-slide-up-fade opacity-0" style={{ animationDelay: '500ms' }}>
+        <div className="animate-slide-up-fade opacity-0 relative z-50" style={{ animationDelay: '500ms' }}>
           <SearchBar
             query={query}
             k={k}
@@ -83,7 +83,7 @@ export function PreSearchView({
         </div>
 
         {/* Footer - shown in pre-search */}
-        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto px-3 z-10">
+        <div className="fixed bottom-0 left-0 right-0 max-w-270 mx-auto px-3 z-0">
           <Footer showScrollToTop={false} />
         </div>
       </div>
