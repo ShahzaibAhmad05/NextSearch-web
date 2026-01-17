@@ -144,7 +144,7 @@ export default function AIOverview({ overview, loading, error, hrRef }: AIOvervi
                   h1: ({node, ...props}) => <h1 className="text-lg sm:text-2xl font-bold text-white/90 mt-6 mb-3" {...props} />,
                   h2: ({node, ...props}) => <h2 className="text-base sm:text-xl font-bold text-white/90 mt-5 mb-3" {...props} />,
                   h3: ({node, ...props}) => <h3 className="text-sm sm:text-lg font-semibold text-white/90 mt-4 mb-2" {...props} />,
-                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-sm sm:text-base" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-relaxed text-sm" {...props} />,
                   strong: ({node, ...props}) => <strong className="font-semibold text-white/95" {...props} />,
                   em: ({node, ...props}) => <em className="text-gray-200" {...props} />,
                   ul: ({node, ...props}) => <ul className="my-3 list-disc pl-5 space-y-1" {...props} />,
