@@ -22,7 +22,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
   return (
     <div
       className={cn(
-        "absolute mt-2 rounded-2xl shadow-dark-lg p-3 sm:p-4 z-50 bg-[#0e0e19]",
+        "absolute mt-2 rounded-2xl shadow-dark-lg p-3 sm:p-4 z-50 bg-[#0f0f0f]",
         "left-1/2 -translate-x-1/2 w-[calc(100vw-7rem)]",
         "sm:left-auto sm:right-0 sm:translate-x-0 sm:w-80",
         isClosing ? "animate-scale-out" : "animate-scale-in"
@@ -49,7 +49,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
       </div>
 
       {status && (
-        <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-violet-300 flex items-center gap-2">
+        <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-green-300 flex items-center gap-2">
           {status}
           {cached && (
             <span className="text-[10px] sm:text-xs bg-green-500/20 text-green-300 px-1.5 sm:px-2 py-0.5 rounded-full font-medium ml-auto">cached</span>
@@ -61,7 +61,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
 
       <div className="flex items-center justify-between">
         <label className="text-xs sm:text-sm">Number of results to fetch</label>
-        <span className="text-xs sm:text-sm text-violet-300">{k}</span>
+        <span className="text-xs sm:text-sm text-green-300">{k}</span>
       </div>
 
       <div className="mt-1.5 sm:mt-2">
@@ -90,7 +90,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
           onClick={() => onToggleNonEnglish(!showNonEnglish)}
           className={cn(
             "relative inline-flex h-5 sm:h-6 w-9 sm:w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus-visible:outline-none",
-            showNonEnglish ? "bg-violet-500" : "bg-gray-600"
+            showNonEnglish ? "bg-green-500" : "bg-gray-600"
           )}
         >
           <span

@@ -115,13 +115,13 @@ export default function SettingsMenu({
         {/* Dropdown menu */}
         {isDropdownOpen && (
           <div className={cn(
-            "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
+            "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
             isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
           )}>
             <button
               type="button"
               onClick={handleSiteHistoryClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
             >
               <Globe size={14} className="sm:w-4 sm:h-4 text-gray-400" />
               <span>Site History</span>
@@ -129,7 +129,7 @@ export default function SettingsMenu({
             <button
               type="button"
               onClick={handleHistoryClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
             >
               <History size={14} className="sm:w-4 sm:h-4 text-gray-400" />
               <span>Search History</span>
@@ -137,7 +137,7 @@ export default function SettingsMenu({
             <button
               type="button"
               onClick={handleAdminClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-violet-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
             >
               <Shield size={14} className="sm:w-4 sm:h-4 text-gray-400" />
               <span>Admin Access</span>
@@ -451,7 +451,7 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full px-4 py-3 text-sm bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all"
+              className="w-full px-4 py-3 text-sm bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500/50 transition-all"
               autoComplete="current-password"
             />
           </div>
@@ -472,7 +472,7 @@ function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-4 py-2.5 text-sm text-white bg-indigo-600 rounded-lg hover:bg-indigo-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-2.5 text-sm text-white bg-green-600 rounded-lg hover:bg-green-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Authenticating...' : 'Authenticate'}
           </button>

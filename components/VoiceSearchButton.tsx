@@ -184,10 +184,10 @@ export default function VoiceSearchButton({
         className={cn(
           'p-2.5 sm:p-3.5 rounded-full border transition-all duration-300',
           'bg-black/45 backdrop-blur-sm border-white/8',
-          'hover:bg-white/10 hover:border-violet-500/50',
+          'hover:bg-white/10 hover:border-green-500/50',
           'focus:outline-none focus:ring-1 focus:ring-white/10',
           'disabled:opacity-50 disabled:cursor-not-allowed',
-          isListening && 'bg-violet-500/30 border-violet-500/50'
+          isListening && 'bg-green-500/30 border-green-500/50'
         )}
         aria-label={isListening ? 'Stop listening' : 'Start voice search'}
       >
@@ -258,21 +258,21 @@ function VoiceSearchModal({ transcript, error, onClose }: VoiceSearchModalProps)
       }}
     >
       <div className={cn(
-        "w-full max-w-sm text-gray-100 rounded-2xl shadow-dark-lg p-8 text-center bg-[#151526] backdrop-blur-md",
+        "w-full max-w-sm text-gray-100 rounded-2xl shadow-dark-lg p-8 text-center bg-[#0f0f0f] backdrop-blur-md",
         isClosing ? "animate-scale-out" : "animate-scale-in"
       )}>
         {/* Animated microphone icon */}
         <div className="relative inline-flex items-center justify-center mb-6">
           {/* Pulsing rings */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-indigo-500/20 animate-ping" />
+            <div className="w-16 h-16 rounded-full bg-green-500/20 animate-ping" />
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-indigo-500/30 animate-pulse" />
+            <div className="w-12 h-12 rounded-full bg-green-500/30 animate-pulse" />
           </div>
           
           {/* Microphone icon */}
-          <div className="relative z-10 w-16 h-16 rounded-full bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+          <div className="relative z-10 w-16 h-16 rounded-full bg-linear-to-br from-green-500 to-green-700 flex items-center justify-center">
             <Mic size={32} className="text-white" />
           </div>
         </div>
@@ -295,7 +295,7 @@ function VoiceSearchModal({ transcript, error, onClose }: VoiceSearchModalProps)
         <button
           type="button"
           onClick={handleClose}
-          className="mt-6 px-6 py-2 text-sm text-gray-300 border border-white/20 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
+          className="mt-6 px-6 py-2 text-sm text-gray-300 border border-white/20 rounded-lg hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
         >
           Cancel
         </button>

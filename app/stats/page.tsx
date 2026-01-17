@@ -43,7 +43,7 @@ export default function StatsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-black via-[#0a0a0a] to-black flex items-center justify-center">
         <div className="glass-card p-8 rounded-lg border border-white/5">
           <div className="flex items-center gap-3">
             <div className="animate-spin rounded-full h-5 w-5 border-2 border-slate-400 border-t-transparent"></div>
@@ -56,7 +56,7 @@ export default function StatsPage() {
 
   if (error || !isAuthenticated) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] flex items-center justify-center">
+      <div className="min-h-screen bg-linear-to-br from-black via-[#0a0a0a] to-black flex items-center justify-center">
         <div className="glass-card p-8 rounded-lg border border-red-500/20 max-w-md mx-4">
           <h1 className="text-xl font-semibold text-red-400 mb-2">Error</h1>
           <p className="text-sm text-slate-400">{error || 'Authentication required'}</p>
@@ -70,7 +70,7 @@ export default function StatsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] py-12 px-4">
+    <div className="min-h-screen bg-linear-to-br bg-[linear-gradient(135deg,#000000_0%,#131313_50%,#1a1a1a_100%)] py-12 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Back Button */}
         <Link

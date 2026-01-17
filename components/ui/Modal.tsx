@@ -125,7 +125,7 @@ export function Modal({
           <div className="flex items-center justify-between gap-3 mb-4">
             <h2 className="m-0 text-xl font-semibold gradient-text">{title}</h2>
             <button
-              className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-indigo-500/50 hover:text-white transition-all duration-300"
+              className="px-3 py-1.5 text-sm border border-white/20 text-gray-300 rounded-lg hover:bg-white/10 hover:border-green-500/50 hover:text-white transition-all duration-300"
               type="button"
               onClick={handleClose}
               disabled={preventClose}

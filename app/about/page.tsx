@@ -59,7 +59,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
   return (
     <Card hoverable padding="lg" className="text-center">
       {/* Avatar */}
-      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+      <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-linear-to-br from-green-500 to-green-700 flex items-center justify-center">
         {member.avatarUrl ? (
           <Image
             src={member.avatarUrl}
@@ -77,7 +77,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
       </div>
       
       <h3 className="text-xl font-semibold text-white mb-1">{member.name}</h3>
-      <p className="text-gray-500 font-medium mb-4 text-sm">{member.role}</p>
+      <p className="text-gray-400 font-medium mb-4 text-sm">{member.role}</p>
       
       {/* Social links */}
       <div className="flex justify-center gap-3">
@@ -86,7 +86,7 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
             href={member.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-all"
+            className="p-2 rounded-lg bg-white/10 hover:bg-white/15 text-gray-400 hover:text-white transition-all"
             aria-label="GitHub"
           >
             <Github size={20} />
@@ -123,13 +123,13 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-[#0a0a1a] via-[#1a1a2e] to-[#0a0a1a] py-12 px-4">
+  <div className="min-h-screen bg-[linear-gradient(135deg,#000000_0%,#131313_50%,#1a1a1a_100%)] py-12 px-4">
       <main>
         <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back to NextSearch</span>
@@ -140,7 +140,7 @@ export default function AboutPage() {
             <h1 className="text-4xl md:text-5xl font-semibold mb-4 tracking-tight text-white">
               About NextSearch
             </h1>
-            <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto">
               A search engine built with modern C++ and Nextjs, 
               designed for efficient document retrieval and a decent UX.
             </p>
@@ -158,7 +158,7 @@ export default function AboutPage() {
               ].map((tech, idx) => (
                 <Card key={idx} padding="md" className="text-center">
                   <div className="text-lg font-semibold text-white">{tech.name}</div>
-                  <div className="text-sm text-slate-400">{tech.desc}</div>
+                  <div className="text-sm text-slate-300">{tech.desc}</div>
                 </Card>
               ))}
             </div>
@@ -167,7 +167,7 @@ export default function AboutPage() {
           {/* Team Section */}
           <section className="mb-16">
             <h2 className="text-2xl font-semibold text-white mb-2 text-center">Our Team</h2>
-            <p className="text-slate-400 text-center mb-8">
+            <p className="text-slate-300 text-center mb-8">
               Built by a team of passionate software engineers
             </p>
             
@@ -185,7 +185,7 @@ export default function AboutPage() {
             <h2 className="text-2xl font-semibold text-white mb-6 text-center">Project Instructor</h2>
             <Card padding="lg" className="max-w-md mx-auto text-center">
               {/* Avatar */}
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-linear-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+              <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-linear-to-br from-green-500 to-green-700 flex items-center justify-center">
                 {instructor.avatarUrl ? (
                   <Image
                     src={instructor.avatarUrl}
@@ -203,8 +203,8 @@ export default function AboutPage() {
               </div>
               
               <h3 className="text-xl font-semibold text-white mb-2">{instructor.name}</h3>
-              <p className="text-slate-400 text-sm mb-1">{instructor.department}</p>
-              <p className="text-slate-500 text-sm">{instructor.institution}</p>
+              <p className="text-slate-300 text-sm mb-1">{instructor.department}</p>
+              <p className="text-slate-400 text-sm">{instructor.institution}</p>
             </Card>
           </section>
 
@@ -212,9 +212,9 @@ export default function AboutPage() {
           <section>
             <Card padding="lg" className="text-center">
               <h2 className="text-xl font-semibold text-white mb-3">Dataset</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">
+              <p className="text-slate-300 max-w-2xl mx-auto">
                 NextSearch is designed to work with the{' '}
-                <span className="text-indigo-400 font-medium">CORD-19</span>{' '}
+                <span className="text-green-400 font-medium">CORD-19</span>{' '}
                 (COVID-19 Open Research Dataset), a comprehensive collection of 
                 scientific literature about COVID-19 and related coronaviruses.
               </p>

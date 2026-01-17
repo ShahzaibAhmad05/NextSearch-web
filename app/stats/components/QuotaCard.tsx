@@ -27,13 +27,13 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
       <div className="space-y-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">API Quota Usage</p>
+            <p className="text-xs font-medium text-slate-300 uppercase tracking-wider mb-2">API Quota Usage</p>
             <p className="text-4xl font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 font-medium mt-1">calls remaining</p>
+            <p className="text-xs text-slate-400 font-medium mt-1">calls remaining</p>
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-white tabular-nums">{usedPercentage.toFixed(1)}%</p>
-            <p className="text-xs text-slate-500">utilized</p>
+            <p className="text-xs text-slate-400">utilized</p>
           </div>
         </div>
 
@@ -43,7 +43,7 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
             className={`absolute inset-y-0 left-0 bg-linear-to-r ${getBarGradient()} transition-all duration-700 ease-out rounded-full shadow-lg`}
             style={{ width: `${Math.min(usedPercentage, 100)}%` }}
           >
-            <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+            <div className="absolute inset-0 bg-white/20 animate-pulse rounded-full"></div>
           </div>
           {/* Percentage Label inside bar if > 10% */}
           {usedPercentage > 10 && (
@@ -58,15 +58,15 @@ export function QuotaCard({ remaining, consumed }: QuotaCardProps) {
         {/* Stats Grid */}
         <div className="grid grid-cols-3 gap-4 pt-2">
           <div className="text-center">
-            <p className="text-xs text-slate-500 mb-1">Total Limit</p>
+            <p className="text-xs text-slate-400 mb-1">Total Limit</p>
             <p className="text-lg font-semibold text-white tabular-nums">{total.toLocaleString()}</p>
           </div>
           <div className="text-center border-x border-white/5">
-            <p className="text-xs text-slate-500 mb-1">Consumed</p>
+            <p className="text-xs text-slate-400 mb-1">Consumed</p>
             <p className="text-lg font-semibold text-white tabular-nums">{consumed.toLocaleString()}</p>
           </div>
           <div className="text-center">
-            <p className="text-xs text-slate-500 mb-1">Remaining</p>
+            <p className="text-xs text-slate-400 mb-1">Remaining</p>
             <p className="text-lg font-semibold text-white tabular-nums">{remaining.toLocaleString()}</p>
           </div>
         </div>

@@ -78,14 +78,14 @@ export default function SearchFilters({
         className={cn(
           'flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-all',
           hasActiveFilters
-            ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+            ? 'bg-green-500/20 text-green-300 border border-green-500/30'
             : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'
         )}
       >
         <Filter size={16} />
         <span>Filters</span>
         {hasActiveFilters && (
-          <span className="w-2 h-2 rounded-full bg-indigo-400" />
+          <span className="w-2 h-2 rounded-full bg-green-400" />
         )}
         <ChevronDown
           size={16}
@@ -107,7 +107,7 @@ export default function SearchFilters({
                 type="date"
                 value={filters.dateFrom}
                 onChange={(e) => updateFilter('dateFrom', e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500"
               />
             </div>
 
@@ -121,7 +121,7 @@ export default function SearchFilters({
                 type="date"
                 value={filters.dateTo}
                 onChange={(e) => updateFilter('dateTo', e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500"
               />
             </div>
 
@@ -136,7 +136,7 @@ export default function SearchFilters({
                 value={filters.authors}
                 onChange={(e) => updateFilter('authors', e.target.value)}
                 placeholder="Author name..."
-                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500"
               />
             </div>
 
@@ -149,7 +149,7 @@ export default function SearchFilters({
               <select
                 value={filters.documentType}
                 onChange={(e) => updateFilter('documentType', e.target.value as SearchFiltersState['documentType'])}
-                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-indigo-500/50 focus:border-indigo-500"
+                className="w-full px-3 py-2 text-sm bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500"
               >
                 <option value="all">All Types</option>
                 <option value="pdf">PDF Documents</option>

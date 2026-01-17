@@ -28,10 +28,10 @@ const baseClasses =
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white hover:shadow-lg hover:shadow-violet-500/50 disabled:hover:shadow-none',
+    'bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 disabled:hover:shadow-none',
   secondary:
-    'border border-violet-500/30 text-gray-200 hover:bg-gradient-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:border-violet-500/50 hover:text-white',
-  ghost: 'text-gray-300 hover:bg-gradient-to-r hover:from-violet-500/10 hover:to-fuchsia-500/10 hover:text-white',
+    'border border-green-500/30 text-gray-200 hover:bg-gradient-to-r hover:from-green-500/20 hover:to-green-600/20 hover:border-green-500/50 hover:text-white',
+  ghost: 'text-gray-300 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-600/10 hover:text-white',
   danger:
     'bg-gradient-to-r from-red-500/20 to-rose-500/20 border border-red-500/40 text-red-300 hover:from-red-500/30 hover:to-rose-500/30 hover:border-red-500/60',
 };

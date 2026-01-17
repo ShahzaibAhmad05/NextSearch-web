@@ -97,7 +97,7 @@ export default function AddDocumentModal({ show, onClose }: AddDocumentModalProp
     >
       <form onSubmit={handleSubmit}>
         <p className="mb-3 text-gray-300">
-          Upload a zip file of the <b className="text-indigo-300">CORD-19 Dump</b>:
+          Upload a zip file of the <b className="text-green-300">CORD-19 Dump</b>:
         </p>
 
         <FileInput
@@ -149,7 +149,7 @@ function FileInput({ file, fileLabel, loading, onChange }: FileInputProps) {
       <div className="flex gap-3 items-center">
         <input
           type="file"
-          className="flex-1 px-4 py-2.5 text-sm bg-white/5 border border-white/20 rounded-lg text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-300 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-indigo-500/20 file:text-indigo-300 hover:file:bg-indigo-500/30"
+          className="flex-1 px-4 py-2.5 text-sm bg-white/5 border border-white/20 rounded-lg text-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all duration-300 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:bg-green-500/20 file:text-green-300 hover:file:bg-green-500/30"
           accept=".zip,application/zip"
           onChange={(e) => onChange(e.target.files?.[0] ?? null)}
           disabled={loading}

@@ -168,7 +168,7 @@ export function Navbar({
             )}
             {toolsOpen && (
               <div className={cn(
-                "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0e0e19] border border-violet-500/20",
+                "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
                 toolsClosing ? "animate-scale-out" : "animate-scale-in"
               )}>
                 <button
@@ -184,7 +184,7 @@ export function Navbar({
                   className={cn(
                     'w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left transition-colors duration-200 flex items-center gap-2 sm:gap-3',
                     isAdminActive 
-                      ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
+                      ? 'text-gray-300 hover:bg-green-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >
@@ -203,7 +203,7 @@ export function Navbar({
                   className={cn(
                     'w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5',
                     isAdminActive 
-                      ? 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
+                      ? 'text-gray-300 hover:bg-green-500/20 hover:text-white'
                       : 'text-gray-600 cursor-not-allowed'
                   )}
                 >

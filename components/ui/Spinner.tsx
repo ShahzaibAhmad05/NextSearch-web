@@ -7,7 +7,7 @@ interface SpinnerProps {
   /** Size of the spinner */
   size?: 'sm' | 'md' | 'lg';
   /** Color variant of the spinner */
-  color?: 'indigo' | 'white';
+  color?: 'green' | 'white';
   /** Additional CSS classes */
   className?: string;
 }
@@ -19,14 +19,14 @@ const sizeClasses = {
 } as const;
 
 const colorClasses = {
-  indigo: 'border-indigo-500',
+  green: 'border-green-500',
   white: 'border-white',
 } as const;
 
 /**
  * A loading spinner component with consistent styling.
  */
-export function Spinner({ size = 'md', color = 'indigo', className }: SpinnerProps) {
+export function Spinner({ size = 'md', color = 'green', className }: SpinnerProps) {
   return (
     <div
       className={cn(
