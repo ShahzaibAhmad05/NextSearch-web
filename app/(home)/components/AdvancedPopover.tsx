@@ -49,7 +49,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
       </div>
 
       {status && (
-        <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-green-300 flex items-center gap-2">
+        <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-gray-300 flex items-center gap-2">
           {status}
           {cached && (
             <span className="text-[10px] sm:text-xs bg-green-500/20 text-green-300 px-1.5 sm:px-2 py-0.5 rounded-full font-medium ml-auto">cached</span>
@@ -61,18 +61,21 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
 
       <div className="flex items-center justify-between">
         <label className="text-xs sm:text-sm">Number of results to fetch</label>
-        <span className="text-xs sm:text-sm text-green-300">{k}</span>
+        <span className="text-xs sm:text-sm text-gray-300">{k}</span>
       </div>
 
       <div className="mt-1.5 sm:mt-2">
         <input
           type="range"
-          className="w-full"
+          className="w-full green-range"
           min={1}
           max={100}
           step={1}
           value={k}
           onChange={(e) => onChangeK(Number(e.target.value))}
+          style={{
+            background: `linear-gradient(to right, #16a34a 0%, #16a34a ${((k - 1) / 99) * 100}%, #4b5563 ${((k - 1) / 99) * 100}%, #4b5563 100%)`
+          }}
         />
       </div>
 

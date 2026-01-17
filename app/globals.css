@@ -173,6 +173,52 @@
   .shadow-dark-lg {
     box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
   }
+
+  /* Base */
+  .green-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 9999px;
+    outline: none;
+  }
+
+  /* Chrome / Safari track */
+  .green-range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 9999px;
+  }
+
+  /* Chrome / Safari thumb */
+  .green-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -6px; /* centers thumb */
+    width: 18px;
+    height: 18px;
+    background: #16a34a;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Firefox track */
+  .green-range::-moz-range-track {
+    height: 6px;
+    border-radius: 9999px;
+  }
+
+  /* Firefox thumb */
+  .green-range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #16a34a;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: none;
+  }
 }
 
 @layer utilities {
