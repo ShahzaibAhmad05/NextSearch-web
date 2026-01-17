@@ -64,8 +64,8 @@ export function Pagination({
   return (
     <div className="mt-8 animate-fade-in">
       <div className="flex flex-col items-center gap-3">
-        <nav aria-label="Search results pages" className="w-full">
-          <ul className="flex justify-center flex-wrap gap-2">
+        <nav aria-label="Search results pages" className="w-full overflow-x-auto">
+          <ul className="flex justify-center gap-2 min-w-max px-2">
             {/* First */}
             <li>
               <button
