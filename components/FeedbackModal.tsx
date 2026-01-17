@@ -86,7 +86,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       <>
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
-          <MessageSquare className="text-indigo-400" size={24} />
+          <MessageSquare className="text-green-400" size={24} />
           <h2 className="text-xl font-semibold text-white">Send Feedback</h2>
         </div>
 
@@ -112,7 +112,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('anonymous')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'anonymous'
-                        ? 'border-indigo-500 bg-indigo-500/10 text-white'
+                        ? 'border-green-500 bg-green-500/10 text-white'
                         : 'border-gray-600 bg-gray-800/50 text-gray-400 hover:border-gray-500'
                     }`}
                   >
@@ -124,7 +124,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('replyable')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'replyable'
-                        ? 'border-indigo-500 bg-indigo-500/10 text-white'
+                        ? 'border-green-500 bg-green-500/10 text-white'
                         : 'border-gray-600 bg-gray-800/50 text-gray-400 hover:border-gray-500'
                     }`}
                   >
@@ -164,7 +164,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell us what you think..."
                 rows={6}
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none transition-all"
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none transition-all"
                 required
               />
             </div>

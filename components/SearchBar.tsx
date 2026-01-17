@@ -170,7 +170,7 @@ function SuggestionsDropdown({
 }: SuggestionsDropdownProps) {
   return (
     <div className={cn(
-      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-100 bg-[#0e0e19] backdrop-blur-sm",
+      "absolute left-0 right-0 top-full rounded-b-2xl shadow-dark-lg overflow-hidden z-100 bg-[#0a0a0a] backdrop-blur-sm",
       isClosing ? "animate-scale-out" : "animate-scale-in"
     )}>
       {suggestions.map((suggestion, idx) => (
@@ -179,8 +179,8 @@ function SuggestionsDropdown({
           className={cn(
             'group text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
             idx === activeIndex
-              ? 'bg-violet-500/30 text-white'
-              : 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
+              ? 'bg-green-500/30 text-white'
+              : 'text-gray-300 hover:bg-green-500/20 hover:text-white'
           )}
           onMouseDown={(e) => {
             // Prevent input blur before we pick

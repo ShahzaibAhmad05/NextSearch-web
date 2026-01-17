@@ -87,7 +87,7 @@ export function PostSearchView({
           style={{
             top: 50,
             background:
-              'linear-gradient(135deg, rgba(15, 10, 22, 0.8) 20%, rgba(18, 17, 25, 0.8) 30%, rgba(20, 20, 35, 0.8) 50%',
+              'linear-gradient(135deg, rgba(5, 5, 5, 0.8) 20%, rgba(8, 8, 8, 0.8) 30%, rgba(10, 10, 10, 0.8) 50%',
           }}
         >
           <Card className="shadow-dark animate-fade-in-up">
@@ -146,7 +146,7 @@ export function PostSearchView({
           </Alert>
         )}
 
-        <hr ref={hrRef} className="my-4 mt-6 border-t border-[#acbcff73]" />
+        <hr ref={hrRef} className="my-4 mt-6 border-t border-white/10" />
 
         {/* AI Overview - shown above results */}
         <div className="px-3 mt-5">
@@ -171,7 +171,7 @@ export function PostSearchView({
         </div>
 
         {/* Footer with scroll-to-top enabled */}
-        <hr className="mb-6 border-t border-[#acbcff30]" />
+        <hr className="mb-6 border-t border-white/5" />
         <Footer showScrollToTop={true} />
       </div>
     </div>

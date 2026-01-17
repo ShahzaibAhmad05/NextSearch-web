@@ -88,8 +88,8 @@ export function Dropdown<T extends string>({
     <div className="relative" ref={wrapperRef}>
       <button
         className={cn(
-          'px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm border border-violet-500/30 text-gray-200 rounded-lg',
-          'hover:bg-linear-to-r hover:from-violet-500/20 hover:to-fuchsia-500/20 hover:border-violet-500/50 hover:text-white',
+          'px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm border border-green-500/30 text-gray-200 rounded-lg',
+          'hover:bg-linear-to-r hover:from-green-500/20 hover:to-green-600/20 hover:border-green-500/50 hover:text-white',
           'transition-all duration-300 flex items-center gap-1',
           className
         )}
@@ -120,7 +120,7 @@ export function Dropdown<T extends string>({
       {open && (
         <div
           className={cn(
-            "absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden bg-[#0e0e19]",
+            "absolute left-0 mt-2 min-w-56 rounded-xl shadow-dark-lg z-50 overflow-hidden bg-[#0f0f0f]",
             isClosing ? "animate-scale-out" : "animate-scale-in"
           )}
           role="listbox">
