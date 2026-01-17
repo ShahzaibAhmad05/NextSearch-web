@@ -87,7 +87,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
           <MessageSquare className="text-green-400" size={24} />
-          <h2 className="text-xl font-semibold text-white">Send Feedback</h2>
+          <h2 className="text-xl font-semibold text-gray-200">Send Feedback</h2>
         </div>
 
         {submitStatus === 'success' ? (
@@ -95,7 +95,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-4">
               <Send className="text-green-400" size={32} />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Feedback Sent!</h3>
+            <h3 className="text-lg font-semibold text-gray-100 mb-2">Feedback Sent!</h3>
             <p className="text-gray-400">Thank you for your feedback. We appreciate it!</p>
           </div>
         ) : (
@@ -112,7 +112,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                     onClick={() => setFeedbackType('anonymous')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all duration-200 ${
                       feedbackType === 'anonymous'
-                        ? 'border-green-500/50 bg-green-500/10 text-white'
+                        ? 'border-green-500/50 bg-green-500/10 text-gray-200'
                         : 'border-white/10 bg-[#0a0a0a] text-gray-400 hover:border-white/20 hover:bg-[#0f0f0f]'
                     }`}
                   >
@@ -164,7 +164,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell us what you think..."
                 rows={6}
-                className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent hover:border-white/20 resize-none transition-all"
+                className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-transparent hover:border-white/20 resize-none transition-all"
                 required
               />
             </div>
