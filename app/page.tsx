@@ -246,6 +246,7 @@ export default function Home() {
           onChangeQuery={setQuery}
           onChangeK={setK}
           onSubmit={handleSubmit}
+          onDeleteSuggestion={removeSearch}
         />
       )}
 
@@ -282,6 +283,7 @@ export default function Home() {
           onShowAdvancedChange={setShowAdvanced}
           onCloseAdvanced={handleCloseAdvanced}
           onToggleNonEnglish={setShowNonEnglish}
+          onDeleteSuggestion={removeSearch}
         />
       )}
 

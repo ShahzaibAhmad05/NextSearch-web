@@ -2,7 +2,7 @@
 'use client';
 
 import { useRef, useState, useLayoutEffect, useCallback, type KeyboardEvent } from 'react';
-import { Search, History } from 'lucide-react';
+import { Search, History, X } from 'lucide-react';
 import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
 import { cn } from '@/lib/utils';
@@ -22,6 +22,7 @@ export default function SearchBar({
   onChangeQuery,
   onChangeK,
   onSubmit,
+  onDeleteSuggestion,
 }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isClosing, setIsClosing] = useState(false);
@@ -124,6 +125,7 @@ export default function SearchBar({
               activeIndex={activeIndex}
               onSelect={selectSuggestion}
               onMouseEnter={setActiveIndex}
+              onDelete={onDeleteSuggestion}
               isClosing={isClosing}
             />
           )}
@@ -151,17 +153,19 @@ interface SuggestionsDropdownProps {
   activeIndex: number;
   onSelect: (value: string) => void;
   onMouseEnter: (index: number) => void;
+  onDelete?: (value: string) => void;
   isClosing?: boolean;
 }
 
 /**
- * Dropdown list of autocomplete suggestions with icons
+ * Dropdown list of autocomplete suggestions with icons and delete buttons
  */
 function SuggestionsDropdown({
   suggestions,
   activeIndex,
   onSelect,
   onMouseEnter,
+  onDelete,
   isClosing = false,
 }: SuggestionsDropdownProps) {
   return (
@@ -173,7 +177,7 @@ function SuggestionsDropdown({
         <div
           key={`${suggestion.text}-${idx}`}
           className={cn(
-            'text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
+            'group text-sm px-4 py-2 cursor-pointer transition-colors duration-200 flex items-center gap-3',
             idx === activeIndex
               ? 'bg-violet-500/30 text-white'
               : 'text-gray-300 hover:bg-violet-500/20 hover:text-white'
@@ -190,7 +194,35 @@ function SuggestionsDropdown({
           ) : (
             <Search size={16} className="text-gray-400 shrink-0" />
           )}
-          <span>{suggestion.text}</span>
+          <span className="flex-1">{suggestion.text}</span>
+          {onDelete && (
+            <>
+              {/* Mobile: X icon always visible */}
+              <button
+                className="shrink-0 p-1 rounded-full hover:bg-red-500/20 transition-colors duration-200 sm:hidden"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(suggestion.text);
+                }}
+                onMouseDown={(e) => e.preventDefault()}
+                aria-label="Delete suggestion"
+              >
+                <X size={14} className="text-gray-400 hover:text-red-400" />
+              </button>
+              {/* Desktop: "Delete" text on hover */}
+              <button
+                className="hidden sm:block shrink-0 px-2 py-1 text-xs rounded hover:bg-gray-600/30 transition-colors duration-200 opacity-0 group-hover:opacity-100"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(suggestion.text);
+                }}
+                onMouseDown={(e) => e.preventDefault()}
+                aria-label="Delete suggestion"
+              >
+                Delete
+              </button>
+            </>
+          )}
         </div>
       ))}
     </div>

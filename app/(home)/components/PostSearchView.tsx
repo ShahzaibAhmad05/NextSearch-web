@@ -39,6 +39,7 @@ interface PostSearchViewProps {
   onShowAdvancedChange: (show: boolean) => void;
   onCloseAdvanced: () => void;
   onToggleNonEnglish: (show: boolean) => void;
+  onDeleteSuggestion?: (query: string) => void;
 }
 
 /**
@@ -73,6 +74,7 @@ export function PostSearchView({
   onShowAdvancedChange,
   onCloseAdvanced,
   onToggleNonEnglish,
+  onDeleteSuggestion,
 }: PostSearchViewProps) {
   const hrRef = useRef<HTMLHRElement>(null);
   
@@ -97,6 +99,7 @@ export function PostSearchView({
               onChangeQuery={onChangeQuery}
               onChangeK={onChangeK}
               onSubmit={onSubmit}
+              onDeleteSuggestion={onDeleteSuggestion}
             />
           </Card>
         </div>

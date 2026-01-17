@@ -13,6 +13,7 @@ interface PreSearchViewProps {
   onChangeQuery: (q: string) => void;
   onChangeK: (k: number) => void;
   onSubmit: () => void;
+  onDeleteSuggestion?: (query: string) => void;
 }
 
 const TAGLINES = [
@@ -31,6 +32,7 @@ export function PreSearchView({
   onChangeQuery,
   onChangeK,
   onSubmit,
+  onDeleteSuggestion,
 }: PreSearchViewProps) {
   const [taglineIndex, setTaglineIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -76,6 +78,7 @@ export function PreSearchView({
             onChangeQuery={onChangeQuery}
             onChangeK={onChangeK}
             onSubmit={onSubmit}
+            onDeleteSuggestion={onDeleteSuggestion}
           />
         </div>
 

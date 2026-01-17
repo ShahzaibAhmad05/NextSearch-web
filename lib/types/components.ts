@@ -24,6 +24,8 @@ export interface SearchBarProps {
   onChangeK: (k: number) => void;
   /** Callback to submit search */
   onSubmit: (queryOverride?: string) => void;
+  /** Callback to delete a suggestion */
+  onDeleteSuggestion?: (query: string) => void;
 }
 
 /**
