@@ -103,7 +103,7 @@ export default function SettingsMenu({
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           className={cn(
             'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
-            'text-gray-400 hover:text-white hover:bg-white/10',
+            'text-gray-300 hover:text-white hover:bg-white/10',
             isDropdownOpen && 'text-white bg-white/10'
           )}
           aria-label="Settings"

@@ -58,7 +58,7 @@ export function PreSearchView({
             NextSearch
           </h1>
           <div
-            className="tagline-container text-gray-400 text-sm sm:text-lg animate-fade-in-down opacity-0"
+            className="tagline-container text-gray-300 text-sm sm:text-lg animate-fade-in-down opacity-0"
             style={{ animationDelay: '300ms' }}
           >
             <div

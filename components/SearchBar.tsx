@@ -102,12 +102,12 @@ export default function SearchBar({
           className="relative flex-1 min-w-0 w-full sm:min-w-50 duration-200">
           <Search
             size={20}
-            className="text-gray-400 absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
+            className="text-gray-300 absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 pointer-events-none z-10"
           />
 
           <input
             ref={inputRef}
-            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg bg-black/50 backdrop-blur-sm text-gray-300 placeholder-gray-500 rounded-3xl focus:outline-none transition-all duration-200 border border-white/8",
+            className={cn("w-full py-2.5 sm:py-3.5 pl-10 sm:pl-12 pr-3 sm:pr-4 text-base sm:text-lg bg-black/50 backdrop-blur-sm text-gray-300 placeholder-gray-400 rounded-3xl focus:outline-none transition-all duration-200 border border-white/8",
             isOpen && suggestions.length > 0 && "rounded-b-none"
             )}
             value={query}

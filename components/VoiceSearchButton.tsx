@@ -194,7 +194,7 @@ export default function VoiceSearchButton({
         {isListening ? (
           <MicOff size={22} className="text-red-400" />
         ) : (
-          <Mic className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-gray-400 hover:text-white" />
+          <Mic className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-gray-300 hover:text-white" />
         )}
       </button>
 

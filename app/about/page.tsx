@@ -203,8 +203,8 @@ export default function AboutPage() {
               </div>
               
               <h3 className="text-xl font-semibold text-white mb-2">{instructor.name}</h3>
-              <p className="text-slate-300 text-sm mb-1">{instructor.department}</p>
-              <p className="text-slate-400 text-sm">{instructor.institution}</p>
+              <p className="text-slate-100 text-sm mb-1">{instructor.department}</p>
+              <p className="text-slate-300 text-sm">{instructor.institution}</p>
             </Card>
           </section>
 

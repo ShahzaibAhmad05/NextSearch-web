@@ -131,7 +131,7 @@ export function Navbar({
         <div className="flex items-center gap-1 sm:gap-2">
           <a
             href="/about"
-            className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-400 hover:text-white transition-colors"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors"
           >
             About
           </a>
@@ -141,7 +141,7 @@ export function Navbar({
               onClick={handleToolsClick}
               className={cn(
                 'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
-                'text-gray-400 hover:text-white hover:bg-white/10',
+                'text-gray-300 hover:text-white hover:bg-white/10',
                 toolsOpen && 'text-white bg-white/10'
               )}
               aria-label="Tools"
