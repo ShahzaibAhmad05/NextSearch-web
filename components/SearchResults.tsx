@@ -4,7 +4,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { ResultCard, Pagination } from './search';
 import { SEARCH_CONFIG } from '@/lib/constants';
-import { useVisitedLinks } from '@/hooks';
 import { isResultTitleEnglish } from '@/lib/utils/language';
 import type { SearchResultsProps } from '@/lib/types';
 
@@ -16,10 +15,11 @@ export default function SearchResults({
   results,
   pageSize = SEARCH_CONFIG.DEFAULT_PAGE_SIZE,
   showNonEnglish = false,
+  isVisited,
+  markVisited,
 }: SearchResultsProps) {
   const [page, setPage] = useState(1);
   const topRef = useRef<HTMLDivElement>(null);
-  const { isVisited, markVisited } = useVisitedLinks();
 
   // Filter results based on language preference
   const filteredResults = useMemo(() => {
@@ -87,7 +87,7 @@ export default function SearchResults({
             key={result.docId}
             result={result}
             index={idx}
-            isVisited={result.url ? isVisited(result.url) : false}
+            isVisited={result.url && isVisited ? isVisited(result.url) : false}
             onVisit={markVisited}
           />
         ))}

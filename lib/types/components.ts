@@ -56,4 +56,8 @@ export interface SearchResultsProps {
   pageSize?: number;
   /** Whether to show non-English results */
   showNonEnglish?: boolean;
+  /** Check if a URL has been visited */
+  isVisited?: (url: string) => boolean;
+  /** Mark a URL as visited */
+  markVisited?: (url: string, title?: string) => void;
 }

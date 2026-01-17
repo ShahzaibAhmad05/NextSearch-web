@@ -8,6 +8,8 @@
  * Response from the AI overview API endpoint
  */
 export interface AIOverviewResponse {
+  /** Whether the overview was served from cache */
+  cached?: boolean;
   /** The query that was executed */
   query: string;
   /** AI-generated overview/summary */

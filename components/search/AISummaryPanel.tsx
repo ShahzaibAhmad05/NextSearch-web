@@ -9,6 +9,7 @@ import type { SearchResult } from '@/lib/types';
 import { getResultSummary } from '@/lib/api';
 import { Spinner } from '@/components/ui';
 import { cn } from '@/lib/utils';
+import { useAIRateLimit } from '@/hooks/useAIRateLimit';
 
 interface AISummaryPanelProps {
   /** Whether the panel is visible */
@@ -28,6 +29,9 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Rate limiting
+  const { isLimitExceeded, incrementCount, remainingRequests } = useAIRateLimit();
 
   // Ensure component is mounted (for Next.js SSR)
   useEffect(() => {
@@ -52,6 +56,13 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
 
   // Fetch summary when panel opens
   const fetchSummary = useCallback(async () => {
+    // Check rate limit before making request
+    if (isLimitExceeded) {
+      setError('You have reached the maximum number of AI requests. Please try again later.');
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     setError(null);
     setSummary(null);
@@ -59,6 +70,10 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
     try {
       const response = await getResultSummary(result.cord_uid);
       setSummary(response.summary);
+      // Only increment rate limit counter if response was not cached
+      if (!response.cached) {
+        incrementCount();
+      }
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') {
         return;
@@ -67,7 +82,7 @@ export function AISummaryPanel({ show, onClose, result }: AISummaryPanelProps) {
     } finally {
       setLoading(false);
     }
-  }, [result.cord_uid]);
+  }, [result.cord_uid, isLimitExceeded, incrementCount]);
 
   useEffect(() => {
     if (show) {
