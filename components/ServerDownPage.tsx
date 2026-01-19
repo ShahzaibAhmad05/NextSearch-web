@@ -15,8 +15,8 @@ export default function ServerDownPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full bg-gray-800 rounded-2xl shadow-2xl p-8 md:p-12 border border-red-500/20">
+    <div className="min-h-screen bg-[linear-gradient(135deg,#000000_0%,#131313_50%,#1a1a1a_100%)] flex items-center justify-center p-4">
+      <div className="max-w-2xl w-full bg-black/40 backdrop-blur-sm rounded-2xl shadow-2xl p-8 md:p-12">
         <div className="flex flex-col items-center text-center space-y-6">
           {/* Icon */}
           <div className="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center">
@@ -42,43 +42,25 @@ export default function ServerDownPage() {
               Server is Down
             </h1>
             <p className="text-red-400 text-lg">
-              The backend service is currently unavailable
+              service unavailable
             </p>
           </div>
 
           {/* Message */}
-          <div className="space-y-3 text-gray-300">
+          <div className="space-y-3 text-gray-300 px-4">
             <p>
-              We're sorry, but the search backend is not responding at the moment. 
+              We're sorry, but the backend is not responding at the moment. 
               This could be due to maintenance or an unexpected issue.
             </p>
             <p className="text-sm text-gray-400">
-              The system performs health checks to ensure quality service. 
-              Please try again in a few minutes.
+              Please notify the developer.
             </p>
-          </div>
-
-          {/* Contact Information */}
-          <div className="w-full bg-gray-700/50 rounded-lg p-6 border border-gray-600">
-            <h2 className="text-lg font-semibold text-white mb-3">
-              Please Notify the Developer
-            </h2>
-            <p className="text-gray-300 text-sm mb-4">
-              If this issue persists, please contact the development team with the following information:
-            </p>
-            <div className="bg-gray-900/50 rounded p-4 text-left">
-              <code className="text-xs text-gray-300">
-                <div className="mb-1"><span className="text-red-400">Status:</span> Backend Unavailable</div>
-                <div className="mb-1"><span className="text-red-400">Endpoint:</span> /nextsearch/api/health</div>
-                <div><span className="text-red-400">Time:</span> {new Date().toISOString()}</div>
-              </code>
-            </div>
           </div>
 
           {/* Retry Button */}
           <button
             onClick={() => window.location.reload()}
-            className="mt-4 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 flex items-center space-x-2"
+            className="mt-1 px-6 py-3 bg-red-700 hover:bg-red-800 text-white font-medium rounded-lg transition-colors duration-200 flex items-center space-x-2"
           >
             <svg
               className="w-5 h-5"
