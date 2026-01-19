@@ -21,5 +21,9 @@ export type { LoginRequest, LoginResponse, VerifyResponse } from './admin';
 export { getStats } from './stats';
 export type { StatsResponse } from './stats';
 
+// Health APIs
+export { checkBackendHealth } from './health';
+export type { HealthCheckResponse } from './health';
+
 // Utilities (for internal use)
 export { buildUrl, isNetworkError, parseResponseBody, formatErrorMessage } from './utils';
