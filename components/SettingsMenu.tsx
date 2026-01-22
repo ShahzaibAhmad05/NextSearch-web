@@ -19,6 +19,8 @@ interface SettingsMenuProps {
   onRemoveSearch: (query: string) => void;
   /** Callback to clear all search history */
   onClearHistory: () => void;
+  /** Callback when a search is selected to trigger a new search */
+  onSelectSearch?: (query: string) => void;
   /** Visited links from the hook */
   visitedLinks: VisitedLink[];
   /** Callback to remove a visited link */
@@ -34,6 +36,7 @@ export default function SettingsMenu({
   recentSearches,
   onRemoveSearch,
   onClearHistory,
+  onSelectSearch,
   visitedLinks,
   onRemoveVisited,
   onClearVisitedLinks,
@@ -153,6 +156,7 @@ export default function SettingsMenu({
         recentSearches={recentSearches}
         onRemoveSearch={onRemoveSearch}
         onClearHistory={onClearHistory}
+        onSelectSearch={onSelectSearch}
       />
 
       {/* Site History Modal */}
@@ -183,6 +187,7 @@ interface SearchHistoryModalProps {
   recentSearches: RecentSearch[];
   onRemoveSearch: (query: string) => void;
   onClearHistory: () => void;
+  onSelectSearch?: (query: string) => void;
 }
 
 function SearchHistoryModal({
@@ -191,6 +196,7 @@ function SearchHistoryModal({
   recentSearches,
   onRemoveSearch,
   onClearHistory,
+  onSelectSearch,
 }: SearchHistoryModalProps) {
   const handleClearAll = () => {
     onClearHistory();
@@ -211,7 +217,16 @@ function SearchHistoryModal({
                   key={`${search.query}-${search.timestamp}`}
                   className="flex items-center justify-between gap-3 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors group"
                 >
-                  <div className="flex-1 min-w-0">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onSelectSearch) {
+                        onSelectSearch(search.query);
+                        onClose();
+                      }
+                    }}
+                    className="flex-1 min-w-0 text-left"
+                  >
                     <p className="text-sm text-white truncate">{search.query}</p>
                     <p className="text-xs text-gray-500">
                       {formatTimestamp(search.timestamp)}
@@ -219,7 +234,7 @@ function SearchHistoryModal({
                         <span> · {search.resultCount} results</span>
                       )}
                     </p>
-                  </div>
+                  </button>
                   <button
                     type="button"
                     onClick={() => onRemoveSearch(search.query)}

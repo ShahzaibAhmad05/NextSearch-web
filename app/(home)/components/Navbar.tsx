@@ -14,6 +14,7 @@ interface NavbarProps {
   recentSearches: RecentSearch[];
   onRemoveSearch: (query: string) => void;
   onClearHistory: () => void;
+  onSelectSearch?: (query: string) => void;
   visitedLinks: VisitedLink[];
   onRemoveVisited: (url: string) => void;
   onClearVisitedLinks: () => void;
@@ -28,6 +29,7 @@ export function Navbar({
   recentSearches, 
   onRemoveSearch, 
   onClearHistory,
+  onSelectSearch,
   visitedLinks,
   onRemoveVisited,
   onClearVisitedLinks,
@@ -217,6 +219,7 @@ export function Navbar({
             recentSearches={recentSearches}
             onRemoveSearch={onRemoveSearch}
             onClearHistory={onClearHistory}
+            onSelectSearch={onSelectSearch}
             visitedLinks={visitedLinks}
             onRemoveVisited={onRemoveVisited}
             onClearVisitedLinks={onClearVisitedLinks}
