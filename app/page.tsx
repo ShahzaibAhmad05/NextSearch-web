@@ -222,6 +222,7 @@ export default function Home() {
         recentSearches={recentSearches}
         onRemoveSearch={removeSearch}
         onClearHistory={clearHistory}
+        onSelectSearch={handleSubmit}
         visitedLinks={visitedLinks}
         onRemoveVisited={removeVisited}
         onClearVisitedLinks={clearVisitedLinks}
