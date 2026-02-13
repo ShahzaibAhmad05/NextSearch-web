@@ -90,7 +90,7 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
 
           {/* LinkedIn */}
           <a
-            href="https://www.linkedin.com/in/shahzaibahmad05/"
+            href="https://www.linkedin.com/posts/shahzaibahmad05_datastructures-algorithms-dsa-ugcPost-7422300517508452352-tsEd?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAFcBREUBcRdJrrAA51yZFV3sqhJ60UdDgY8"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
