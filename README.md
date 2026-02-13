@@ -82,65 +82,6 @@ NEXT_PUBLIC_ADMIN_USERNAME=admin                # Admin username (optional)
 NEXT_PUBLIC_ADMIN_PASSWORD=securepassword       # Admin password (optional)
 ```
 
-## Project Structure
-
-```
-app/
-├── (home)/               # Main search page with components
-│   ├── components/       # Navbar, PreSearchView, PostSearchView, AdvancedPopover
-│   ├── utils/            # Home-specific utilities
-│   └── types.ts          # Type definitions
-├── about/                # About page
-├── stats/                # Analytics dashboard with charts
-├── api/                  # API routes (admin, feedback)
-│   ├── admin/            # Authentication endpoints
-│   └── feedback/         # User feedback endpoint
-├── layout.tsx            # Root layout
-└── page.tsx              # Main entry point
-
-components/
-├── ui/                   # Reusable primitives (Button, Input, Modal, etc.)
-├── search/               # Search components (AISummaryPanel, Pagination, ResultCard)
-├── SearchBar.tsx         # Main search input with voice
-├── SearchResults.tsx     # Results list
-├── SearchFilters.tsx     # Filter controls
-├── AIOverview.tsx        # AI summary display
-├── RecentSearches.tsx    # Search history
-├── AddDocumentModal.tsx  # Admin document form
-├── FeedbackModal.tsx     # Feedback form
-└── Footer.tsx            # Page footer
-
-hooks/
-├── useSearch.ts          # Search state and logic
-├── useSuggestions.ts     # Autocomplete
-├── useAIOverview.ts      # AI summary fetching
-├── useRecentSearches.ts  # Search history management
-├── useVisitedLinks.ts    # Link tracking
-├── useAdminAccess.ts     # Authentication state
-└── useDebounce.ts        # Input debouncing
-
-lib/
-├── services/             # API service layer
-│   ├── search.ts         # Search API calls
-│   ├── ai.ts             # AI API calls
-│   ├── admin.ts          # Admin API calls
-│   ├── stats.ts          # Analytics API calls
-│   └── health.ts         # Health check API
-├── types/                # TypeScript definitions
-│   ├── search.ts         # Search types
-│   ├── ai.ts             # AI types
-│   ├── stats.ts          # Analytics types
-│   └── shared.ts         # Shared types
-├── utils/                # Helper functions
-│   ├── formatting.ts     # Text utilities
-│   ├── date.ts           # Date formatting
-│   ├── url.ts            # URL manipulation
-│   └── language.ts       # Language detection
-├── api.ts                # Centralized API client
-├── constants.ts          # App configuration
-└── auth/                 # Authentication utilities
-```
-
 ## Configuration
 
 Edit `lib/constants.ts` to customize search behavior:
