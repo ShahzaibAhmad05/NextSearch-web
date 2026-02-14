@@ -20,10 +20,10 @@ export const SEARCH_CONFIG = {
   MAX_SUGGESTIONS: 5,
 
   /** Default number of results to fetch */
-  DEFAULT_K: 100,
+  DEFAULT_K: 50,
 
   /** Minimum allowed value for k */
-  MIN_K: 1,
+  MIN_K: 10,
 
   /** Maximum allowed value for k */
   MAX_K: 1000,
