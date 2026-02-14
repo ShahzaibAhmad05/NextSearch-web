@@ -1,7 +1,7 @@
 // app/page.tsx
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AddDocumentModal } from '@/components';
 import { Alert } from '@/components/ui';
 import { useClickOutside, useRecentSearches, useAIOverview, useAdminAccess, useVisitedLinks } from '@/hooks';
@@ -78,7 +78,6 @@ export default function Home() {
     handleCloseAdvanced,
     showAdvanced
   );
-  const prevKRef = useRef(k);
 
   // Close advanced popup on scroll
   useEffect(() => {
@@ -97,16 +96,18 @@ export default function Home() {
 
   // Submit search
   const handleSubmit = useCallback(
-    async (queryOverride?: string) => {
+    async (queryOverride?: string, shouldFetchAI: boolean = true) => {
       const q = (queryOverride ?? query).trim();
       if (!q) return;
 
       setError(null);
       setLoading(true);
-      resetAIOverview();
 
-      // Fetch AI overview in parallel (fire and forget - managed by its own hook)
-      fetchAIOverview(q);
+      // Only fetch AI overview for new queries, not when just changing k
+      if (shouldFetchAI) {
+        resetAIOverview();
+        fetchAIOverview(q);
+      }
 
       try {
         const data = await apiSearch(q, k);
@@ -132,23 +133,14 @@ export default function Home() {
     [query, k, addSearch, resetAIOverview, fetchAIOverview]
   );
 
-  // Auto-refresh on k change (debounced)
-  useEffect(() => {
-    if (!hasSearched) {
-      prevKRef.current = k;
-      return;
+  // Trigger new search when k changes (after slider is released)
+  const handleKChange = useCallback((newK: number) => {
+    setK(newK);
+    // Only re-search if we have already searched before
+    if (hasSearched && query.trim()) {
+      handleSubmit(undefined, false); // Don't refetch AI overview
     }
-    if (prevKRef.current === k) return;
-
-    prevKRef.current = k;
-    if (!query.trim()) return;
-
-    const timer = window.setTimeout(() => {
-      if (!loading) handleSubmit();
-    }, SEARCH_CONFIG.K_CHANGE_DEBOUNCE_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [k, hasSearched, query, loading, handleSubmit]);
+  }, [hasSearched, query, handleSubmit]);
 
   // Format number to show first 3 significant digits
   const formatResultCount = (count: number): string => {
@@ -245,7 +237,7 @@ export default function Home() {
           loading={loading}
           recentSearches={recentSearchQueries}
           onChangeQuery={setQuery}
-          onChangeK={setK}
+          onChangeK={handleKChange}
           onSubmit={handleSubmit}
           onDeleteSuggestion={removeSearch}
         />
@@ -277,7 +269,7 @@ export default function Home() {
           isVisited={isVisited}
           markVisited={markVisited}
           onChangeQuery={setQuery}
-          onChangeK={(v) => setK(clampK(v))}
+          onChangeK={(v) => handleKChange(clampK(v))}
           onSubmit={handleSubmit}
           onSortChange={setSortBy}
           onShowSortChange={setShowSort}

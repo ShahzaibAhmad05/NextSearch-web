@@ -1,7 +1,7 @@
 // app/(home)/components/AdvancedPopover.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 interface AdvancedPopoverProps {
@@ -19,6 +19,12 @@ interface AdvancedPopoverProps {
  * Advanced search options popover
  */
 export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, onToggleNonEnglish, onClose, isClosing = false }: AdvancedPopoverProps) {
+  const [draftK, setDraftK] = useState(k);
+
+  // Sync draftK when k prop changes
+  useEffect(() => {
+    setDraftK(k);
+  }, [k]);
   return (
     <div
       className={cn(
@@ -61,7 +67,7 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
 
       <div className="flex items-center justify-between">
         <label className="text-xs sm:text-sm">Number of results to fetch</label>
-        <span className="text-xs sm:text-sm text-gray-300">{k}</span>
+        <span className="text-xs sm:text-sm text-gray-300">{draftK}</span>
       </div>
 
       <div className="mt-1.5 sm:mt-2">
@@ -71,10 +77,12 @@ export function AdvancedPopover({ k, status, cached, showNonEnglish, onChangeK, 
           min={1}
           max={100}
           step={1}
-          value={k}
-          onChange={(e) => onChangeK(Number(e.target.value))}
+          value={draftK}
+          onChange={(e) => setDraftK(Number(e.target.value))}
+          onMouseUp={() => onChangeK(draftK)}
+          onTouchEnd={() => onChangeK(draftK)}
           style={{
-            background: `linear-gradient(to right, #16a34a 0%, #16a34a ${((k - 1) / 99) * 100}%, #4b5563 ${((k - 1) / 99) * 100}%, #4b5563 100%)`
+            background: `linear-gradient(to right, #16a34a 0%, #16a34a ${((draftK - 1) / 99) * 100}%, #4b5563 ${((draftK - 1) / 99) * 100}%, #4b5563 100%)`
           }}
         />
       </div>
