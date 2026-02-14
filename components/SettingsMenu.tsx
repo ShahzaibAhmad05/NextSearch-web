@@ -123,19 +123,19 @@ export default function SettingsMenu({
           )}>
             <button
               type="button"
-              onClick={handleSiteHistoryClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
-            >
-              <Globe size={14} className="sm:w-4 sm:h-4 text-gray-400" />
-              <span>Site History</span>
-            </button>
-            <button
-              type="button"
               onClick={handleHistoryClick}
               className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
             >
               <History size={14} className="sm:w-4 sm:h-4 text-gray-400" />
               <span>Search History</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleSiteHistoryClick}
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+            >
+              <Globe size={14} className="sm:w-4 sm:h-4 text-gray-400" />
+              <span>Site History</span>
             </button>
             <button
               type="button"
