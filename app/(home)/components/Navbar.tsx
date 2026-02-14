@@ -3,7 +3,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Wrench, Plus, BarChart3, Lock } from 'lucide-react';
-import { SettingsMenu } from '@/components';
+import { SettingsMenu, InfoMenu } from '@/components';
 import type { RecentSearch } from '../types';
 import type { VisitedLink } from '@/lib/types/shared';
 import { cn } from '@/lib/utils';
@@ -131,12 +131,6 @@ export function Navbar({
           <span className="text-gray-400 text-sm sm:text-lg">Search Engine</span>
         </a>
         <div className="flex items-center gap-1 sm:gap-2">
-          <a
-            href="/about"
-            className="px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors"
-          >
-            About
-          </a>
           <div className="relative" ref={toolsRef}>
             <button
               type="button"
@@ -224,6 +218,7 @@ export function Navbar({
             onRemoveVisited={onRemoveVisited}
             onClearVisitedLinks={onClearVisitedLinks}
           />
+          <InfoMenu />
         </div>
       </div>
     </nav>

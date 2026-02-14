@@ -11,6 +11,7 @@ export { default as FeedbackModal } from './FeedbackModal';
 export { default as SearchFilters, defaultFilters } from './SearchFilters';
 export { default as VoiceSearchButton } from './VoiceSearchButton';
 export { default as SettingsMenu } from './SettingsMenu';
+export { default as InfoMenu } from './InfoMenu';
 export { default as AIOverview } from './AIOverview';
 export { default as SmoothScrollProvider } from './SmoothScrollProvider';
 export { default as MaintenanceModal } from './MaintenanceModal';
