@@ -81,15 +81,26 @@ export function Modal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [show, preventClose]);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll and stop Lenis when modal is open
   useEffect(() => {
     if (show) {
       document.body.style.overflow = 'hidden';
+      // Stop Lenis smooth scrolling
+      if (typeof window !== 'undefined' && (window as any).lenis) {
+        (window as any).lenis.stop();
+      }
     } else {
       document.body.style.overflow = '';
+      // Restore Lenis smooth scrolling
+      if (typeof window !== 'undefined' && (window as any).lenis) {
+        (window as any).lenis.start();
+      }
     }
     return () => {
       document.body.style.overflow = '';
+      if (typeof window !== 'undefined' && (window as any).lenis) {
+        (window as any).lenis.start();
+      }
     };
   }, [show]);
 
@@ -113,13 +124,15 @@ export function Modal({
           handleClose();
         }
       }}
+      data-lenis-prevent
     >
       <div
         className={cn(
-          'w-full max-h-[calc(100vh-2rem)] overflow-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-4 sm:p-5',
+          'w-full max-h-[calc(100vh-2rem)] overflow-y-auto glass-card text-gray-100 rounded-2xl shadow-dark-lg p-4 sm:p-5',
           isClosing ? 'animate-scale-out' : 'animate-scale-in',
           maxWidth
         )}
+        data-lenis-prevent
       >
         {title && (
           <div className="flex items-center justify-between gap-3 mb-4">

@@ -8,6 +8,7 @@ export { default as RecentSearches } from './RecentSearches';
 export { default as SiteHistory } from './SiteHistory';
 export { default as Footer } from './Footer';
 export { default as FeedbackModal } from './FeedbackModal';
+export { default as PrivacyPolicyModal } from './PrivacyPolicyModal';
 export { default as SearchFilters, defaultFilters } from './SearchFilters';
 export { default as VoiceSearchButton } from './VoiceSearchButton';
 export { default as SettingsMenu } from './SettingsMenu';

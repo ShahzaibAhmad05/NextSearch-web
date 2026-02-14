@@ -2,12 +2,35 @@
 'use client';
 
 import { useRef, useState, useLayoutEffect, useCallback, type KeyboardEvent } from 'react';
-import { Search, History, X } from 'lucide-react';
+import { Search, History, X, TrendingUp } from 'lucide-react';
 import { useSuggestions, type SuggestionItem } from '@/hooks';
 import { Spinner } from './ui';
 import { cn } from '@/lib/utils';
 import type { SearchBarProps } from '@/lib/types';
 import VoiceSearchButton from './VoiceSearchButton';
+
+/**
+ * Map icon names to Lucide icon components
+ */
+const ICON_MAP: Record<string, any> = {
+  TrendingUp,
+};
+
+/**
+ * Render the appropriate icon for a suggestion
+ */
+function SuggestionIcon({ suggestion }: { suggestion: SuggestionItem }) {
+  if (suggestion.isRecent) {
+    return <History size={16} className="text-gray-400 shrink-0" />;
+  }
+  
+  if (suggestion.isTopSearch && suggestion.icon) {
+    const IconComponent = ICON_MAP[suggestion.icon] || TrendingUp;
+    return <IconComponent size={16} className="text-green-700 shrink-0" />;
+  }
+  
+  return <Search size={16} className="text-gray-400 shrink-0" />;
+}
 
 /**
  * Search input with autocomplete suggestions.
@@ -189,13 +212,9 @@ function SuggestionsDropdown({
           onClick={() => onSelect(suggestion.text)}
           onMouseEnter={() => onMouseEnter(idx)}
         >
-          {suggestion.isRecent ? (
-            <History size={16} className="text-gray-400 shrink-0" />
-          ) : (
-            <Search size={16} className="text-gray-400 shrink-0" />
-          )}
+          <SuggestionIcon suggestion={suggestion} />
           <span className="flex-1">{suggestion.text}</span>
-          {onDelete && (
+          {onDelete && suggestion.isRecent && (
             <>
               {/* Mobile: X icon always visible */}
               <button

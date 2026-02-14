@@ -7,6 +7,17 @@ import { SEARCH_CONFIG, UI_CONFIG } from '@/lib/constants';
 import type { KeyboardEvent } from 'react';
 
 /**
+ * Top search queries with icons - shown when user has few/no recent searches
+ */
+export const TOP_SEARCHES = [
+  { text: 'coronavirus', icon: 'TrendingUp' },
+  { text: 'covid symptoms', icon: 'TrendingUp' },
+  { text: 'covid vaccine', icon: 'TrendingUp' },
+  { text: 'antiviral treatments', icon: 'TrendingUp' },
+  { text: 'immunology research', icon: 'TrendingUp' },
+] as const;
+
+/**
  * A suggestion item that can be either from API or recent searches
  */
 export interface SuggestionItem {
@@ -14,6 +25,10 @@ export interface SuggestionItem {
   text: string;
   /** Whether this is from recent searches */
   isRecent: boolean;
+  /** Whether this is a top search suggestion */
+  isTopSearch?: boolean;
+  /** Icon name for top searches (from lucide-react) */
+  icon?: string;
 }
 
 interface UseSuggestionsOptions {
@@ -101,6 +116,22 @@ export function useSuggestions({
         if (!seen.has(recentLower)) {
           merged.push({ text: recent, isRecent: true });
           seen.add(recentLower);
+        }
+      }
+      
+      // Add top searches if user has fewer than 5 recent searches
+      if (recentSearches.length < 5) {
+        for (const topSearch of TOP_SEARCHES) {
+          const topSearchLower = topSearch.text.toLowerCase();
+          if (!seen.has(topSearchLower) && merged.length < 5) {
+            merged.push({ 
+              text: topSearch.text, 
+              isRecent: false, 
+              isTopSearch: true,
+              icon: topSearch.icon 
+            });
+            seen.add(topSearchLower);
+          }
         }
       }
     } 
