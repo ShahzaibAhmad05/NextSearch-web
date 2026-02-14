@@ -34,6 +34,7 @@ Create a `.env` file in the root directory with the following:
 
 ```env
 NEXT_PUBLIC_API_BASE=http://localhost:8080
+NEXT_PUBLIC_ENSURE_BACKEND_RUNNING=true 
 ```
 
 **Run Development Server**

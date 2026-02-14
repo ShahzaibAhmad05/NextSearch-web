@@ -10,8 +10,17 @@ interface HealthCheckWrapperProps {
 /**
  * Server component that checks backend health before rendering the app
  * If the backend is down, displays an error page instead
+ * Can be disabled by setting NEXT_PUBLIC_ENSURE_BACKEND_RUNNING=false
  */
 export default async function HealthCheckWrapper({ children }: HealthCheckWrapperProps) {
+  // Check if health check is enabled (defaults to true if not set)
+  const ensureBackendRunning = process.env.NEXT_PUBLIC_ENSURE_BACKEND_RUNNING !== 'false';
+  
+  if (!ensureBackendRunning) {
+    console.log('[HealthCheckWrapper] Backend health check disabled - skipping');
+    return <>{children}</>;
+  }
+
   console.log('[HealthCheckWrapper] Running health check...');
   const isHealthy = await checkBackendHealth();
   console.log('[HealthCheckWrapper] Health check result:', isHealthy ? 'HEALTHY ✓' : 'UNHEALTHY ✗');
