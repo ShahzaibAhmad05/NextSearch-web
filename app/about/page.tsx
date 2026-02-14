@@ -138,7 +138,8 @@ export default function AboutPage() {
           {/* Header */}
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-semibold mb-4 tracking-tight text-white">
-              About NextSearch
+              About 
+              <span className="pl-3 gradient-text font-bold tracking-tight">NextSearch</span>
             </h1>
             <p className="text-base md:text-lg text-slate-300 max-w-2xl mx-auto">
               A search engine built with modern C++ and Nextjs, 
@@ -213,9 +214,8 @@ export default function AboutPage() {
             <Card padding="lg" className="text-center">
               <h2 className="text-xl font-semibold text-white mb-3">Dataset</h2>
               <p className="text-slate-300 max-w-2xl mx-auto">
-                NextSearch is designed to work with the{' '}
-                <span className="text-green-400 font-medium">CORD-19</span>{' '}
-                (COVID-19 Open Research Dataset), a comprehensive collection of 
+                NextSearch is designed to work with{' '}
+                <span className="text-green-400 font-medium">CORD-19</span>, which is a comprehensive collection of 
                 scientific literature about COVID-19 and related coronaviruses.
               </p>
             </Card>
