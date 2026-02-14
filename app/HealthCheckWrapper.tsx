@@ -1,7 +1,7 @@
 // app/HealthCheckWrapper.tsx
 
 import { checkBackendHealth } from '@/lib/services';
-import ServerDownPage from '@/components/ServerDownPage';
+import MaintenanceModal from '@/components/MaintenanceModal';
 
 interface HealthCheckWrapperProps {
   children: React.ReactNode;
@@ -9,7 +9,7 @@ interface HealthCheckWrapperProps {
 
 /**
  * Server component that checks backend health before rendering the app
- * If the backend is down, displays an error page instead
+ * If the backend is down, displays a maintenance modal
  * Can be disabled by setting NEXT_PUBLIC_ENSURE_BACKEND_RUNNING=false
  */
 export default async function HealthCheckWrapper({ children }: HealthCheckWrapperProps) {
@@ -26,10 +26,14 @@ export default async function HealthCheckWrapper({ children }: HealthCheckWrappe
   console.log('[HealthCheckWrapper] Health check result:', isHealthy ? 'HEALTHY ✓' : 'UNHEALTHY ✗');
 
   if (!isHealthy) {
-    console.warn('[HealthCheckWrapper] Backend is down - rendering error page');
-    return <ServerDownPage />;
+    console.warn('[HealthCheckWrapper] Backend is down - showing maintenance modal');
   }
 
-  console.log('[HealthCheckWrapper] Backend is healthy - rendering app');
-  return <>{children}</>;
+  console.log('[HealthCheckWrapper] Rendering app with maintenance status:', !isHealthy);
+  return (
+    <>
+      {children}
+      <MaintenanceModal isOpen={!isHealthy} />
+    </>
+  );
 }
