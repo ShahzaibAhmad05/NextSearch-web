@@ -126,9 +126,9 @@ export function Navbar({
   return (
     <nav className="glass-card border-b border-white/10 fixed top-0 left-0 right-0 z-50 animate-fade-in">
       <div className="max-w-310 mx-auto px-3 sm:px-4 py-2 sm:py-3 flex items-center justify-between">
-        <a className="font-bold text-sm sm:text-xl text-white/90" href="/">
-          <span className="gradient-text pr-2">CORD-19 </span>
-          <span className="text-gray-400">Search Engine</span>
+        <a className="font-bold text-white/90" href="/">
+          <span className="gradient-text text-lg sm:text-2xl pr-2.5">CORD19</span>
+          <span className="text-gray-400 text-sm sm:text-lg">Search Engine</span>
         </a>
         <div className="flex items-center gap-1 sm:gap-2">
           <a
