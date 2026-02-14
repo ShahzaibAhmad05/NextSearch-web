@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowUp, MessageSquare, Github, Linkedin } from 'lucide-react';
+import { ArrowUp, MessageSquare, Github, Linkedin, Copyright } from 'lucide-react';
 import FeedbackModal from './FeedbackModal';
 
 interface FooterProps {
@@ -61,9 +61,10 @@ export default function Footer({ showScrollToTop = false }: FooterProps) {
           href="https://github.com/ShahzaibAhmad05/NextSearch-web/blob/main/LICENSE"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
+          className="group flex items-center gap-1 sm:gap-1.5 text-xs sm:text-sm text-gray-300 hover:text-white transition-colors duration-200"
         >
-          © {new Date().getFullYear()} NextSearch
+          <Copyright size={12} className="sm:w-3.5 sm:h-3.5 group-hover:scale-110 transition-transform duration-300" />
+          <span>{new Date().getFullYear()} NextSearch</span>
         </a>
 
         {/* Right: Links */}
