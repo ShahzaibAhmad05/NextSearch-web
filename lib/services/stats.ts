@@ -13,11 +13,11 @@ import { buildUrl, isNetworkError } from './utils';
 export type { StatsResponse };
 
 /**
- * Fetch statistics from the backend (requires admin authentication)
+ * Fetch statistics from the backend (publicly accessible)
  *
  * @param signal - Optional AbortSignal for cancellation
  * @returns Statistics response with system metrics
- * @throws ApiError on failure or if not authenticated
+ * @throws ApiError on failure
  */
 export async function getStats(signal?: AbortSignal): Promise<StatsResponse> {
   const url = buildUrl(API_CONFIG.ENDPOINTS.STATS);
@@ -35,13 +35,6 @@ export async function getStats(signal?: AbortSignal): Promise<StatsResponse> {
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
-      if (res.status === 401 || res.status === 403) {
-        throw new ApiError(
-          'Unauthorized: Invalid or expired admin token',
-          res.status,
-          API_CONFIG.ENDPOINTS.STATS
-        );
-      }
       throw new ApiError(
         `Stats request failed (${res.status}): ${text}`,
         res.status,
