@@ -35,7 +35,7 @@ export default function MaintenanceModal({ isOpen }: MaintenanceModalProps) {
         {/* Message */}
         <div className="text-gray-300 px-4">
           <p>
-            We're sorry for the incovenience. We're performing scheduled maintenance. Please check back later.
+            We're sorry for the incovenience. Please check back later.
           </p>
         </div>
       </div>
