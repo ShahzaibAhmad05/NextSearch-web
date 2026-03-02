@@ -3,8 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AddDocumentModal } from '@/components';
-import { Alert } from '@/components/ui';
-import { useClickOutside, useRecentSearches, useAIOverview, useAdminAccess, useVisitedLinks } from '@/hooks';
+import { useClickOutside, useRecentSearches, useAIOverview, useVisitedLinks } from '@/hooks';
 import { search as apiSearch } from '@/lib/api';
 import { publishTimeToMs } from '@/lib/utils';
 import { SEARCH_CONFIG, SORT_OPTIONS } from '@/lib/constants';
@@ -46,11 +45,7 @@ export default function Home() {
   const [isAdvancedClosing, setIsAdvancedClosing] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('Relevancy');
   const [showSort, setShowSort] = useState(false);
-  const [showAuthAlert, setShowAuthAlert] = useState(false);
   const [showNonEnglish, setShowNonEnglish] = useState(false);
-
-  // Admin access
-  const isAdminActive = useAdminAccess();
 
   // Recent searches
   const { recentSearches, addSearch, removeSearch, clearHistory } = useRecentSearches();
@@ -202,15 +197,7 @@ export default function Home() {
     <div className={hasSearched ? "min-h-screen" : "h-screen overflow-hidden"}>
       {/* Navigation bar */}
       <Navbar
-        onAddDocument={() => {
-          if (isAdminActive) {
-            setShowAddModal(true);
-          } else {
-            setShowAuthAlert(true);
-            setTimeout(() => setShowAuthAlert(false), 3000);
-          }
-        }}
-        isAdminActive={isAdminActive}
+        onAddDocument={() => setShowAddModal(true)}
         recentSearches={recentSearches}
         onRemoveSearch={removeSearch}
         onClearHistory={clearHistory}
@@ -219,15 +206,6 @@ export default function Home() {
         onRemoveVisited={removeVisited}
         onClearVisitedLinks={clearVisitedLinks}
       />
-
-      {/* Auth Alert */}
-      {showAuthAlert && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
-          <Alert variant="error" className="shadow-dark-lg">
-            Adding data to the index requires admin access. Please authenticate in Settings.
-          </Alert>
-        </div>
-      )}
 
       {/* Pre-search view (centered hero) */}
       {!hasSearched && (

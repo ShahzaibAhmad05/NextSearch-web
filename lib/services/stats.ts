@@ -8,7 +8,6 @@ import { API_CONFIG } from '../constants';
 import { ApiError } from '../types';
 import type { StatsResponse } from '../types/stats';
 import { buildUrl, isNetworkError } from './utils';
-import { getAdminToken } from './admin';
 
 // Re-export types
 export type { StatsResponse };
@@ -23,19 +22,8 @@ export type { StatsResponse };
 export async function getStats(signal?: AbortSignal): Promise<StatsResponse> {
   const url = buildUrl(API_CONFIG.ENDPOINTS.STATS);
 
-  // Get admin token - required for stats endpoint
-  const token = getAdminToken();
-  if (!token) {
-    throw new ApiError(
-      'Admin authentication required to access statistics',
-      401,
-      API_CONFIG.ENDPOINTS.STATS
-    );
-  }
-
   const headers: HeadersInit = {
     Accept: 'application/json',
-    Authorization: `Bearer ${token}`,
   };
 
   try {

@@ -8,7 +8,6 @@ import { API_CONFIG } from '../constants';
 import { ApiError } from '../types';
 import type { AIOverviewResponse, ResultSummaryResponse } from '../types';
 import { buildUrl, isNetworkError } from './utils';
-import { getAdminToken } from './admin';
 
 /**
  * Get an AI-generated overview for a search query
@@ -26,12 +25,7 @@ export async function getAIOverview(
     q: query,
   });
 
-  // Get admin token if available
-  const token = getAdminToken();
   const headers: HeadersInit = { Accept: 'application/json' };
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
 
   try {
     const res = await fetch(url, {
@@ -81,12 +75,7 @@ export async function getResultSummary(
     cord_uid: cordUid,
   });
 
-  // Get admin token if available
-  const token = getAdminToken();
   const headers: HeadersInit = { Accept: 'application/json' };
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
 
   try {
     const res = await fetch(url, {

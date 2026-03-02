@@ -2,15 +2,11 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Settings, History, Shield, Trash2, X, Globe } from 'lucide-react';
+import { Settings, History, Trash2, X, Globe } from 'lucide-react';
 import { Modal } from './ui';
 import { cn } from '@/lib/utils';
 import type { RecentSearch } from '@/lib/types';
 import type { VisitedLink } from '@/lib/types/shared';
-import { login as adminLogin, logout as adminLogout } from '@/lib/services/admin';
-
-const ADMIN_TOKEN_KEY = 'nextsearch-admin-token';
-const ADMIN_TOKEN_EXPIRY_KEY = 'nextsearch-admin-token-expiry';
 
 interface SettingsMenuProps {
   /** Recent searches from the hook */
@@ -45,7 +41,6 @@ export default function SettingsMenu({
   const [isDropdownClosing, setIsDropdownClosing] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showSiteHistoryModal, setShowSiteHistoryModal] = useState(false);
-  const [showAdminModal, setShowAdminModal] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown with animation
@@ -92,11 +87,6 @@ export default function SettingsMenu({
     setShowSiteHistoryModal(true);
   };
 
-  const handleAdminClick = () => {
-    handleCloseDropdown();
-    setShowAdminModal(true);
-  };
-
   return (
     <>
       {/* Settings button with dropdown */}
@@ -137,14 +127,6 @@ export default function SettingsMenu({
               <Globe size={14} className="sm:w-4 sm:h-4 text-gray-400" />
               <span>Site History</span>
             </button>
-            <button
-              type="button"
-              onClick={handleAdminClick}
-              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
-            >
-              <Shield size={14} className="sm:w-4 sm:h-4 text-gray-400" />
-              <span>Admin Access</span>
-            </button>
           </div>
         )}
       </div>
@@ -166,12 +148,6 @@ export default function SettingsMenu({
         visitedLinks={visitedLinks}
         onRemoveVisited={onRemoveVisited}
         onClearHistory={onClearVisitedLinks}
-      />
-
-      {/* Admin Access Modal */}
-      <AdminAccessModal
-        show={showAdminModal}
-        onClose={() => setShowAdminModal(false)}
       />
     </>
   );
@@ -352,147 +328,6 @@ function SiteHistoryModal({
           </>
         )}
       </div>
-    </Modal>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Admin Access Modal
-// ─────────────────────────────────────────────────────────────────────────────
-
-interface AdminAccessModalProps {
-  show: boolean;
-  onClose: () => void;
-}
-
-function AdminAccessModal({ show, onClose }: AdminAccessModalProps) {
-  const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  // Check if already authenticated on mount
-  useEffect(() => {
-    if (show) {
-      const expiry = localStorage.getItem(ADMIN_TOKEN_EXPIRY_KEY);
-      if (expiry && Date.now() < parseInt(expiry, 10)) {
-        setIsAuthenticated(true);
-      } else {
-        // Clear expired token
-        localStorage.removeItem(ADMIN_TOKEN_KEY);
-        localStorage.removeItem(ADMIN_TOKEN_EXPIRY_KEY);
-        setIsAuthenticated(false);
-      }
-      setPassword('');
-      setMessage(null);
-      setLoading(false);
-    }
-  }, [show]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!password.trim()) {
-      setMessage({ type: 'error', text: 'Please enter a password' });
-      return;
-    }
-
-    setLoading(true);
-    setMessage(null);
-
-    try {
-      // Call backend API to verify password and get token
-      await adminLogin(password);
-      
-      setIsAuthenticated(true);
-      setMessage({ type: 'success', text: 'Admin access granted for 1 hour' });
-      setPassword('');
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Authentication failed';
-      setMessage({ type: 'error', text: errorMessage });
-      setPassword('');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleLogout = async () => {
-    setLoading(true);
-    setMessage(null);
-
-    try {
-      // Call backend to logout (also clears local storage)
-      await adminLogout();
-      
-      setIsAuthenticated(false);
-    } catch (err) {
-      // Even if backend call fails, we've already cleared local storage
-      setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <Modal show={show} onClose={onClose} title="Admin Access" maxWidth="max-w-sm">
-      {isAuthenticated ? (
-        <div className="space-y-4">
-          <div className="flex items-center gap-3 p-3 rounded-lg bg-green-500/10 border border-green-500/30">
-            <Shield size={20} className="text-green-400" />
-            <div>
-              <p className="text-sm text-green-400 font-medium">Authenticated</p>
-              <p className="text-xs text-gray-400">Admin access is active</p>
-            </div>
-          </div>
-          
-          <button
-            type="button"
-            onClick={handleLogout}
-            disabled={loading}
-            className="w-full px-4 py-2.5 text-sm text-red-400 border border-red-500/30 rounded-lg hover:bg-red-500/10 hover:border-red-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Logging out...' : 'Revoke Access'}
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="admin-password" className="block text-sm text-gray-400 mb-2">
-              Enter admin password
-            </label>
-            <input
-              id="admin-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full px-4 py-3 text-sm bg-black/30 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-green-500/50 focus:border-green-500/50 transition-all"
-              autoComplete="current-password"
-            />
-          </div>
-
-          {message && (
-            <p
-              className={cn(
-                'text-sm px-3 py-2 rounded-lg',
-                message.type === 'error'
-                  ? 'text-red-400 bg-red-500/10'
-                  : 'text-green-400 bg-green-500/10'
-              )}
-            >
-              {message.text}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-4 py-2.5 text-sm text-white bg-green-600 rounded-lg hover:bg-green-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Authenticating...' : 'Authenticate'}
-          </button>
-        </form>
-      )}
     </Modal>
   );
 }

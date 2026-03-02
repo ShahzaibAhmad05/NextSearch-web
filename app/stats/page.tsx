@@ -2,11 +2,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { getStats } from '@/lib/services/stats';
-import { verifyAdmin } from '@/lib/services/admin';
 import type { StatsResponse } from '@/lib/types/stats';
 import { MetricCard, QuotaCard, FeedbackCard, DonutChart } from './components';
 
@@ -14,20 +12,10 @@ export default function StatsPage() {
   const [stats, setStats] = useState<StatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
-    async function checkAuthAndFetchStats() {
+    async function fetchStats() {
       try {
-        // Verify admin authentication
-        const isValid = await verifyAdmin();
-        if (!isValid) {
-          router.push('/');
-          return;
-        }
-        setIsAuthenticated(true);
-
         // Fetch stats
         const data = await getStats();
         setStats(data);
@@ -38,8 +26,8 @@ export default function StatsPage() {
       }
     }
 
-    checkAuthAndFetchStats();
-  }, [router]);
+    fetchStats();
+  }, []);
 
   if (loading) {
     return (
@@ -54,12 +42,12 @@ export default function StatsPage() {
     );
   }
 
-  if (error || !isAuthenticated) {
+  if (error) {
     return (
       <div className="min-h-screen bg-linear-to-br from-black via-[#0a0a0a] to-black flex items-center justify-center">
         <div className="glass-card p-8 rounded-lg border border-red-500/20 max-w-md mx-4">
           <h1 className="text-xl font-semibold text-red-400 mb-2">Error</h1>
-          <p className="text-sm text-slate-400">{error || 'Authentication required'}</p>
+          <p className="text-sm text-slate-400">{error}</p>
         </div>
       </div>
     );
