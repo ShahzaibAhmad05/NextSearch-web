@@ -77,13 +77,6 @@ export default function InfoMenu() {
           "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
           isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
         )}>
-          <a
-            href="/about"
-            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
-          >
-            <FileText size={14} className="sm:w-4 sm:h-4 text-gray-400" />
-            <span>About</span>
-          </a>
           <button
             type="button"
             onClick={handlePrivacyClick}
@@ -92,6 +85,13 @@ export default function InfoMenu() {
             <ShieldCheck size={14} className="sm:w-4 sm:h-4 text-gray-400" />
             <span>Privacy Policy</span>
           </button>
+          <a
+            href="/about"
+            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm text-left text-gray-300 hover:bg-green-500/20 hover:text-white transition-colors duration-200 flex items-center gap-2 sm:gap-3 border-t border-white/5"
+          >
+            <FileText size={14} className="sm:w-4 sm:h-4 text-gray-400" />
+            <span>About</span>
+          </a>
         </div>
       )}
 

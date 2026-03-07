@@ -123,18 +123,6 @@ export default function StatsPage() {
             large
           />
         </div>
-
-        {/* Recent Feedback */}
-        {stats.last_10_feedback.length > 0 && (
-          <div className="mb-10">
-            <h2 className="text-lg font-medium text-slate-200 mb-5 tracking-tight">Recent Feedback Entries</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {stats.last_10_feedback.map((feedback, idx) => (
-                <FeedbackCard key={idx} feedback={feedback} index={idx} />
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
