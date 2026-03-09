@@ -3,7 +3,7 @@
 A modern search engine frontend built with Next.js 15, React 18, and TypeScript. Gives fast, intelligent search with AI-powered summaries, real-time autocomplete, voice input, and comprehensive filtering options.
 
 ## Tech Stack
-
+ 
 - **Next.js 15.3.4** with App Router
 - **React 18.3**
 - **TypeScript 5.6**
