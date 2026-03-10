@@ -18,3 +18,6 @@ export { publishTimeToMs } from './date';
 
 // Language utilities
 export { isEnglish, isResultTitleEnglish } from './language';
+
+// Search utilities
+export { formatResultCount, getSearchStatus } from './search';

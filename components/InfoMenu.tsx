@@ -1,81 +1,41 @@
 // components/InfoMenu.tsx
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Info, FileText, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useDropdown } from '@/hooks';
 import PrivacyPolicyModal from './PrivacyPolicyModal';
 
-/**
- * Info menu with dropdown for accessing informational pages.
- */
 export default function InfoMenu() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownClosing, setIsDropdownClosing] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { isOpen, isClosing, toggle, close, dropdownRef } = useDropdown();
 
-  // Close dropdown with animation
-  const handleCloseDropdown = () => {
-    setIsDropdownClosing(true);
-    setTimeout(() => {
-      setIsDropdownOpen(false);
-      setIsDropdownClosing(false);
-    }, 200); // Match animation duration
-  };
-
-  // Handle privacy policy click
   const handlePrivacyClick = () => {
-    handleCloseDropdown();
+    close();
     setShowPrivacyModal(true);
   };
-
-  // Close dropdown on click outside
-  useEffect(() => {
-    if (!isDropdownOpen) return;
-
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        handleCloseDropdown();
-      }
-    }
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        handleCloseDropdown();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDropdownOpen]);
 
   return (
     <div ref={dropdownRef} className="relative">
       <button
         type="button"
-        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        onClick={toggle}
         className={cn(
           'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
           'text-gray-300 hover:text-white hover:bg-white/10',
-          isDropdownOpen && 'text-white bg-white/10'
+          isOpen && 'text-white bg-white/10'
         )}
         aria-label="Info"
-        aria-expanded={isDropdownOpen}
+        aria-expanded={isOpen}
       >
         <Info size={18} className="sm:w-5 sm:h-5" />
       </button>
 
-      {/* Dropdown menu */}
-      {isDropdownOpen && (
+      {isOpen && (
         <div className={cn(
           "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
-          isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
+          isClosing ? "animate-scale-out" : "animate-scale-in"
         )}>
           <button
             type="button"
@@ -95,7 +55,6 @@ export default function InfoMenu() {
         </div>
       )}
 
-      {/* Privacy Policy Modal */}
       <PrivacyPolicyModal 
         isOpen={showPrivacyModal} 
         onClose={() => setShowPrivacyModal(false)} 

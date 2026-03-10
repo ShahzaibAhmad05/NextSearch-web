@@ -1,16 +1,23 @@
 // components/SearchResults.tsx
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { ResultCard, Pagination } from './search';
 import { SEARCH_CONFIG } from '@/lib/constants';
-import { isResultTitleEnglish } from '@/lib/utils/language';
+import { isResultTitleEnglish } from '@/lib/utils';
+import { usePagination } from '@/hooks';
 import type { SearchResultsProps } from '@/lib/types';
 
-/**
- * Paginated search results display.
- * Shows result cards with staggered animations and pagination controls.
- */
+function scrollToTop() {
+  if (typeof window === 'undefined') return;
+  
+  if ((window as any).lenis) {
+    (window as any).lenis.scrollTo(0, { duration: 0.8, immediate: false });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+}
+
 export default function SearchResults({
   results,
   pageSize = SEARCH_CONFIG.DEFAULT_PAGE_SIZE,
@@ -18,48 +25,31 @@ export default function SearchResults({
   isVisited,
   markVisited,
 }: SearchResultsProps) {
-  const [page, setPage] = useState(1);
-  const topRef = useRef<HTMLDivElement>(null);
-
   // Filter results based on language preference
   const filteredResults = useMemo(() => {
-    if (showNonEnglish) {
-      return results;
-    }
-    return results.filter(result => isResultTitleEnglish(result.title));
+    return showNonEnglish 
+      ? results 
+      : results.filter(result => isResultTitleEnglish(result.title));
   }, [results, showNonEnglish]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredResults.length / pageSize));
-  const safePage = Math.min(Math.max(1, page), totalPages);
-
-  // Scroll to top of results when page changes
-  useEffect(() => {
-    // if (safePage === 1) return; // Skip scroll on initial load
-    
-    // Use Lenis for smooth scrolling if available, fallback to window.scrollTo
-    if (typeof window !== 'undefined' && (window as any).lenis) {
-      (window as any).lenis.scrollTo(0, { duration: 0.8, immediate: false });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-  }, [safePage]);
-
-  // Reset to page 1 when results change
-  useEffect(() => {
-    setPage(1);
-  }, [results, showNonEnglish]);
+  // Pagination logic
+  const { page, totalPages, startIndex, endIndex, goToPage } = usePagination({
+    totalItems: filteredResults.length,
+    pageSize,
+    resetDeps: [results, showNonEnglish],
+  });
 
   // Get results for current page
   const pageResults = useMemo(() => {
-    const start = (safePage - 1) * pageSize;
-    return filteredResults.slice(start, start + pageSize);
-  }, [filteredResults, safePage, pageSize]);
+    return filteredResults.slice(startIndex, endIndex);
+  }, [filteredResults, startIndex, endIndex]);
 
-  // Handle page changes
-  const handlePageChange = (newPage: number) => {
-    setPage(Math.min(Math.max(1, newPage), totalPages));
-  };
+  // Scroll to top when page changes
+  useEffect(() => {
+    scrollToTop();
+  }, [page]);
 
+  // Empty state
   if (!filteredResults.length) {
     const hiddenCount = results.length - filteredResults.length;
     return (
@@ -77,10 +67,6 @@ export default function SearchResults({
 
   return (
     <div className="mt-3">
-      {/* Scroll anchor */}
-      <div ref={topRef} />
-
-      {/* Results grid */}
       <div className="grid">
         {pageResults.map((result, idx) => (
           <ResultCard
@@ -93,11 +79,16 @@ export default function SearchResults({
         ))}
       </div>
 
-      {/* Pagination */}
       <Pagination
-        currentPage={safePage}
+        currentPage={page}
         totalPages={totalPages}
-        onPageChange={handlePageChange}
+        onPageChange={goToPage}
+      />
+
+      <br />
+    </div>
+  );
+}
       />
 
       <br />

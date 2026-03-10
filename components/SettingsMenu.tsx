@@ -1,33 +1,24 @@
 // components/SettingsMenu.tsx
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { Settings, History, Trash2, X, Globe } from 'lucide-react';
 import { Modal } from './ui';
 import { cn } from '@/lib/utils';
+import { useDropdown } from '@/hooks';
 import type { RecentSearch } from '@/lib/types';
 import type { VisitedLink } from '@/lib/types/shared';
 
 interface SettingsMenuProps {
-  /** Recent searches from the hook */
   recentSearches: RecentSearch[];
-  /** Callback to remove a search from history */
   onRemoveSearch: (query: string) => void;
-  /** Callback to clear all search history */
   onClearHistory: () => void;
-  /** Callback when a search is selected to trigger a new search */
   onSelectSearch?: (query: string) => void;
-  /** Visited links from the hook */
   visitedLinks: VisitedLink[];
-  /** Callback to remove a visited link */
   onRemoveVisited: (url: string) => void;
-  /** Callback to clear all visited links */
   onClearVisitedLinks: () => void;
 }
 
-/**
- * Settings menu with dropdown for managing search history and admin access.
- */
 export default function SettingsMenu({
   recentSearches,
   onRemoveSearch,
@@ -37,79 +28,41 @@ export default function SettingsMenu({
   onRemoveVisited,
   onClearVisitedLinks,
 }: SettingsMenuProps) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isDropdownClosing, setIsDropdownClosing] = useState(false);
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [showSiteHistoryModal, setShowSiteHistoryModal] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdown with animation
-  const handleCloseDropdown = () => {
-    setIsDropdownClosing(true);
-    setTimeout(() => {
-      setIsDropdownOpen(false);
-      setIsDropdownClosing(false);
-    }, 200); // Match animation duration
-  };
-
-  // Close dropdown on click outside
-  useEffect(() => {
-    if (!isDropdownOpen) return;
-
-    function handleClickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        handleCloseDropdown();
-      }
-    }
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        handleCloseDropdown();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDropdownOpen]);
+  const { isOpen, isClosing, toggle, close, dropdownRef } = useDropdown();
 
   const handleHistoryClick = () => {
-    handleCloseDropdown();
+    close();
     setShowHistoryModal(true);
   };
 
   const handleSiteHistoryClick = () => {
-    handleCloseDropdown();
+    close();
     setShowSiteHistoryModal(true);
   };
 
   return (
     <>
-      {/* Settings button with dropdown */}
       <div ref={dropdownRef} className="relative">
         <button
           type="button"
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onClick={toggle}
           className={cn(
             'p-1.5 sm:p-2 rounded-lg transition-all duration-300',
             'text-gray-300 hover:text-white hover:bg-white/10',
-            isDropdownOpen && 'text-white bg-white/10'
+            isOpen && 'text-white bg-white/10'
           )}
           aria-label="Settings"
-          aria-expanded={isDropdownOpen}
+          aria-expanded={isOpen}
         >
           <Settings size={18} className="sm:w-5 sm:h-5" />
         </button>
 
-        {/* Dropdown menu */}
-        {isDropdownOpen && (
+        {isOpen && (
           <div className={cn(
             "absolute right-0 top-full mt-2 w-44 sm:w-48 rounded-xl shadow-dark-lg overflow-hidden z-50 bg-[#0f0f0f] border border-white/10",
-            isDropdownClosing ? "animate-scale-out" : "animate-scale-in"
+            isClosing ? "animate-scale-out" : "animate-scale-in"
           )}>
             <button
               type="button"
@@ -131,7 +84,6 @@ export default function SettingsMenu({
         )}
       </div>
 
-      {/* Search History Modal */}
       <SearchHistoryModal
         show={showHistoryModal}
         onClose={() => setShowHistoryModal(false)}
@@ -141,7 +93,6 @@ export default function SettingsMenu({
         onSelectSearch={onSelectSearch}
       />
 
-      {/* Site History Modal */}
       <SiteHistoryModal
         show={showSiteHistoryModal}
         onClose={() => setShowSiteHistoryModal(false)}
