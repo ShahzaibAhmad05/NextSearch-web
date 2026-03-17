@@ -2,6 +2,7 @@
 'use client';
 
 import { Modal } from './ui';
+import { ExternalLink } from 'lucide-react';
 
 interface MaintenanceModalProps {
   isOpen: boolean;
@@ -12,6 +13,9 @@ interface MaintenanceModalProps {
  * Shows maintenance message with backdrop blur
  */
 export default function MaintenanceModal({ isOpen }: MaintenanceModalProps) {
+  const demoVideoUrl =
+    process.env.NEXT_PUBLIC_DEMO_VIDEO_URL ?? 'https://youtu.be/tvpunJ4zmCg';
+
   return (
     <Modal 
       show={isOpen} 
@@ -27,17 +31,21 @@ export default function MaintenanceModal({ isOpen }: MaintenanceModalProps) {
 
         {/* Heading */}
         <div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-1">
             Maintenance Ongoing
           </h1>
         </div>
 
-        {/* Message */}
-        <div className="text-gray-300 px-4">
-          <p>
-            We're sorry for the incovenience. Please check back later.
-          </p>
-        </div>
+        {/* Demo CTA for reviewers when backend is unavailable */}
+        <a
+          href={demoVideoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center rounded-lg bg-green-700 px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-green-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
+        >
+          Watch a Video Demo Instead
+          <ExternalLink size={16} className="ml-2" />
+        </a>
       </div>
     </Modal>
   );

@@ -89,9 +89,3 @@ export default function SearchResults({
     </div>
   );
 }
-      />
-
-      <br />
-    </div>
-  );
-}
